@@ -9,26 +9,21 @@ class ChangePasswordCubit extends Cubit<ChangePasswordState> {
     required String oldPassword,
     required String newPassword,
   }) async {
-    
     emit(ChangePasswordInProgress());
 
     try {
-      final response = await http.post(
-        Uri.parse(''),
-        body: {
-          'oldPassword': oldPassword,
-          'newPassword': newPassword,
-        }
-      );
+      final response = await http.post(Uri.parse(''), body: {
+        'oldPassword': oldPassword,
+        'newPassword': newPassword,
+      });
 
-      if(response.statusCode == 200) {
+      if (response.statusCode == 200) {
         emit(ChangePasswordSuccess());
       } else {
-        emit(ChangePasswordFailure());
+        emit(ChangePasswordFailure('error in statusCode'));
       }
-
-    } catch(e) {
-      emit(ChangePasswordFailure());
+    } catch (e) {
+      emit(ChangePasswordFailure('can not change password'));
     }
   }
 }

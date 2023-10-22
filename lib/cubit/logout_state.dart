@@ -6,4 +6,8 @@ sealed class LogoutState {}
 final class LogoutInitial extends LogoutState {}
 final class LogoutInProgress extends LogoutState {}
 final class LoggedOut extends LogoutState {}
-final class LogoutFailure extends LogoutState {}
+final class LogoutFailure extends LogoutState {
+  final String errMassage;
+  
+  LogoutFailure(this.errMassage);
+}

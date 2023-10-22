@@ -18,10 +18,10 @@ class LogoutCubit extends Cubit<LogoutState> {
       if (response.statusCode == 200) {
         emit(LoggedOut());
       } else {
-        emit(LogoutFailure());
+        emit(LogoutFailure('error in statusCode'));
       }
     } catch (e) {
-      emit(LogoutFailure());
+      emit(LogoutFailure('can not log out'));
     }
   }
 }
