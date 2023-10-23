@@ -94,6 +94,7 @@ class _ChangePasswordViewState extends State<ChangePasswordView> {
                     hintText: 'Enter new Password',
                     hintStyle: const TextStyle(color: Colors.grey),
                   ),
+                  obscureText: true,
                   onSaved: (value) => newPassword = value!,
                   validator: (value) {
                     if (value!.isEmpty) {
@@ -120,6 +121,7 @@ class _ChangePasswordViewState extends State<ChangePasswordView> {
                         borderRadius: BorderRadius.all(Radius.circular(8)),
                         borderSide: BorderSide(color: KPrimaryColor, width: 2)),
                   ),
+                  obscureText: true,
                   onSaved: (value) => confirmNewPassword = value!,
                   validator: (value) {
                     if (value!.isEmpty) {

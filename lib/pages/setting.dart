@@ -5,8 +5,9 @@ import 'package:gp_project/components/custom_container_in_setting.dart';
 import 'package:gp_project/components/custom_divider.dart';
 import 'package:gp_project/components/dark_mode_container.dart';
 import 'package:gp_project/components/setting_container.dart';
+import 'package:gp_project/pages/change_password.dart';
 import 'package:gp_project/pages/privacy.dart';
-import 'package:gp_project/pages/profile.dart';
+import 'package:gp_project/pages/profile_page.dart';
 
 class Setting extends StatefulWidget {
   const Setting({super.key});
@@ -35,8 +36,7 @@ class _SettingState extends State<Setting> {
             SizedBox(
               height: 23,
             ),
-            SettingContainer(
-                userName: 'Ahmed', userEmail: 'example@gmail.com'),
+            SettingContainer(userName: 'Ahmed', userEmail: 'example@gmail.com'),
             SizedBox(
               height: 50,
             ),
@@ -50,7 +50,7 @@ class _SettingState extends State<Setting> {
                 onTap: () {
                   Navigator.of(context)
                       .push(MaterialPageRoute(builder: (context) {
-                    return Profile();
+                    return ProfilePage();
                   }));
                 },
                 child: CustomContainerSetting(
@@ -60,9 +60,17 @@ class _SettingState extends State<Setting> {
             SizedBox(
               height: 10,
             ),
-            CustomContainerSetting(
-              tileName: 'Change Password',
-              icon: CupertinoIcons.lock_rotation_open,
+            GestureDetector(
+              onTap: () {
+                Navigator.of(context)
+                    .push(MaterialPageRoute(builder: (context) {
+                  return ChangePassword();
+                }));
+              },
+              child: CustomContainerSetting(
+                tileName: 'Change Password',
+                icon: CupertinoIcons.lock_rotation_open,
+              ),
             ),
             SizedBox(
               height: 10,

@@ -5,13 +5,13 @@ import 'package:gp_project/components/custom_container_in_account.dart';
 import 'package:gp_project/components/custom_edit_photo.dart';
 import 'package:gp_project/components/custom_pop_up.dart';
 import 'package:gp_project/pages/change_password.dart';
-import 'package:gp_project/pages/profile.dart';
+import 'package:gp_project/pages/profile_page.dart';
 import 'package:gp_project/pages/setting.dart';
 
 class Account extends StatelessWidget {
   const Account({super.key});
 
-  void _showCustomPopup(BuildContext context) {
+  void showCustomPopup(BuildContext context) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -43,7 +43,7 @@ class Account extends StatelessWidget {
                 onTap: () {
                   Navigator.of(context)
                       .push(MaterialPageRoute(builder: (context) {
-                    return Profile();
+                    return ProfilePage();
                   }));
                 },
                 child: ContainerAccount(
@@ -94,7 +94,7 @@ class Account extends StatelessWidget {
                 contName: 'Log Out',
                 contIcon: Icons.logout,
                 onTap: () {
-                  _showCustomPopup(context);
+                  showCustomPopup(context);
                 },
               ),
             ],
