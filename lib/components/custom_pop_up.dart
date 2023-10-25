@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gp_project/constraints.dart';
+import 'package:gp_project/cubit/logout_cubit.dart';
+import 'package:gp_project/pages/account.dart';
 
 class CustomPopUp extends StatelessWidget {
   const CustomPopUp({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final logoutCubit = context.read<LogoutCubit>();
     return Center(
       child: Container(
         constraints: BoxConstraints(maxWidth: 600),
@@ -73,7 +77,12 @@ class CustomPopUp extends StatelessWidget {
               ),
               GestureDetector(
                   onTap: () {
-                    Navigator.of(context).pop();
+                    
+                    logoutCubit.logout();
+
+                    Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+                return Account();
+              }));
                   },
                   child: Text(
                     'Log Out',

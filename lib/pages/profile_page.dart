@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gp_project/components/profile_view.dart';
 import 'package:gp_project/cubit/profile_cubit.dart';
 
-
 class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});
 
@@ -17,7 +16,9 @@ class ProfilePage extends StatelessWidget {
             return Center(child: CircularProgressIndicator());
           }
           if (state is ProfileLoaded) {
-            return ProfileView(profile: state.profile,);
+            return ProfileView(
+              profile: state.profile,
+            );
           }
           return ProfileView();
         },
