@@ -5,6 +5,7 @@ import 'package:gp_project/components/custom_container_in_account.dart';
 import 'package:gp_project/components/custom_edit_photo.dart';
 import 'package:gp_project/components/custom_pop_up.dart';
 import 'package:gp_project/pages/change_password.dart';
+import 'package:gp_project/pages/favourites.dart';
 import 'package:gp_project/pages/profile_page.dart';
 import 'package:gp_project/pages/setting.dart';
 import 'package:gp_project/pages/tickets.dart';
@@ -47,8 +48,7 @@ class Account extends StatelessWidget {
                 }));
               },
               child: ContainerAccount(
-                  contName: 'Profile',
-                  contIcon: Icons.person_outline_rounded),
+                  contName: 'Profile', contIcon: Icons.person_outline_rounded),
             ),
             SizedBox(
               height: 15,
@@ -80,8 +80,16 @@ class Account extends StatelessWidget {
             SizedBox(
               height: 15,
             ),
-            ContainerAccount(
-                contName: 'Favourites', contIcon: CupertinoIcons.heart),
+            GestureDetector(
+              onTap: () {
+                Navigator.of(context)
+                    .push(MaterialPageRoute(builder: (context) {
+                  return Favorites();
+                }));
+              },
+              child: ContainerAccount(
+                  contName: 'Favorites', contIcon: CupertinoIcons.heart),
+            ),
             SizedBox(
               height: 15,
             ),

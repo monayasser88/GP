@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gp_project/components/custom_appbar.dart';
 import 'package:gp_project/components/tickets_list_view.dart';
-import 'package:gp_project/cubit/tickets_cubit.dart';
+
 
 class TicketsView extends StatelessWidget {
   const TicketsView({super.key});
