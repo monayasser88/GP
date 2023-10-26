@@ -15,7 +15,9 @@ class TicketsListView extends StatelessWidget {
           return Center(child: CircularProgressIndicator());
         }
         if (state is TicketsLoaded) {
-          return ListView.builder(itemBuilder: (context, index) {
+          return ListView.builder(
+            itemCount: state.tickets.length,
+            itemBuilder: (context, index) {
             var ticket = state.tickets[index];
             return Padding(
                 padding: EdgeInsets.symmetric(vertical: 6),
