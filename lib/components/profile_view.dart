@@ -20,7 +20,7 @@ class ProfileView extends StatelessWidget {
       },
     );
   }
- 
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -50,6 +50,7 @@ class ProfileView extends StatelessWidget {
                 return UpdateProfile();
               }));
             },
+            //userInfo: profile!.firstName.toString(),
             userInfo: 'mona',
           ),
           SizedBox(
@@ -62,6 +63,7 @@ class ProfileView extends StatelessWidget {
                 return UpdateProfile();
               }));
             },
+            //userInfo: profile!.lastName.toString(),
             userInfo: 'yasser',
           ),
           SizedBox(
