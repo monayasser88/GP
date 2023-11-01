@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
 import 'package:http/http.dart' as http;
@@ -5,25 +7,25 @@ part 'change_password_state.dart';
 
 class ChangePasswordCubit extends Cubit<ChangePasswordState> {
   ChangePasswordCubit() : super(ChangePasswordInitial());
-  void changePassword({
-    required String oldPassword,
-    required String newPassword,
-  }) async {
+  Future<void> changePassword(String oldPassword, String newPassword) async {
     emit(ChangePasswordInProgress());
 
     try {
-      final response = await http.post(Uri.parse(''), body: {
-        'oldPassword': oldPassword,
-        'newPassword': newPassword,
-      });
+      final response = await http.post(
+        Uri.parse(''),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: jsonEncode({'userId': oldPassword, 'newPassword': newPassword}),
+      );
 
       if (response.statusCode == 200) {
         emit(ChangePasswordSuccess());
       } else {
-        emit(ChangePasswordFailure('error in statusCode'));
+        emit(ChangePasswordFailure('Failed to change password'));
       }
-    } catch (e) {
-      emit(ChangePasswordFailure('can not change password'));
+    } catch (error) {
+      emit(ChangePasswordFailure('Failed to change password'));
     }
   }
 }

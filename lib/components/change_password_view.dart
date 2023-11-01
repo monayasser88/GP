@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gp_project/components/custom_appbar2.dart';
 import 'package:gp_project/constraints.dart';
 import 'package:gp_project/cubit/change_password_cubit.dart';
-import 'package:gp_project/pages/account.dart';
 
 class ChangePasswordView extends StatefulWidget {
   const ChangePasswordView({super.key});
@@ -15,26 +14,36 @@ class ChangePasswordView extends StatefulWidget {
 class _ChangePasswordViewState extends State<ChangePasswordView> {
   final _formKey = GlobalKey<FormState>();
 
-  String oldPassword = '';
-  String newPassword = '';
-  String confirmNewPassword = '';
+  final TextEditingController oldPasswordController = TextEditingController();
+  final TextEditingController newPasswordController = TextEditingController();
+  final TextEditingController confirmNewPasswordController =
+      TextEditingController();
+  bool _isoldPasswordVisible = false;
+  bool _isnewPasswordVisible = false;
+  bool _isconfirmPasswordVisible = false;
   @override
   Widget build(BuildContext context) {
-    return BlocListener<ChangePasswordCubit, ChangePasswordState>(
+    return BlocConsumer<ChangePasswordCubit, ChangePasswordState>(
       listener: (context, state) {
         // TODO: implement listener
         if (state is ChangePasswordSuccess) {
-          if (confirmNewPassword == newPassword) {
-            Navigator.of(context).push(MaterialPageRoute(
-              builder: (context) {
-                return Account();
-              },
-            ));
-          }
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text('Password changed successfully'),
+              duration: Duration(seconds: 3),
+            ),
+          );
+        } else if (state is ChangePasswordFailure) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(state.errMassage),
+              duration: Duration(seconds: 3),
+            ),
+          );
         }
       },
-      child: Scaffold(
-        body: Form(
+      builder: (context, state) {
+        return Form(
           key: _formKey,
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 17),
@@ -66,12 +75,25 @@ class _ChangePasswordViewState extends State<ChangePasswordView> {
                     focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.all(Radius.circular(8)),
                         borderSide: BorderSide(color: KPrimaryColor, width: 2)),
+                    suffixIcon: IconButton(
+                      icon: Icon(
+                        _isoldPasswordVisible
+                            ? Icons.visibility
+                            : Icons
+                                .visibility_off, // Change icon based on visibility status
+                      ),
+                      onPressed: () {
+                        setState(() {
+                          _isoldPasswordVisible = !_isoldPasswordVisible;
+                        });
+                      },
+                    ),
                   ),
-                  obscureText: true,
-                  onSaved: (value) => oldPassword = value!,
+                  obscureText: !_isoldPasswordVisible,
+                  controller: oldPasswordController,
                   validator: (value) {
                     if (value!.isEmpty) {
-                      return 'Please enter your old password';
+                      return 'Password is required';
                     }
                     return null;
                   },
@@ -93,12 +115,39 @@ class _ChangePasswordViewState extends State<ChangePasswordView> {
                         borderSide: BorderSide(color: KPrimaryColor, width: 2)),
                     hintText: 'Enter new Password',
                     hintStyle: const TextStyle(color: Colors.grey),
+                    suffixIcon: IconButton(
+                      icon: Icon(
+                        _isnewPasswordVisible
+                            ? Icons.visibility
+                            : Icons.visibility_off,
+                        color: Colors
+                            .grey, // Change icon based on visibility status
+                      ),
+                      onPressed: () {
+                        setState(() {
+                          _isnewPasswordVisible = !_isnewPasswordVisible;
+                          Colors.grey;
+                        });
+                      },
+                    ),
                   ),
-                  obscureText: true,
-                  onSaved: (value) => newPassword = value!,
+                  obscureText: !_isnewPasswordVisible,
+                  controller: newPasswordController,
                   validator: (value) {
                     if (value!.isEmpty) {
-                      return 'Please enter your new password';
+                      return 'Password is required';
+                    }
+                    if (value.length < 6) {
+                      return 'Password must be at least 6 characters long';
+                    }
+                    if (!value.contains(RegExp(r'[0-9]'))) {
+                      return 'Password must contain at least one number';
+                    }
+                    if (!value.contains(RegExp(r'[A-Z]'))) {
+                      return 'Password must contain at least one uppercase letter';
+                    }
+                    if (!value.contains(RegExp(r'[a-z]'))) {
+                      return 'Password must contain at least one lowercase letter';
                     }
                     return null;
                   },
@@ -120,18 +169,32 @@ class _ChangePasswordViewState extends State<ChangePasswordView> {
                     focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.all(Radius.circular(8)),
                         borderSide: BorderSide(color: KPrimaryColor, width: 2)),
+                    suffixIcon: IconButton(
+                      icon: Icon(
+                        _isconfirmPasswordVisible
+                            ? Icons.visibility
+                            : Icons
+                                .visibility_off, // Change icon based on visibility status
+                      ),
+                      onPressed: () {
+                        setState(() {
+                          _isconfirmPasswordVisible =
+                              !_isconfirmPasswordVisible;
+                        });
+                      },
+                    ),
                   ),
-                  obscureText: true,
-                  onSaved: (value) => confirmNewPassword = value!,
+                  obscureText: !_isconfirmPasswordVisible,
+                  controller: confirmNewPasswordController,
                   validator: (value) {
                     if (value!.isEmpty) {
-                      return 'Please enter your confirm new password';
+                      return 'Password is required';
                     }
                     return null;
                   },
                 ),
                 SizedBox(
-                  height: 70,
+                  height: 50,
                 ),
                 ElevatedButton(
                   style: const ButtonStyle(
@@ -143,9 +206,25 @@ class _ChangePasswordViewState extends State<ChangePasswordView> {
                         MaterialStatePropertyAll<Color>(KPrimaryColor),
                   ),
                   onPressed: () {
-                    _formKey.currentState!.save();
-                    context.read<ChangePasswordCubit>().changePassword(
-                        oldPassword: oldPassword, newPassword: newPassword);
+                    final oldPassword = oldPasswordController.text;
+                    final newPassword = newPasswordController.text;
+                    final confirmNewPassword =
+                        confirmNewPasswordController.text;
+                    if (_formKey.currentState!.validate()) {
+                      _formKey.currentState!.save();
+                    }
+                    if (newPassword == confirmNewPassword) {
+                      context
+                          .read<ChangePasswordCubit>()
+                          .changePassword(oldPassword, newPassword);
+                    } else {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text('New passwords do not match'),
+                          duration: Duration(seconds: 3),
+                        ),
+                      );
+                    }
                   },
                   child: const Text(
                     'Update',
@@ -155,8 +234,8 @@ class _ChangePasswordViewState extends State<ChangePasswordView> {
               ],
             ),
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 }
