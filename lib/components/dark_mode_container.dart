@@ -11,7 +11,7 @@ class DarkMode extends StatefulWidget {
 class _DarkModeState extends State<DarkMode> {
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       width: 354,
       height: 45,
       child: Padding(
@@ -19,7 +19,7 @@ class _DarkModeState extends State<DarkMode> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Row(
+              const Row(
               children: [
                 Icon(
                   Icons.dark_mode_outlined,

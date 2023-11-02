@@ -19,7 +19,7 @@ class CustomTitle extends StatelessWidget {
           children: [
             Text(
               titleProfile,
-              style: TextStyle(
+              style:const TextStyle(
                   fontSize: 16,
                   color: Color(0xff92929D),
                   fontWeight: FontWeight.w700,
@@ -36,7 +36,7 @@ class CustomTitle extends StatelessWidget {
         ),
         Text(
           userInfo,
-          style: TextStyle(
+          style:const TextStyle(
               fontSize: 18, fontWeight: FontWeight.w700, fontFamily: 'poppins'),
         ),
       ],

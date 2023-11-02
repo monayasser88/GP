@@ -4,15 +4,15 @@ import 'package:gp_project/constraints.dart';
 import 'package:gp_project/cubit/logout_cubit.dart';
 import 'package:gp_project/pages/account.dart';
 
-class CustomPopUp extends StatelessWidget {
-  const CustomPopUp({super.key});
+class LogOutPopUp extends StatelessWidget {
+  const LogOutPopUp({super.key});
 
   @override
   Widget build(BuildContext context) {
     final logoutCubit = context.read<LogoutCubit>();
     return Center(
       child: Container(
-        constraints: BoxConstraints(maxWidth: 600),
+        constraints: const BoxConstraints(maxWidth: 600),
         child: AlertDialog(
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(24),
@@ -20,16 +20,16 @@ class CustomPopUp extends StatelessWidget {
           content: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              SizedBox(
+              const SizedBox(
                 height: 24,
               ),
-              Image(
+              const Image(
                 image: AssetImage('assets/congratsImage.png'),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
-              Text(
+              const Text(
                 'Are you sure',
                 style: TextStyle(
                   fontSize: 22,
@@ -38,10 +38,10 @@ class CustomPopUp extends StatelessWidget {
                   //color: Colors.black
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
-              Text(
+              const Text(
                 'You are attending to log out , Are you sure?',
                 style: TextStyle(
                     fontSize: 16,
@@ -49,11 +49,11 @@ class CustomPopUp extends StatelessWidget {
                     fontWeight: FontWeight.w700,
                     color: Colors.grey),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 32,
               ),
               ElevatedButton(
-                style: ButtonStyle(
+                style: const ButtonStyle(
                   backgroundColor:
                       MaterialStatePropertyAll<Color>(Color(0xffB68B25)),
                   minimumSize: MaterialStatePropertyAll(Size(340, 50)),
@@ -61,7 +61,7 @@ class CustomPopUp extends StatelessWidget {
                     borderRadius: BorderRadius.all(Radius.circular(12)),
                   )),
                 ),
-                child: Text(
+                child: const Text(
                   'Cancel',
                   style: TextStyle(
                       fontSize: 16,
@@ -72,19 +72,18 @@ class CustomPopUp extends StatelessWidget {
                   Navigator.of(context).pop();
                 },
               ),
-              SizedBox(
+              const SizedBox(
                 height: 16,
               ),
               GestureDetector(
                   onTap: () {
-                    
                     logoutCubit.logout();
-
-                    Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-                return Account();
-              }));
+                    Navigator.of(context)
+                        .push(MaterialPageRoute(builder: (context) {
+                      return Account();
+                    }));
                   },
-                  child: Text(
+                  child: const Text(
                     'Log Out',
                     style: TextStyle(
                         fontSize: 16,
@@ -93,7 +92,7 @@ class CustomPopUp extends StatelessWidget {
                         fontWeight: FontWeight.bold,
                         decoration: TextDecoration.underline),
                   )),
-              SizedBox(
+              const SizedBox(
                 height: 30,
               )
             ],
@@ -102,4 +101,14 @@ class CustomPopUp extends StatelessWidget {
       ),
     );
   }
+}
+
+Future<void> showCustomPopup(
+    BuildContext context, LogoutCubit logoutCubit) async {
+  await showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return const LogOutPopUp();
+    },
+  );
 }

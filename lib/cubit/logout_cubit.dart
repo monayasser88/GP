@@ -9,7 +9,6 @@ class LogoutCubit extends Cubit<LogoutState> {
 
   Future<void> logout() async {
     emit(LogoutInProgress());
-
     try {
       final response = await http.post(
         Uri.parse(''),

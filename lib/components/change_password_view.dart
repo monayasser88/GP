@@ -26,7 +26,7 @@ class _ChangePasswordViewState extends State<ChangePasswordView> {
     return BlocConsumer<ChangePasswordCubit, ChangePasswordState>(
       listener: (context, state) {
         // TODO: implement listener
-        if (state is ChangePasswordSuccess) {
+          if (state is ChangePasswordSuccess) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               content: Text('Password changed successfully'),

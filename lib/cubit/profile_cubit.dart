@@ -25,4 +25,41 @@ class ProfileCubit extends Cubit<ProfileState> {
       emit(ProfileError('An error occurred'));
     }
   }
+
+  Future<void> updateFirstName(String firstName) async {
+
+     // API call here
+      var response = await http.put(Uri.parse(''),
+        body: {'firstName': firstName});
+
+      emit(UserProfileUpdated());
+  }
+
+  Future<void> updateLastName(String lastName) async {
+
+      var response = await http.put(Uri.parse(''),
+        body: {'lastName': lastName});
+
+      emit(UserProfileUpdated());
+  }
+
+  Future<void> updateCity(String city) async {
+
+      var response = await http.put(Uri.parse(''),
+        body: {'city': city});
+
+      emit(UserProfileUpdated());
+  }
+
+  // Future<void> updatePhoto(File photo) async {
+
+  //    var formData = FormData({
+  //      'photo': await http.MultipartFile.fromPath('photo', photo.path)
+  //    });
+  //    var response = await http.put(Uri.parse(''),
+  //        body: formData);
+
+  //    emit(UserProfileUpdated());
+  // }
+
 }

@@ -13,7 +13,7 @@ final class ProfileLoaded extends ProfileState {
 
   ProfileLoaded(this.profile);
 }
-
+class UserProfileUpdated extends ProfileState {}
 final class ProfileError extends ProfileState {
   final String errMassage;
 

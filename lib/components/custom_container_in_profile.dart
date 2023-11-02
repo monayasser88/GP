@@ -9,7 +9,7 @@ class ContainerProfile extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onTap,
-      child: Container(
+      child: SizedBox(
         width: 354,
         height: 45,
         child: Padding(
@@ -27,7 +27,7 @@ class ContainerProfile extends StatelessWidget {
                   color: color
                 ),
               ),
-              Icon(
+              const Icon(
                 Icons.arrow_forward_rounded,
                 size: 20,
                 //color: Colors.black,

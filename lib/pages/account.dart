@@ -1,9 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gp_project/components/custom_appbar.dart';
 import 'package:gp_project/components/custom_container_in_account.dart';
 import 'package:gp_project/components/custom_edit_photo.dart';
-import 'package:gp_project/components/custom_pop_up.dart';
+import 'package:gp_project/components/logout_pop_up.dart';
+import 'package:gp_project/cubit/logout_cubit.dart';
 import 'package:gp_project/pages/change_password.dart';
 import 'package:gp_project/pages/favourites.dart';
 import 'package:gp_project/pages/profile_page.dart';
@@ -13,17 +15,11 @@ import 'package:gp_project/pages/tickets.dart';
 class Account extends StatelessWidget {
   const Account({super.key});
 
-  void showCustomPopup(BuildContext context) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return CustomPopUp();
-      },
-    );
-  }
+  
 
   @override
   Widget build(BuildContext context) {
+    final logoutCubit = BlocProvider.of<LogoutCubit>(context);
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 17),
@@ -110,7 +106,7 @@ class Account extends StatelessWidget {
               contName: 'Log Out',
               contIcon: Icons.logout,
               onTap: () {
-                showCustomPopup(context);
+                showCustomPopup(context,logoutCubit);
               },
             ),
           ],
@@ -119,3 +115,4 @@ class Account extends StatelessWidget {
     );
   }
 }
+

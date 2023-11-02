@@ -1,0 +1,98 @@
+import 'package:flutter/material.dart';
+import 'package:gp_project/constraints.dart';
+
+void showUpdateDialog(
+  BuildContext context,
+  String field,
+  String hintText,
+) {
+  //TextEditingController controller = TextEditingController();
+  showDialog(
+      context: context,
+      builder: (context) {
+        return Center(
+          child: Container(
+            constraints: const BoxConstraints(maxWidth: 600),
+            child: AlertDialog(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(24),
+              ),
+              content: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const SizedBox(
+                    height: 24,
+                  ),
+                  Text(
+                    field,
+                    style: const TextStyle(
+                      fontSize: 22,
+                      fontWeight: FontWeight.w700,
+                      fontFamily: 'poppins',
+                      //color: Colors.black
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 40,
+                  ),
+                  TextField(
+                    decoration: InputDecoration(
+                      hintText: hintText,
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(8)),
+                          borderSide: BorderSide(color: Colors.grey, width: 1)),
+                      focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(8)),
+                          borderSide:
+                              BorderSide(color: KPrimaryColor, width: 2)),
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 30,
+                  ),
+                  ElevatedButton(
+                    style: const ButtonStyle(
+                      backgroundColor:
+                          MaterialStatePropertyAll<Color>(Color(0xffB68B25)),
+                      minimumSize: MaterialStatePropertyAll(Size(340, 50)),
+                      shape: MaterialStatePropertyAll(RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(12)),
+                      )),
+                    ),
+                    child: const Text(
+                      'Cancel',
+                      style: TextStyle(
+                          fontSize: 18,
+                          fontFamily: 'poppins',
+                          fontWeight: FontWeight.bold),
+                    ),
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                  ),
+                  const SizedBox(
+                    height: 16,
+                  ),
+                  GestureDetector(
+                      onTap: () {
+                        Navigator.of(context).pop();
+                      },
+                      child: const Text(
+                        'Update',
+                        style: TextStyle(
+                            fontSize: 18,
+                            fontFamily: 'poppins',
+                            color: KPrimaryColor,
+                            fontWeight: FontWeight.bold,
+                            decoration: TextDecoration.underline),
+                      )),
+                  const SizedBox(
+                    height: 30,
+                  )
+                ],
+              ),
+            ),
+          ),
+        );
+      });
+}
