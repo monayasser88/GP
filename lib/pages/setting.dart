@@ -24,7 +24,7 @@ class _SettingState extends State<Setting> {
         padding: const EdgeInsets.symmetric(horizontal: 17),
         child: Column(
           children: [
-            SizedBox(
+            const SizedBox(
               height: 55,
             ),
             CustomAppBar(
@@ -33,68 +33,68 @@ class _SettingState extends State<Setting> {
                 Navigator.of(context).pop();
               },
             ),
-            SizedBox(
+            const SizedBox(
               height: 23,
             ),
-            SettingContainer(userName: 'Ahmed', userEmail: 'example@gmail.com'),
-            SizedBox(
+            const SettingContainer(userName: 'Ahmed', userEmail: 'example@gmail.com'),
+            const SizedBox(
               height: 50,
             ),
-            CustomDivider(
+            const CustomDivider(
               divName: 'Account',
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             GestureDetector(
                 onTap: () {
                   Navigator.of(context)
                       .push(MaterialPageRoute(builder: (context) {
-                    return ProfilePage();
+                    return const ProfilePage();
                   }));
                 },
-                child: CustomContainerSetting(
+                child:const CustomContainerSetting(
                   tileName: 'Profile',
                   icon: Icons.person_outline_rounded,
                 )),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             GestureDetector(
               onTap: () {
                 Navigator.of(context)
                     .push(MaterialPageRoute(builder: (context) {
-                  return ChangePassword();
+                  return const ChangePassword();
                 }));
               },
-              child: CustomContainerSetting(
+              child:const CustomContainerSetting(
                 tileName: 'Change Password',
                 icon: CupertinoIcons.lock_rotation_open,
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
-            CustomDivider(divName: 'General'),
-            SizedBox(
+            const CustomDivider(divName: 'General'),
+            const SizedBox(
               height: 10,
             ),
             GestureDetector(
               onTap: () {
                 Navigator.of(context)
                     .push(MaterialPageRoute(builder: (context) {
-                  return Privacy();
+                  return const Privacy();
                 }));
               },
-              child: CustomContainerSetting(
+              child:const CustomContainerSetting(
                 tileName: 'Policy',
                 icon: Icons.privacy_tip_outlined,
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
-            DarkMode()
+            const DarkMode()
           ],
         ),
       ),

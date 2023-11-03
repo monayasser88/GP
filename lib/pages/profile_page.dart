@@ -10,19 +10,7 @@ class ProfilePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => ProfileCubit(),
-      child: Scaffold(body: BlocBuilder<ProfileCubit, ProfileState>(
-        builder: (context, state) {
-          if (state is ProfileLoading) {
-            return const Center(child: CircularProgressIndicator());
-          }
-          if (state is ProfileLoaded) {
-            return ProfileView(
-              profile: state.profile,
-            );
-          }
-          return ProfileView();
-        },
-      )),
+      child: const Scaffold(body: ProfileView()),
     );
   }
 }

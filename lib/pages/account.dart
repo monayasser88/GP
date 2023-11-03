@@ -25,81 +25,81 @@ class Account extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 17),
         child: Column(
           children: [
-            SizedBox(
+            const SizedBox(
               height: 55,
             ),
-            CustomAppBar(title: 'Account'),
-            SizedBox(
+            const CustomAppBar(title: 'Account'),
+            const SizedBox(
               height: 29,
             ),
-            CustomEditPhoto(),
-            SizedBox(
+            const CustomEditPhoto(),
+            const SizedBox(
               height: 27,
             ),
             GestureDetector(
               onTap: () {
                 Navigator.of(context)
                     .push(MaterialPageRoute(builder: (context) {
-                  return ProfilePage();
+                  return const ProfilePage();
                 }));
               },
-              child: ContainerAccount(
+              child:const ContainerAccount(
                   contName: 'Profile', contIcon: Icons.person_outline_rounded),
             ),
-            SizedBox(
+            const SizedBox(
               height: 15,
             ),
             GestureDetector(
               onTap: () {
                 Navigator.of(context)
                     .push(MaterialPageRoute(builder: (context) {
-                  return ChangePassword();
+                  return const ChangePassword();
                 }));
               },
-              child: ContainerAccount(
+              child:const ContainerAccount(
                   contName: 'Change Password',
                   contIcon: CupertinoIcons.lock_rotation_open),
             ),
-            SizedBox(
+            const SizedBox(
               height: 15,
             ),
             GestureDetector(
               onTap: () {
                 Navigator.of(context)
                     .push(MaterialPageRoute(builder: (context) {
-                  return Tickets();
+                  return const Tickets();
                 }));
               },
-              child: ContainerAccount(
+              child:const ContainerAccount(
                   contName: 'My Tickets', contIcon: CupertinoIcons.tickets),
             ),
-            SizedBox(
+            const SizedBox(
               height: 15,
             ),
             GestureDetector(
               onTap: () {
                 Navigator.of(context)
                     .push(MaterialPageRoute(builder: (context) {
-                  return Favorites();
+                  return const Favorites();
                 }));
               },
-              child: ContainerAccount(
+              child:const ContainerAccount(
                   contName: 'Favorites', contIcon: CupertinoIcons.heart),
             ),
-            SizedBox(
+            const SizedBox(
               height: 15,
             ),
             GestureDetector(
               onTap: () {
                 Navigator.of(context)
                     .push(MaterialPageRoute(builder: (context) {
-                  return Setting();
+                  return const Setting();
                 }));
               },
-              child: ContainerAccount(
+              child:const ContainerAccount(
                   contName: 'Setting', contIcon: Icons.settings_outlined),
             ),
-            SizedBox(
+            const SizedBox(
               height: 15,
             ),
             ContainerAccount(

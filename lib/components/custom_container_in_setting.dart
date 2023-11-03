@@ -7,7 +7,7 @@ class CustomContainerSetting extends StatelessWidget {
   final IconData icon;
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       width: 354,
       height: 45,
       child: Padding(
@@ -22,12 +22,12 @@ class CustomContainerSetting extends StatelessWidget {
                   size: 20,
                   //color: Colors.black,
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 10,
                 ),
                 Text(
                   tileName,
-                  style: TextStyle(
+                  style:const TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.w600,
                       fontFamily: 'poppins',
@@ -36,7 +36,7 @@ class CustomContainerSetting extends StatelessWidget {
                 ),
               ],
             ),
-            Icon(
+            const Icon(
               Icons.arrow_forward_ios,
               size: 20,
               //color: Colors.black,

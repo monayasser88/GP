@@ -11,8 +11,8 @@ class CustomTicket extends StatelessWidget {
           borderRadius: BorderRadius.circular(12),
           border: Border.all(color: KPrimaryColor, width: 2),
         ),
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
+        child:const Padding(
+          padding:  EdgeInsets.all(16.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [

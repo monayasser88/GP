@@ -12,7 +12,7 @@ class TicketsListView extends StatelessWidget {
       builder: (context, state) {
         if (state is TicketsInitial) {
           context.read<TicketsCubit>().getTickets;
-          return Center(child: CircularProgressIndicator());
+          return const Center(child: CircularProgressIndicator());
         }
         if (state is TicketsLoaded) {
           return ListView.builder(
@@ -20,7 +20,7 @@ class TicketsListView extends StatelessWidget {
               itemBuilder: (context, index) {
                 var ticket = state.tickets[index];
                 return Padding(
-                    padding: EdgeInsets.symmetric(vertical: 6),
+                    padding:const EdgeInsets.symmetric(vertical: 6),
                     child: Container(
                         width: 250,
                         decoration: BoxDecoration(
@@ -39,18 +39,18 @@ class TicketsListView extends StatelessWidget {
                             children: [
                               Text(
                                 ticket['title'],
-                                style: TextStyle(
+                                style:const TextStyle(
                                     fontFamily: 'poppins',
                                     fontSize: 18,
                                     fontWeight: FontWeight.w700),
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 height: 15,
                               ),
                               Text(
                                 ticket['description'],
                                 //'pyramids plllllllllalalllllllllllllalalalalllll miuvhjhuygtvbmpmpmpmpmmpmmpmpmpmpmpkjhgfdsasdfghjkjhgfdfghj',
-                                style: TextStyle(
+                                style:const TextStyle(
                                     fontFamily: 'poppins',
                                     fontSize: 14,
                                     fontWeight: FontWeight.w500,

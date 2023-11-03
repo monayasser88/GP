@@ -10,7 +10,7 @@ class Tickets extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => TicketsCubit(),
-      child: Scaffold(
+      child:const Scaffold(
         body: TicketsView(),
       ),
     );

@@ -9,10 +9,10 @@ class CustomDivider extends StatelessWidget {
       children: [
         Text(
           divName,
-          style: TextStyle(
+          style:const TextStyle(
               fontSize: 16, color: Colors.grey,fontFamily: 'poppins', fontWeight: FontWeight.w700),
         ),
-        Flexible(
+        const Flexible(
           child: Divider(
             thickness: 1,
             color: Colors.grey,

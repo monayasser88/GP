@@ -25,10 +25,9 @@ class _ChangePasswordViewState extends State<ChangePasswordView> {
   Widget build(BuildContext context) {
     return BlocConsumer<ChangePasswordCubit, ChangePasswordState>(
       listener: (context, state) {
-        // TODO: implement listener
           if (state is ChangePasswordSuccess) {
           ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
+            const SnackBar(
               content: Text('Password changed successfully'),
               duration: Duration(seconds: 3),
             ),
@@ -37,7 +36,7 @@ class _ChangePasswordViewState extends State<ChangePasswordView> {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               content: Text(state.errMassage),
-              duration: Duration(seconds: 3),
+              duration:const Duration(seconds: 3),
             ),
           );
         }
@@ -49,7 +48,7 @@ class _ChangePasswordViewState extends State<ChangePasswordView> {
             padding: const EdgeInsets.symmetric(horizontal: 17),
             child: Column(
               children: [
-                SizedBox(
+                const SizedBox(
                   height: 55,
                 ),
                 CustomAppBar2(
@@ -58,21 +57,21 @@ class _ChangePasswordViewState extends State<ChangePasswordView> {
                     Navigator.of(context).pop();
                   },
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 58,
                 ),
                 TextFormField(
                   decoration: InputDecoration(
-                    label: Text(
+                    label:const Text(
                       'Enter Old Password',
                       style: TextStyle(color: KPrimaryColor),
                     ),
                     hintText: 'Enter Old Password',
                     hintStyle: const TextStyle(color: Colors.grey),
-                    border: OutlineInputBorder(
+                    border:const OutlineInputBorder(
                         borderRadius: BorderRadius.all(Radius.circular(8)),
                         borderSide: BorderSide(color: Colors.grey, width: 1)),
-                    focusedBorder: OutlineInputBorder(
+                    focusedBorder:const OutlineInputBorder(
                         borderRadius: BorderRadius.all(Radius.circular(8)),
                         borderSide: BorderSide(color: KPrimaryColor, width: 2)),
                     suffixIcon: IconButton(
@@ -98,19 +97,19 @@ class _ChangePasswordViewState extends State<ChangePasswordView> {
                     return null;
                   },
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 25,
                 ),
                 TextFormField(
                   decoration: InputDecoration(
-                    label: Text(
+                    label:const Text(
                       'Enter new Password',
                       style: TextStyle(color: KPrimaryColor),
                     ),
-                    border: OutlineInputBorder(
+                    border:const OutlineInputBorder(
                         borderRadius: BorderRadius.all(Radius.circular(8)),
                         borderSide: BorderSide(color: Colors.grey, width: 1)),
-                    focusedBorder: OutlineInputBorder(
+                    focusedBorder:const OutlineInputBorder(
                         borderRadius: BorderRadius.all(Radius.circular(8)),
                         borderSide: BorderSide(color: KPrimaryColor, width: 2)),
                     hintText: 'Enter new Password',
@@ -152,21 +151,21 @@ class _ChangePasswordViewState extends State<ChangePasswordView> {
                     return null;
                   },
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 25,
                 ),
                 TextFormField(
                   decoration: InputDecoration(
-                    label: Text(
+                    label:const Text(
                       'Enter confirm new Password',
                       style: TextStyle(color: KPrimaryColor),
                     ),
                     hintText: 'Enter confirm new Password',
                     hintStyle: const TextStyle(color: Colors.grey),
-                    border: OutlineInputBorder(
+                    border:const OutlineInputBorder(
                         borderRadius: BorderRadius.all(Radius.circular(8)),
                         borderSide: BorderSide(color: Colors.grey, width: 1)),
-                    focusedBorder: OutlineInputBorder(
+                    focusedBorder:const OutlineInputBorder(
                         borderRadius: BorderRadius.all(Radius.circular(8)),
                         borderSide: BorderSide(color: KPrimaryColor, width: 2)),
                     suffixIcon: IconButton(
@@ -193,7 +192,7 @@ class _ChangePasswordViewState extends State<ChangePasswordView> {
                     return null;
                   },
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 50,
                 ),
                 ElevatedButton(
@@ -219,7 +218,7 @@ class _ChangePasswordViewState extends State<ChangePasswordView> {
                           .changePassword(oldPassword, newPassword);
                     } else {
                       ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
+                        const SnackBar(
                           content: Text('New passwords do not match'),
                           duration: Duration(seconds: 3),
                         ),

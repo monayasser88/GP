@@ -12,7 +12,7 @@ class Privacy extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(
+            const SizedBox(
               height: 55,
             ),
             CustomAppBar(
@@ -21,13 +21,13 @@ class Privacy extends StatelessWidget {
                 Navigator.of(context).pop();
               },
             ),
-            SizedBox(
+            const SizedBox(
               height: 24,
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
-            Text(
+            const Text(
               'Terms of use',
               style: TextStyle(
                 fontFamily: 'poppins',
@@ -36,10 +36,10 @@ class Privacy extends StatelessWidget {
                 //color: Colors.black
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
-            Text(
+            const Text(
               'Last Updated : ',
               style: TextStyle(
                 fontFamily: 'poppins',
@@ -48,10 +48,10 @@ class Privacy extends StatelessWidget {
                 //color: Colors.black
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 18,
             ),
-            Text(
+            const Text(
               'Please read this terms carefully before using our service',
               style: TextStyle(
                 fontFamily: 'poppins',
@@ -60,10 +60,10 @@ class Privacy extends StatelessWidget {
                 //color: Colors.black
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
-            Text(
+            const Text(
               'Defintions',
               style: TextStyle(
                 fontFamily: 'poppins',

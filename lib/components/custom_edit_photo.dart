@@ -13,7 +13,7 @@ class CustomEditPhoto extends StatelessWidget {
           width: 100,
           child: ClipRRect(
             borderRadius: BorderRadius.circular(100),
-            child: Image(image: AssetImage('assets/logo3.jpg')),
+            child:const Image(image: AssetImage('assets/logo3.jpg')),
           ),
         ),
         Positioned(
@@ -26,7 +26,7 @@ class CustomEditPhoto extends StatelessWidget {
                 borderRadius: BorderRadius.circular(100),
                 color: KPrimaryColor,
               ),
-              child: Icon(
+              child:const Icon(
                 Icons.camera_alt_outlined,
                 color: Colors.white,
                 size: 16,

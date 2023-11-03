@@ -1,5 +1,4 @@
 class Profile {
-
   String? id;
   String? photo;
   String? firstName;

@@ -23,11 +23,11 @@ class SettingContainer extends StatelessWidget {
           children: [
             Row(
               children: [
-                CircleAvatar(
+                const CircleAvatar(
                   backgroundImage: AssetImage('assets/logo3.jpg'),
                   radius: 30,
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 15,
                 ),
                 Padding(
@@ -38,7 +38,7 @@ class SettingContainer extends StatelessWidget {
                     children: [
                       Text(
                         userName,
-                        style: TextStyle(
+                        style:const TextStyle(
                             //color: Colors.black,
                             fontSize: 16,
                             fontFamily: 'poppins',
@@ -46,7 +46,7 @@ class SettingContainer extends StatelessWidget {
                       ),
                       Text(
                         userEmail,
-                        style: TextStyle(
+                        style:const TextStyle(
                             color: Colors.grey,
                             fontFamily: 'poppins',
                             fontSize: 14,
@@ -61,10 +61,10 @@ class SettingContainer extends StatelessWidget {
               onTap: () {
                 Navigator.of(context)
                     .push(MaterialPageRoute(builder: (context) {
-                  return ProfilePage();
+                  return const ProfilePage();
                 }));
               },
-              child: Container(
+              child: SizedBox(
                   width: 24, height: 24, child: Image.asset('assets/edit.png')),
             )
           ],

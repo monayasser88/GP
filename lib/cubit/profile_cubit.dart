@@ -26,29 +26,37 @@ class ProfileCubit extends Cubit<ProfileState> {
     }
   }
 
-  Future<void> updateFirstName(String firstName) async {
+  Future<Profile> updateFirstName(String firstName) async {
 
      // API call here
-      var response = await http.put(Uri.parse(''),
+      var updatedFirstNameResponse = await http.put(Uri.parse(''),
         body: {'firstName': firstName});
 
-      emit(UserProfileUpdated());
+      final updatedFirstNameData = json.decode(updatedFirstNameResponse.body);
+    final updatedUserProfile = Profile.fromJson(updatedFirstNameData);
+    return updatedUserProfile;
   }
 
-  Future<void> updateLastName(String lastName) async {
+  Future<Profile> updateLastName(String lastName) async {
 
-      var response = await http.put(Uri.parse(''),
-        body: {'lastName': lastName});
-
-      emit(UserProfileUpdated());
+    final updatedLastNameResponse = await http.put(
+      Uri.parse(''),
+      body: {'last_name': lastName},
+    );
+    final updatedLastNameData = json.decode(updatedLastNameResponse.body);
+    final updatedUserProfile = Profile.fromJson(updatedLastNameData);
+    return updatedUserProfile;
   }
 
-  Future<void> updateCity(String city) async {
+  Future<Profile> updateCity(String city) async {
 
-      var response = await http.put(Uri.parse(''),
-        body: {'city': city});
-
-      emit(UserProfileUpdated());
+      final updatedCityResponse = await http.put(
+      Uri.parse(''),
+      body: {'city': city},
+    );
+    final updatedCityData = json.decode(updatedCityResponse.body);
+    final updatedUserProfile = Profile.fromJson(updatedCityData);
+    return updatedUserProfile;
   }
 
   // Future<void> updatePhoto(File photo) async {

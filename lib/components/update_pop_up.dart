@@ -5,6 +5,8 @@ void showUpdateDialog(
   BuildContext context,
   String field,
   String hintText,
+  TextEditingController? controller,
+  void Function()? onTap
 ) {
   //TextEditingController controller = TextEditingController();
   showDialog(
@@ -36,12 +38,13 @@ void showUpdateDialog(
                     height: 40,
                   ),
                   TextField(
+                    controller: controller,
                     decoration: InputDecoration(
                       hintText: hintText,
-                      border: OutlineInputBorder(
+                      border:const OutlineInputBorder(
                           borderRadius: BorderRadius.all(Radius.circular(8)),
                           borderSide: BorderSide(color: Colors.grey, width: 1)),
-                      focusedBorder: OutlineInputBorder(
+                      focusedBorder:const OutlineInputBorder(
                           borderRadius: BorderRadius.all(Radius.circular(8)),
                           borderSide:
                               BorderSide(color: KPrimaryColor, width: 2)),
@@ -74,9 +77,7 @@ void showUpdateDialog(
                     height: 16,
                   ),
                   GestureDetector(
-                      onTap: () {
-                        Navigator.of(context).pop();
-                      },
+                      onTap: onTap,
                       child: const Text(
                         'Update',
                         style: TextStyle(

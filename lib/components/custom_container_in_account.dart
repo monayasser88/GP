@@ -30,12 +30,12 @@ class ContainerAccount extends StatelessWidget {
                     size: 24,
                     //color: Colors.black,
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 5,
                   ),
                   Text(
                     contName,
-                    style: TextStyle(
+                    style:const TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.w500,
                         fontFamily: 'poppins',
@@ -44,7 +44,7 @@ class ContainerAccount extends StatelessWidget {
                   ),
                 ],
               ),
-              Icon(
+              const Icon(
                 FontAwesomeIcons.angleRight,
                 size: 20,
                 //color: Colors.black,

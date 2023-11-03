@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gp_project/components/change_password_view.dart';
@@ -11,7 +10,7 @@ class ChangePassword extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => ChangePasswordCubit(),
-      child: Scaffold(
+      child:const Scaffold(
         body: ChangePasswordView(),
       ) ,
     );

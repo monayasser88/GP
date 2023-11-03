@@ -24,7 +24,7 @@ class GProject extends StatelessWidget {
               theme: ThemeData.light(),
               darkTheme: ThemeData.dark(),
               themeMode: currentMode,
-              home: Account(),
+              home:const Account(),
             ),
           );
         });

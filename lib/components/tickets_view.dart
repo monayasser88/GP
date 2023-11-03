@@ -12,7 +12,7 @@ class TicketsView extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 17),
       child: Column(
         children: [
-          SizedBox(
+          const SizedBox(
             height: 55,
           ),
           CustomAppBar(
@@ -21,10 +21,10 @@ class TicketsView extends StatelessWidget {
               Navigator.of(context).pop();
             },
           ),
-          SizedBox(
+          const SizedBox(
             height: 10,
           ),
-          Expanded(child: TicketsListView())
+          const Expanded(child: TicketsListView())
         ],
       ),
     );

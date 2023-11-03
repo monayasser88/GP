@@ -27,7 +27,7 @@ class CustomTitle extends StatelessWidget {
             ),
             GestureDetector(
               onTap: onTap,
-              child: Container(
+              child: SizedBox(
                   width: 18,
                   height: 18,
                   child: Image.asset('assets/edit2.png')),
