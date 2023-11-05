@@ -80,7 +80,7 @@ class Account extends StatelessWidget {
               onTap: () {
                 Navigator.of(context)
                     .push(MaterialPageRoute(builder: (context) {
-                  return const Favorites();
+                  return const SearchPage();
                 }));
               },
               child:const ContainerAccount(
