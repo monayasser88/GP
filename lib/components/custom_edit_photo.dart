@@ -1,21 +1,41 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gp_project/constraints.dart';
+import 'package:gp_project/cubit/image_cubit_cubit.dart';
 
-class CustomEditPhoto extends StatelessWidget {
-  const CustomEditPhoto({super.key});
+class CustomEditPhoto extends StatefulWidget {
+  final ImageCubitCubit imageCubit;
+
+  const CustomEditPhoto({super.key, required this.imageCubit});
+
+  @override
+  State<CustomEditPhoto> createState() => _CustomEditPhotoState();
+}
+
+class _CustomEditPhotoState extends State<CustomEditPhoto> {
+  @override
+  void dispose() {
+    final imageCubit = widget.imageCubit;
+    imageCubit.close();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
+    final imageCubit = context.watch<ImageCubitCubit>();
+
     return Stack(
       children: [
-        SizedBox(
-          height: 100,
-          width: 100,
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(100),
-            child:const Image(image: AssetImage('assets/logo3.jpg')),
+        //if (imageCubit.state is ImageLoaded)
+          SizedBox(
+            height: 100,
+            width: 100,
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(100),
+              child: Image(image:AssetImage('assets/logo3.jpg') ),//Image.network((imageCubit.state as ImageLoaded).imageUrl),
+            ),
           ),
-        ),
         Positioned(
             bottom: 0,
             right: 0,
@@ -26,10 +46,27 @@ class CustomEditPhoto extends StatelessWidget {
                 borderRadius: BorderRadius.circular(100),
                 color: KPrimaryColor,
               ),
-              child:const Icon(
-                Icons.camera_alt_outlined,
-                color: Colors.white,
-                size: 16,
+              child: IconButton(
+                onPressed: () {
+                  imageCubit.pickImage().then((imageFile) {
+                    if (imageFile != null) {
+                      imageCubit
+                          .uploadImage(imageFile as File)
+                          .then((imageUrl) {
+                        imageCubit.setImage(imageUrl);
+                      }).catchError((error) {
+                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                          content: Text('Error uploading image: $error'),
+                        ));
+                      });
+                    }
+                  });
+                },
+                icon: const Icon(
+                  Icons.camera_alt_outlined,
+                  color: Colors.white,
+                  size: 16,
+                ),
               ),
             ))
       ],

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gp_project/cubit/image_cubit_cubit.dart';
 import 'package:gp_project/cubit/logout_cubit.dart';
 import 'package:gp_project/pages/account.dart';
 
@@ -17,14 +18,19 @@ class GProject extends StatelessWidget {
     return ValueListenableBuilder<ThemeMode>(
         valueListenable: themeNotifier,
         builder: (_, ThemeMode currentMode, __) {
-          return BlocProvider(
-            create: (context) => LogoutCubit(),
+          return MultiBlocProvider(
+            providers: [
+              BlocProvider(
+                create: (context) => LogoutCubit(),
+              ),
+            
+            ],
             child: MaterialApp(
               debugShowCheckedModeBanner: false,
               theme: ThemeData.light(),
               darkTheme: ThemeData.dark(),
               themeMode: currentMode,
-              home:const Account(),
+              home:  Account(),
             ),
           );
         });

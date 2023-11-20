@@ -5,6 +5,7 @@ import 'package:gp_project/components/custom_appbar.dart';
 import 'package:gp_project/components/custom_container_in_account.dart';
 import 'package:gp_project/components/custom_edit_photo.dart';
 import 'package:gp_project/components/logout_pop_up.dart';
+import 'package:gp_project/cubit/image_cubit_cubit.dart';
 import 'package:gp_project/cubit/logout_cubit.dart';
 import 'package:gp_project/pages/change_password.dart';
 import 'package:gp_project/pages/favourites.dart';
@@ -13,10 +14,8 @@ import 'package:gp_project/pages/setting.dart';
 import 'package:gp_project/pages/tickets.dart';
 
 class Account extends StatelessWidget {
-  const Account({super.key});
-
-  
-
+    Account({super.key});
+final ImageCubitCubit imageCubit = ImageCubitCubit();
   @override
   Widget build(BuildContext context) {
     final logoutCubit = BlocProvider.of<LogoutCubit>(context);
@@ -32,7 +31,10 @@ class Account extends StatelessWidget {
             const SizedBox(
               height: 29,
             ),
-            const CustomEditPhoto(),
+              BlocProvider(
+              create: (context) => ImageCubitCubit(),
+              child: CustomEditPhoto(imageCubit: imageCubit,),
+            ),
             const SizedBox(
               height: 27,
             ),
@@ -43,7 +45,7 @@ class Account extends StatelessWidget {
                   return const ProfilePage();
                 }));
               },
-              child:const ContainerAccount(
+              child: const ContainerAccount(
                   contName: 'Profile', contIcon: Icons.person_outline_rounded),
             ),
             const SizedBox(
@@ -56,7 +58,7 @@ class Account extends StatelessWidget {
                   return const ChangePassword();
                 }));
               },
-              child:const ContainerAccount(
+              child: const ContainerAccount(
                   contName: 'Change Password',
                   contIcon: CupertinoIcons.lock_rotation_open),
             ),
@@ -70,7 +72,7 @@ class Account extends StatelessWidget {
                   return const Tickets();
                 }));
               },
-              child:const ContainerAccount(
+              child: const ContainerAccount(
                   contName: 'My Tickets', contIcon: CupertinoIcons.tickets),
             ),
             const SizedBox(
@@ -83,7 +85,7 @@ class Account extends StatelessWidget {
                   return const SearchPage();
                 }));
               },
-              child:const ContainerAccount(
+              child: const ContainerAccount(
                   contName: 'Favorites', contIcon: CupertinoIcons.heart),
             ),
             const SizedBox(
@@ -96,7 +98,7 @@ class Account extends StatelessWidget {
                   return const Setting();
                 }));
               },
-              child:const ContainerAccount(
+              child: const ContainerAccount(
                   contName: 'Setting', contIcon: Icons.settings_outlined),
             ),
             const SizedBox(
@@ -106,7 +108,7 @@ class Account extends StatelessWidget {
               contName: 'Log Out',
               contIcon: Icons.logout,
               onTap: () {
-                showCustomPopup(context,logoutCubit);
+                showCustomPopup(context, logoutCubit);
               },
             ),
           ],
@@ -115,4 +117,3 @@ class Account extends StatelessWidget {
     );
   }
 }
-

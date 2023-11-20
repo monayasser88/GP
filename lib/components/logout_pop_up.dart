@@ -80,7 +80,7 @@ class LogOutPopUp extends StatelessWidget {
                     logoutCubit.logout();
                     Navigator.of(context)
                         .push(MaterialPageRoute(builder: (context) {
-                      return const Account();
+                      return  Account();
                     }));
                   },
                   child: const Text(

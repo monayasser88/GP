@@ -7,6 +7,7 @@ import 'package:gp_project/components/custom_title_in_profile.dart';
 import 'package:gp_project/components/logout_pop_up.dart';
 import 'package:gp_project/components/update_pop_up.dart';
 import 'package:gp_project/constraints.dart';
+import 'package:gp_project/cubit/image_cubit_cubit.dart';
 import 'package:gp_project/cubit/profile_cubit.dart';
 import 'package:gp_project/pages/change_password.dart';
 import 'package:gp_project/pages/update_profile.dart';
@@ -27,7 +28,7 @@ class _ProfileViewState extends State<ProfileView> {
       },
     );
   }
-
+  final ImageCubitCubit imageCubit = ImageCubitCubit();
   final TextEditingController firstNameController = TextEditingController();
   final TextEditingController lastNameController = TextEditingController();
   final TextEditingController cityController = TextEditingController();
@@ -64,7 +65,7 @@ class _ProfileViewState extends State<ProfileView> {
                     const SizedBox(
                       height: 20,
                     ),
-                    const CustomEditPhoto(),
+                      CustomEditPhoto(imageCubit:imageCubit ,),
                     const SizedBox(
                       height: 20,
                     ),
