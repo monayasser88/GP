@@ -9,7 +9,7 @@ class SearchView extends StatefulWidget {
 }
 
 class _SearchViewState extends State<SearchView> {
-  TextEditingController _searchController = TextEditingController();
+  final TextEditingController _searchController = TextEditingController();
   List<String> searchHistory = [];
 
   void addToSearchHistory(String query) {
@@ -97,7 +97,7 @@ class _SearchViewState extends State<SearchView> {
                         },
                         icon: const Icon(Icons.clear)),
                   ),
-                  Divider(),
+                  const Divider(),
                 ],
               );
             })),

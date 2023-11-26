@@ -33,7 +33,8 @@ class _CustomEditPhotoState extends State<CustomEditPhoto> {
             width: 100,
             child: ClipRRect(
               borderRadius: BorderRadius.circular(100),
-              child: Image(image:AssetImage('assets/logo3.jpg') ),//Image.network((imageCubit.state as ImageLoaded).imageUrl),
+              child:const Image(image:AssetImage('assets/logo3.jpg') ),
+              //Image.network((imageCubit.state as ImageLoaded).imageUrl),
             ),
           ),
         Positioned(

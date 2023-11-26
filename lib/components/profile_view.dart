@@ -49,7 +49,7 @@ class _ProfileViewState extends State<ProfileView> {
           return Padding(
             padding: const EdgeInsets.symmetric(horizontal: 17),
             child: SingleChildScrollView(
-              child: Container(
+              child: SizedBox(
                 height: 600,
                 child: Column(
                   children: [

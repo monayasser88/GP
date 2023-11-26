@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:gp_project/constraints.dart';
+import 'package:gp_project/components/ticket_container.dart';
 import 'package:gp_project/cubit/tickets_cubit.dart';
 
 class TicketsListView extends StatelessWidget {
@@ -21,45 +21,7 @@ class TicketsListView extends StatelessWidget {
                 var ticket = state.tickets[index];
                 return Padding(
                     padding:const EdgeInsets.symmetric(vertical: 6),
-                    child: Container(
-                        width: 250,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(12),
-                            // border: Border(
-                            //   left: BorderSide(color: KPrimaryColor, width: 2),
-                            //   bottom:
-                            //       BorderSide(color: KPrimaryColor, width: 2),
-                            // )
-                            border :Border.all(color: KPrimaryColor, width: 2),
-                            ),
-                        child: Padding(
-                          padding: const EdgeInsets.all(16.0),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                ticket['title'],
-                                style:const TextStyle(
-                                    fontFamily: 'poppins',
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w700),
-                              ),
-                              const SizedBox(
-                                height: 15,
-                              ),
-                              Text(
-                                ticket['description'],
-                                //'pyramids plllllllllalalllllllllllllalalalalllll miuvhjhuygtvbmpmpmpmpmmpmmpmpmpmpmpkjhgfdsasdfghjkjhgfdfghj',
-                                style:const TextStyle(
-                                    fontFamily: 'poppins',
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w500,
-                                    color: Colors.grey),
-                                maxLines: 2,
-                              ),
-                            ],
-                          ),
-                        )));
+                    child: TicketContainer(title:ticket['title'] ,description:ticket['description']) );
               });
         }
         return Container();
