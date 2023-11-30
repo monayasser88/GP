@@ -1,6 +1,6 @@
 # gp_project
 
-A new Flutter project.
+Kemet is a flutter application to help people to know more about the Egyption culture.
 
 ## Getting Started
 
