@@ -15,7 +15,7 @@ class SettingContainer extends StatelessWidget {
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(12),
           //color: Colors.white,
-          border: Border.all(color: BorderColor, width: 1)),
+          border: Border.all(color: borderColor, width: 1)),
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 3),
         child: Row(
@@ -38,7 +38,7 @@ class SettingContainer extends StatelessWidget {
                     children: [
                       Text(
                         userName,
-                        style:const TextStyle(
+                        style: const TextStyle(
                             //color: Colors.black,
                             fontSize: 16,
                             fontFamily: 'poppins',
@@ -46,7 +46,7 @@ class SettingContainer extends StatelessWidget {
                       ),
                       Text(
                         userEmail,
-                        style:const TextStyle(
+                        style: const TextStyle(
                             color: Colors.grey,
                             fontFamily: 'poppins',
                             fontSize: 14,

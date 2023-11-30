@@ -46,6 +46,7 @@ dependencies:
   flutter_bloc: ^8.1.3
   image_picker: ^1.0.4
   path: ^1.8.0
+  provider: ^6.1.1
 
 dev_dependencies:
   flutter_test:
@@ -77,6 +78,7 @@ flutter:
     - assets/logoutImage.png
     - assets/edit.png
     - assets/edit2.png
+    - assets/notfound.png
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

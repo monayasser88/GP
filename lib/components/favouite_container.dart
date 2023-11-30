@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:gp_project/constraints.dart';
 
 class FavoriteContainer extends StatelessWidget {
-  const FavoriteContainer({
-    super.key, required this.title, required this.description,required this.image});
+  const FavoriteContainer(
+      {super.key,
+      required this.title,
+      required this.description,
+      required this.image});
   final String title;
   final String description;
   final String image;
@@ -12,20 +16,20 @@ class FavoriteContainer extends StatelessWidget {
       borderRadius: BorderRadius.circular(12),
       child: Material(
         elevation: 10,
-        child: Container(
+        child: SizedBox(
           width: double.infinity,
           height: 160,
           child: Stack(children: [
             Container(
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   border: Border(
-                      right: BorderSide(color: Colors.red, width: 5),
-                      bottom: BorderSide(color: Colors.red, width: 5),
+                      right: BorderSide(color: kPrimaryColor, width: 5),
+                      bottom: BorderSide(color: kPrimaryColor, width: 5),
                       left: BorderSide(color: Colors.grey, width: .5),
                       top: BorderSide(color: Colors.grey, width: .5)),
                 ),
-                child:  Padding(
-                  padding: EdgeInsets.only(right: 5),
+                child: Padding(
+                  padding: const EdgeInsets.only(right: 5),
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
@@ -35,25 +39,25 @@ class FavoriteContainer extends StatelessWidget {
                         height: 250,
                         width: 130,
                       ),
-                      SizedBox(
+                      const SizedBox(
                         width: 6,
                       ),
                       Expanded(
                         child: Padding(
-                          padding:
-                              EdgeInsets.only(right: 8, top: 10, bottom: 10),
+                          padding: const EdgeInsets.only(
+                              right: 8, top: 10, bottom: 10),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
                                 title,
                                 //'mona',
-                                style: TextStyle(
+                                style: const TextStyle(
                                     fontFamily: 'poppins',
                                     fontSize: 16,
                                     fontWeight: FontWeight.w700),
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 height: 15,
                               ),
                               Text(
@@ -62,7 +66,7 @@ class FavoriteContainer extends StatelessWidget {
                                 softWrap: true,
                                 description,
                                 //'pyramids plllllll llalallllllll lllllalalala lllllmiuvhj huygtvbm pmpmp mpmmpmm pmpm pmpmpkj hgfds asdfg hjkjhg fdfghj',
-                                style: TextStyle(
+                                style: const TextStyle(
                                     fontFamily: 'poppins',
                                     fontSize: 14,
                                     fontWeight: FontWeight.w500,

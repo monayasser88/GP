@@ -12,7 +12,7 @@ class TicketContainer extends StatelessWidget {
         width: 250,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(12),
-          border: Border.all(color: KPrimaryColor, width: 2),
+          border: Border.all(color: kPrimaryColor, width: 2),
         ),
         child: Padding(
           padding: const EdgeInsets.all(16.0),

@@ -1,13 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:gp_project/constraints.dart';
 
-void showUpdateDialog(
-  BuildContext context,
-  String field,
-  String hintText,
-  TextEditingController? controller,
-  void Function()? onTap
-) {
+void showUpdateDialog(BuildContext context, String field, String hintText,
+    TextEditingController? controller, void Function()? onTap) {
   //TextEditingController controller = TextEditingController();
   showDialog(
       context: context,
@@ -41,13 +36,13 @@ void showUpdateDialog(
                     controller: controller,
                     decoration: InputDecoration(
                       hintText: hintText,
-                      border:const OutlineInputBorder(
+                      border: const OutlineInputBorder(
                           borderRadius: BorderRadius.all(Radius.circular(8)),
                           borderSide: BorderSide(color: Colors.grey, width: 1)),
-                      focusedBorder:const OutlineInputBorder(
+                      focusedBorder: const OutlineInputBorder(
                           borderRadius: BorderRadius.all(Radius.circular(8)),
                           borderSide:
-                              BorderSide(color: KPrimaryColor, width: 2)),
+                              BorderSide(color: kPrimaryColor, width: 2)),
                     ),
                   ),
                   const SizedBox(
@@ -83,7 +78,7 @@ void showUpdateDialog(
                         style: TextStyle(
                             fontSize: 18,
                             fontFamily: 'poppins',
-                            color: KPrimaryColor,
+                            color: kPrimaryColor,
                             fontWeight: FontWeight.bold,
                             decoration: TextDecoration.underline),
                       )),

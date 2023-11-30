@@ -13,7 +13,7 @@ class LogoutCubit extends Cubit<LogoutState> {
       final response = await http.post(
         Uri.parse(''),
       );
-      print('hi');
+      //print('hi');
 
       if (response.statusCode == 200) {
         emit(LoggedOut());

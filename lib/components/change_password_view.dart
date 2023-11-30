@@ -25,7 +25,7 @@ class _ChangePasswordViewState extends State<ChangePasswordView> {
   Widget build(BuildContext context) {
     return BlocConsumer<ChangePasswordCubit, ChangePasswordState>(
       listener: (context, state) {
-          if (state is ChangePasswordSuccess) {
+        if (state is ChangePasswordSuccess) {
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(
               content: Text('Password changed successfully'),
@@ -36,7 +36,7 @@ class _ChangePasswordViewState extends State<ChangePasswordView> {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               content: Text(state.errMassage),
-              duration:const Duration(seconds: 3),
+              duration: const Duration(seconds: 3),
             ),
           );
         }
@@ -62,18 +62,18 @@ class _ChangePasswordViewState extends State<ChangePasswordView> {
                 ),
                 TextFormField(
                   decoration: InputDecoration(
-                    label:const Text(
+                    label: const Text(
                       'Enter Old Password',
-                      style: TextStyle(color: KPrimaryColor),
+                      style: TextStyle(color: kPrimaryColor),
                     ),
                     hintText: 'Enter Old Password',
                     hintStyle: const TextStyle(color: Colors.grey),
-                    border:const OutlineInputBorder(
+                    border: const OutlineInputBorder(
                         borderRadius: BorderRadius.all(Radius.circular(8)),
                         borderSide: BorderSide(color: Colors.grey, width: 1)),
-                    focusedBorder:const OutlineInputBorder(
+                    focusedBorder: const OutlineInputBorder(
                         borderRadius: BorderRadius.all(Radius.circular(8)),
-                        borderSide: BorderSide(color: KPrimaryColor, width: 2)),
+                        borderSide: BorderSide(color: kPrimaryColor, width: 2)),
                     suffixIcon: IconButton(
                       icon: Icon(
                         _isoldPasswordVisible
@@ -102,16 +102,16 @@ class _ChangePasswordViewState extends State<ChangePasswordView> {
                 ),
                 TextFormField(
                   decoration: InputDecoration(
-                    label:const Text(
+                    label: const Text(
                       'Enter new Password',
-                      style: TextStyle(color: KPrimaryColor),
+                      style: TextStyle(color: kPrimaryColor),
                     ),
-                    border:const OutlineInputBorder(
+                    border: const OutlineInputBorder(
                         borderRadius: BorderRadius.all(Radius.circular(8)),
                         borderSide: BorderSide(color: Colors.grey, width: 1)),
-                    focusedBorder:const OutlineInputBorder(
+                    focusedBorder: const OutlineInputBorder(
                         borderRadius: BorderRadius.all(Radius.circular(8)),
-                        borderSide: BorderSide(color: KPrimaryColor, width: 2)),
+                        borderSide: BorderSide(color: kPrimaryColor, width: 2)),
                     hintText: 'Enter new Password',
                     hintStyle: const TextStyle(color: Colors.grey),
                     suffixIcon: IconButton(
@@ -156,18 +156,18 @@ class _ChangePasswordViewState extends State<ChangePasswordView> {
                 ),
                 TextFormField(
                   decoration: InputDecoration(
-                    label:const Text(
+                    label: const Text(
                       'Enter confirm new Password',
-                      style: TextStyle(color: KPrimaryColor),
+                      style: TextStyle(color: kPrimaryColor),
                     ),
                     hintText: 'Enter confirm new Password',
                     hintStyle: const TextStyle(color: Colors.grey),
-                    border:const OutlineInputBorder(
+                    border: const OutlineInputBorder(
                         borderRadius: BorderRadius.all(Radius.circular(8)),
                         borderSide: BorderSide(color: Colors.grey, width: 1)),
-                    focusedBorder:const OutlineInputBorder(
+                    focusedBorder: const OutlineInputBorder(
                         borderRadius: BorderRadius.all(Radius.circular(8)),
-                        borderSide: BorderSide(color: KPrimaryColor, width: 2)),
+                        borderSide: BorderSide(color: kPrimaryColor, width: 2)),
                     suffixIcon: IconButton(
                       icon: Icon(
                         _isconfirmPasswordVisible
@@ -202,7 +202,7 @@ class _ChangePasswordViewState extends State<ChangePasswordView> {
                       borderRadius: BorderRadius.all(Radius.circular(10)),
                     )),
                     backgroundColor:
-                        MaterialStatePropertyAll<Color>(KPrimaryColor),
+                        MaterialStatePropertyAll<Color>(kPrimaryColor),
                   ),
                   onPressed: () {
                     final oldPassword = oldPasswordController.text;

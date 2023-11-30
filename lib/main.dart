@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gp_project/cubit/logout_cubit.dart';
 import 'package:gp_project/pages/account.dart';
+import 'package:gp_project/providers/theme_provider.dart';
+import 'package:provider/provider.dart';
 
 void main() {
   runApp(const GProject());
@@ -22,14 +24,25 @@ class GProject extends StatelessWidget {
               BlocProvider(
                 create: (context) => LogoutCubit(),
               ),
-            
             ],
-            child: MaterialApp(
-              debugShowCheckedModeBanner: false,
-              theme: ThemeData.light(),
-              darkTheme: ThemeData.dark(),
-              themeMode: currentMode,
-              home:  Account(),
+            child: ChangeNotifierProvider(
+              create: (_) => ThemeProvider(),
+              child:
+                  Consumer<ThemeProvider>(builder: (context, themeProvider, _) {
+                return MaterialApp(
+                  debugShowCheckedModeBanner: false,
+                  //theme: ThemeData.light(),
+                  //darkTheme: ThemeData.dark(),
+                  //themeMode: currentMode,
+                  theme: ThemeData.light(),
+                  darkTheme: ThemeData.dark(),
+                  themeMode: themeProvider.themeMode == ThemeModeType.dark
+                      ? ThemeMode.dark
+                      : ThemeMode.light,
+
+                  home: Account(),
+                );
+              }),
             ),
           );
         });

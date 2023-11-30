@@ -28,6 +28,7 @@ class _ProfileViewState extends State<ProfileView> {
       },
     );
   }
+
   final ImageCubitCubit imageCubit = ImageCubitCubit();
   final TextEditingController firstNameController = TextEditingController();
   final TextEditingController lastNameController = TextEditingController();
@@ -65,7 +66,9 @@ class _ProfileViewState extends State<ProfileView> {
                     const SizedBox(
                       height: 20,
                     ),
-                      CustomEditPhoto(imageCubit:imageCubit ,),
+                    CustomEditPhoto(
+                      imageCubit: imageCubit,
+                    ),
                     const SizedBox(
                       height: 20,
                     ),
@@ -117,7 +120,7 @@ class _ProfileViewState extends State<ProfileView> {
                       onTap: () {
                         Navigator.of(context)
                             .push(MaterialPageRoute(builder: (context) {
-                          return UpdateProfile();
+                          return const UpdateProfile();
                         }));
                       },
                       userInfo: 'mona@gmail.com',
@@ -163,7 +166,7 @@ class _ProfileViewState extends State<ProfileView> {
                     ),
                     ContainerProfile(
                       forwardName: 'Log out',
-                      color: KPrimaryColor,
+                      color: kPrimaryColor,
                       onTap: () {
                         showCustomPopup(context);
                       },

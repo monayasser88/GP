@@ -28,15 +28,15 @@ class _CustomEditPhotoState extends State<CustomEditPhoto> {
     return Stack(
       children: [
         //if (imageCubit.state is ImageLoaded)
-          SizedBox(
-            height: 100,
-            width: 100,
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(100),
-              child:const Image(image:AssetImage('assets/logo3.jpg') ),
-              //Image.network((imageCubit.state as ImageLoaded).imageUrl),
-            ),
+        SizedBox(
+          height: 100,
+          width: 100,
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(100),
+            child: const Image(image: AssetImage('assets/logo3.jpg')),
+            //Image.network((imageCubit.state as ImageLoaded).imageUrl),
           ),
+        ),
         Positioned(
             bottom: 0,
             right: 0,
@@ -45,7 +45,7 @@ class _CustomEditPhotoState extends State<CustomEditPhoto> {
               height: 40,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(100),
-                color: KPrimaryColor,
+                color: kPrimaryColor,
               ),
               child: IconButton(
                 onPressed: () {

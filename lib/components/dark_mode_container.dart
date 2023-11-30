@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:gp_project/main.dart';
+import 'package:gp_project/providers/theme_provider.dart';
+import 'package:provider/provider.dart';
 
 class DarkMode extends StatefulWidget {
   const DarkMode({Key? key}) : super(key: key);
@@ -11,6 +12,7 @@ class DarkMode extends StatefulWidget {
 class _DarkModeState extends State<DarkMode> {
   @override
   Widget build(BuildContext context) {
+    final themeProvider = Provider.of<ThemeProvider>(context);
     return SizedBox(
       width: 354,
       height: 45,
@@ -19,7 +21,7 @@ class _DarkModeState extends State<DarkMode> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-              const Row(
+            const Row(
               children: [
                 Icon(
                   Icons.dark_mode_outlined,
@@ -40,16 +42,23 @@ class _DarkModeState extends State<DarkMode> {
                 ),
               ],
             ),
-            IconButton(
-                icon: Icon(GProject.themeNotifier.value == ThemeMode.light
-                    ? Icons.dark_mode
-                    : Icons.light_mode),
-                onPressed: () {
-                  GProject.themeNotifier.value =
-                      GProject.themeNotifier.value == ThemeMode.light
-                          ? ThemeMode.dark
-                          : ThemeMode.light;
-                })
+            Switch(
+              value: themeProvider.themeMode == ThemeModeType.dark,
+              onChanged: (value) {
+                final newThemeMode = value ? ThemeModeType.dark : ThemeModeType.light;
+                themeProvider.themeMode = newThemeMode;
+              },
+            ),
+            // IconButton(
+            //     icon: Icon(GProject.themeNotifier.value == ThemeMode.light
+            //         ? Icons.dark_mode
+            //         : CupertinoIcons.money_dollar),
+            //     onPressed: () {
+            //       GProject.themeNotifier.value =
+            //           GProject.themeNotifier.value == ThemeMode.light
+            //               ? ThemeMode.dark
+            //               : ThemeMode.light;
+            //     })
           ],
         ),
       ),

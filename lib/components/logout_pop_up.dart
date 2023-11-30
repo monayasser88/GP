@@ -80,7 +80,7 @@ class LogOutPopUp extends StatelessWidget {
                     logoutCubit.logout();
                     Navigator.of(context)
                         .push(MaterialPageRoute(builder: (context) {
-                      return  Account();
+                      return Account();
                     }));
                   },
                   child: const Text(
@@ -88,7 +88,7 @@ class LogOutPopUp extends StatelessWidget {
                     style: TextStyle(
                         fontSize: 16,
                         fontFamily: 'poppins',
-                        color: KPrimaryColor,
+                        color: kPrimaryColor,
                         fontWeight: FontWeight.bold,
                         decoration: TextDecoration.underline),
                   )),
