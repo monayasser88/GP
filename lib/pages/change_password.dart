@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:gp_project/components/change_password_view.dart';
+import 'package:gp_project/views/change_password_view.dart';
 import 'package:gp_project/cubit/change_password_cubit.dart';
 
 class ChangePassword extends StatelessWidget {

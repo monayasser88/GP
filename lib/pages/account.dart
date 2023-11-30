@@ -14,8 +14,8 @@ import 'package:gp_project/pages/setting.dart';
 import 'package:gp_project/pages/tickets.dart';
 
 class Account extends StatelessWidget {
-    Account({super.key});
-final ImageCubitCubit imageCubit = ImageCubitCubit();
+  Account({super.key});
+  final ImageCubitCubit imageCubit = ImageCubitCubit();
   @override
   Widget build(BuildContext context) {
     final logoutCubit = BlocProvider.of<LogoutCubit>(context);
@@ -31,9 +31,11 @@ final ImageCubitCubit imageCubit = ImageCubitCubit();
             const SizedBox(
               height: 29,
             ),
-              BlocProvider(
+            BlocProvider(
               create: (context) => ImageCubitCubit(),
-              child: CustomEditPhoto(imageCubit: imageCubit,),
+              child: CustomEditPhoto(
+                imageCubit: imageCubit,
+              ),
             ),
             const SizedBox(
               height: 27,
@@ -53,6 +55,7 @@ final ImageCubitCubit imageCubit = ImageCubitCubit();
             ),
             GestureDetector(
               onTap: () {
+                //showCustomPopupError(context);
                 Navigator.of(context)
                     .push(MaterialPageRoute(builder: (context) {
                   return const ChangePassword();

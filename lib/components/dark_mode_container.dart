@@ -45,9 +45,14 @@ class _DarkModeState extends State<DarkMode> {
             Switch(
               value: themeProvider.themeMode == ThemeModeType.dark,
               onChanged: (value) {
-                final newThemeMode = value ? ThemeModeType.dark : ThemeModeType.light;
+                final newThemeMode =
+                    value ? ThemeModeType.dark : ThemeModeType.light;
                 themeProvider.themeMode = newThemeMode;
               },
+              activeColor: Colors.black,
+              inactiveThumbColor: Colors.white,
+              activeTrackColor: Colors.white,
+              inactiveTrackColor: Colors.black,
             ),
             // IconButton(
             //     icon: Icon(GProject.themeNotifier.value == ThemeMode.light

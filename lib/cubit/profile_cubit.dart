@@ -28,7 +28,6 @@ class ProfileCubit extends Cubit<ProfileState> {
 
   Future<Profile> updateFirstName(String firstName) async {
 
-     // API call here
       var updatedFirstNameResponse = await http.put(Uri.parse(''),
         body: {'firstName': firstName});
 

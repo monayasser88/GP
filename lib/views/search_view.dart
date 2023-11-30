@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gp_project/components/custom_appbar.dart';
-import 'package:gp_project/constraints.dart';
 import 'package:gp_project/cubit/search_cubit.dart';
 import 'package:gp_project/pages/account.dart';
+import 'package:gp_project/pages/not_found.dart';
 
 class SearchView extends StatefulWidget {
   const SearchView({super.key});
@@ -123,64 +123,9 @@ class _SearchViewState extends State<SearchView> {
                   },
                 );
               } else if (state is SearchError) {
-                return Center(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      const Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            'No Results',
-                            style: TextStyle(
-                                fontSize: 16,
-                                fontFamily: 'poppins',
-                                fontWeight: FontWeight.bold),
-                          ),
-                          Text(
-                            '0 found',
-                            style: TextStyle(
-                                fontSize: 14,
-                                fontFamily: 'poppins',
-                                fontWeight: FontWeight.w500,
-                                color: kPrimaryColor),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(
-                        height: 70,
-                      ),
-                      Image.asset(
-                        'assets/notfound.png',
-                        width: 200,
-                        height: 200,
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      const Text(
-                        'Not Found',
-                        style: TextStyle(
-                            fontSize: 24,
-                            fontFamily: 'poppins',
-                            fontWeight: FontWeight.bold),
-                      ),
-                      const SizedBox(
-                        height: 12,
-                      ),
-                      const Text(
-                        'Not Found',
-                        style: TextStyle(
-                            fontSize: 18,
-                            fontFamily: 'poppins',
-                            fontWeight: FontWeight.w300),
-                      ),
-                    ],
-                  ),
-                );
+                Navigator.push(context, MaterialPageRoute(builder: (context) {
+                  return const NotFound();
+                }));
               } else if (state is SearchHistory) {
                 return Column(
                   children: [
