@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gp_project/components/custom_appbar.dart';
 import 'package:gp_project/components/custom_container_in_profile.dart';
 import 'package:gp_project/components/custom_edit_photo.dart';
@@ -8,7 +7,6 @@ import 'package:gp_project/components/logout_pop_up.dart';
 import 'package:gp_project/components/update_pop_up.dart';
 import 'package:gp_project/constraints.dart';
 import 'package:gp_project/cubit/image_cubit_cubit.dart';
-import 'package:gp_project/cubit/profile_cubit.dart';
 import 'package:gp_project/pages/change_password.dart';
 import 'package:gp_project/pages/update_profile.dart';
 
@@ -36,149 +34,151 @@ class _ProfileViewState extends State<ProfileView> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ProfileCubit, ProfileState>(
-      builder: (context, state) {
-        if (state is ProfileInitial) {
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
-        } else if (state is ProfileLoaded) {
-          final profile = state.profile;
-          firstNameController.text = profile.firstName!;
-          lastNameController.text = profile.lastName!;
-          cityController.text = profile.city!;
-          return Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 17),
-            child: SingleChildScrollView(
-              child: SizedBox(
-                height: 600,
-                child: Column(
-                  children: [
-                    const SizedBox(
-                      height: 55,
-                    ),
-                    CustomAppBar(
-                      title: 'Profile',
-                      onTap: () {
-                        Navigator.of(context).pop();
-                      },
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    CustomEditPhoto(
-                      imageCubit: imageCubit,
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    CustomTitle(
-                        titleProfile: 'First name',
-                        onTap: () {
-                          showUpdateDialog(context, 'Update First Name',
-                              'Enter First Name', firstNameController, () {
-                            final updatedLastName = lastNameController.text;
-                            BlocProvider.of<ProfileCubit>(context)
-                                .updateLastName(updatedLastName);
-                          });
-                        },
-                        userInfo: state.profile.firstName.toString()
-                        //userInfo: 'mona',
-                        ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    CustomTitle(
-                        titleProfile: 'Last name',
-                        onTap: () {
-                          showUpdateDialog(context, 'Update Last Name',
-                              'Enter Last Name', lastNameController, () {
-                            final updatedLastName = lastNameController.text;
-                            BlocProvider.of<ProfileCubit>(context)
-                                .updateLastName(updatedLastName);
-                          });
-                        },
-                        userInfo: state.profile.lastName.toString()
-                        //userInfo: 'yasser',
-                        ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    const Flexible(
-                      child: Divider(
-                        thickness: 1,
-                        color: Color(0xff92929D),
-                        indent: 5,
-                        endIndent: 5,
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    CustomTitle(
-                      titleProfile: 'Email',
-                      onTap: () {
-                        Navigator.of(context)
-                            .push(MaterialPageRoute(builder: (context) {
-                          return const UpdateProfile();
-                        }));
-                      },
-                      userInfo: 'mona@gmail.com',
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    CustomTitle(
-                      titleProfile: 'City',
-                      onTap: () {
-                        showUpdateDialog(context, 'Update City', 'Enter City',
-                            cityController, () {
-                          final updatedCity = cityController.text;
-                          BlocProvider.of<ProfileCubit>(context)
-                              .updateCity(updatedCity);
-                        });
-                      },
-                      userInfo: state.profile.city.toString(),
-                      //userInfo: 'cairo',
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    const Flexible(
-                      child: Divider(
-                        thickness: 1,
-                        color: Color(0xff92929D),
-                        indent: 5,
-                        endIndent: 5,
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    ContainerProfile(
-                      forwardName: 'Change Password',
-                      onTap: () {
-                        Navigator.of(context)
-                            .push(MaterialPageRoute(builder: (context) {
-                          return const ChangePassword();
-                        }));
-                      },
-                    ),
-                    ContainerProfile(
-                      forwardName: 'Log out',
-                      color: kPrimaryColor,
-                      onTap: () {
-                        showCustomPopup(context);
-                      },
-                    )
-                  ],
+    // return BlocBuilder<ProfileCubit, ProfileState>(
+    //   builder: (context, state) {
+    //     if (state is ProfileInitial) {
+    //       return const Center(
+    //         child: CircularProgressIndicator(),
+    //       );
+    //     } else if (state is ProfileLoaded) {
+    //       final profile = state.profile;
+    //       firstNameController.text = profile.firstName!;
+    //       lastNameController.text = profile.lastName!;
+    //       cityController.text = profile.city!;
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 17),
+      child: SingleChildScrollView(
+        child: SizedBox(
+          height: 600,
+          child: Column(
+            children: [
+              const SizedBox(
+                height: 55,
+              ),
+              CustomAppBar(
+                title: 'Profile',
+                onTap: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              CustomEditPhoto(
+                imageCubit: imageCubit,
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              CustomTitle(
+                titleProfile: 'First name',
+                onTap: () {
+                  showUpdateDialog(context, 'Update First Name',
+                      'Enter First Name', firstNameController, () {}
+                      //   () {
+                      // final updatedLastName = lastNameController.text;
+                      // BlocProvider.of<ProfileCubit>(context)
+                      //     .updateLastName(updatedLastName);
+                      //}
+                      );
+                },
+                //userInfo: state.profile.firstName.toString()
+                userInfo: 'mona',
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              CustomTitle(
+                titleProfile: 'Last name',
+                onTap: () {
+                  showUpdateDialog(context, 'Update Last Name',
+                      'Enter Last Name', lastNameController, () {
+                    // final updatedLastName = lastNameController.text;
+                    // BlocProvider.of<ProfileCubit>(context)
+                    //     .updateLastName(updatedLastName);
+                  });
+                },
+                //userInfo: state.profile.lastName.toString()
+                userInfo: 'yasser',
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              const Flexible(
+                child: Divider(
+                  thickness: 1,
+                  color: Color(0xff92929D),
+                  indent: 5,
+                  endIndent: 5,
                 ),
               ),
-            ),
-          );
-        }
-        return Container();
-      },
+              const SizedBox(
+                height: 10,
+              ),
+              CustomTitle(
+                titleProfile: 'Email',
+                onTap: () {
+                  Navigator.of(context)
+                      .push(MaterialPageRoute(builder: (context) {
+                    return const UpdateProfile();
+                  }));
+                },
+                userInfo: 'mona@gmail.com',
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              CustomTitle(
+                titleProfile: 'City',
+                onTap: () {
+                  showUpdateDialog(
+                      context, 'Update City', 'Enter City', cityController, () {
+                    // final updatedCity = cityController.text;
+                    // BlocProvider.of<ProfileCubit>(context)
+                    //     .updateCity(updatedCity);
+                  });
+                },
+                //userInfo: state.profile.city.toString(),
+                userInfo: 'cairo',
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              const Flexible(
+                child: Divider(
+                  thickness: 1,
+                  color: Color(0xff92929D),
+                  indent: 5,
+                  endIndent: 5,
+                ),
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              ContainerProfile(
+                forwardName: 'Change Password',
+                onTap: () {
+                  Navigator.of(context)
+                      .push(MaterialPageRoute(builder: (context) {
+                    return const ChangePassword();
+                  }));
+                },
+              ),
+              ContainerProfile(
+                forwardName: 'Log out',
+                color: kPrimaryColor,
+                onTap: () {
+                  showCustomPopup(context);
+                },
+              )
+            ],
+          ),
+        ),
+      ),
     );
+    //}
+    //return Container();
+    // },
+    // );
   }
 }

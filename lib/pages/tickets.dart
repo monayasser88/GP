@@ -8,11 +8,14 @@ class Tickets extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => TicketsCubit(),
-      child:const Scaffold(
-        body: TicketsView(),
-      ),
+    return const Scaffold(
+      body: TicketsView(),
     );
   }
 }
+// BlocProvider(
+//       create: (context) => TicketsCubit(),
+//       child:const Scaffold(
+//         body: TicketsView(),
+//       ),
+//     );

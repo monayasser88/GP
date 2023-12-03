@@ -2,45 +2,65 @@ import 'package:flutter/material.dart';
 import 'package:gp_project/constraints.dart';
 
 class TicketContainer extends StatelessWidget {
-  const TicketContainer(
-      {super.key, required this.title, required this.description});
-  final String title;
-  final String description;
+  const TicketContainer({
+    super.key,
+    //required this.title, required this.description
+  });
+  //final String title;
+  //final String description;
   @override
   Widget build(BuildContext context) {
-    return Container(
-        width: 250,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(12),
-          border: Border.all(color: kPrimaryColor, width: 2),
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(12),
+      child: const Material(
+        elevation: 10,
+        child: SizedBox(
+          width: double.infinity,
+          height: 160,
+          child: Stack(children: [
+            DecoratedBox(
+              decoration: BoxDecoration(
+                  border: Border(
+                      right: BorderSide(color: kPrimaryColor, width: 5),
+                      bottom: BorderSide(color: kPrimaryColor, width: 5),
+                      left: BorderSide(color: Colors.grey, width: .5),
+                      top: BorderSide(color: Colors.grey, width: .5))),
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 15, vertical: 12),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  //mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      //title,
+                      'Egypt',
+                      style: TextStyle(
+                          fontFamily: 'poppins',
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold),
+                    ),
+                    SizedBox(
+                      height: 15,
+                    ),
+                    Text(
+                      maxLines: 2,
+                      overflow: TextOverflow.clip,
+                      softWrap: true,
+                      //description,
+                      'pyramids plllllll llalallllllll lllllalalala lllllmiuvhj huygtvbm pmpmp mpmmpmm pmpm pmpmpkj hgfds asdfg hjkjhg fdfghj',
+                      style: TextStyle(
+                          fontFamily: 'poppins',
+                          fontSize: 14,
+                          fontWeight: FontWeight.w500,
+                          color: Colors.grey),
+                    ),
+                  ],
+                ),
+              ),
+            )
+          ]),
         ),
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                title,
-                style: const TextStyle(
-                    fontFamily: 'poppins',
-                    fontSize: 18,
-                    fontWeight: FontWeight.w700),
-              ),
-              const SizedBox(
-                height: 15,
-              ),
-              Text(
-                description,
-                //'pyramids plllllllllalalllllllllllllalalalalllll miuvhjhuygtvbmpmpmpmpmmpmmpmpmpmpmpkjhgfdsasdfghjkjhgfdfghj',
-                style: const TextStyle(
-                    fontFamily: 'poppins',
-                    fontSize: 14,
-                    fontWeight: FontWeight.w500,
-                    color: Colors.grey),
-                maxLines: 2,
-              ),
-            ],
-          ),
-        ));
+      ),
+    );
   }
 }

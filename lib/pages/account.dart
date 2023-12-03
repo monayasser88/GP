@@ -12,6 +12,7 @@ import 'package:gp_project/pages/favourites.dart';
 import 'package:gp_project/pages/profile_page.dart';
 import 'package:gp_project/pages/setting.dart';
 import 'package:gp_project/pages/tickets.dart';
+import 'package:gp_project/views/favorites_view.dart';
 
 class Account extends StatelessWidget {
   Account({super.key});
@@ -85,7 +86,8 @@ class Account extends StatelessWidget {
               onTap: () {
                 Navigator.of(context)
                     .push(MaterialPageRoute(builder: (context) {
-                  return const SearchPage();
+                  return const Favorites();
+                  //SearchPage();
                 }));
               },
               child: const ContainerAccount(

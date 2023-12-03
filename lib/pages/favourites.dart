@@ -6,18 +6,20 @@ import 'package:gp_project/cubit/favorites_cubit.dart';
 import 'package:gp_project/pages/not_found.dart';
 //import 'package:gp_project/components/search_view.dart';
 
-class SearchPage extends StatelessWidget {
-  const SearchPage({super.key});
+class Favorites extends StatelessWidget {
+  const Favorites({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => FavoritesCubit(),
-      child: const Scaffold(body:
-      //FavoritesView()
-            //SearchView(),
-            NotFound()
-          ),
+    return const Scaffold(
+      body: FavoritesView(),
     );
   }
 }
+// BlocProvider(
+//       create: (context) => FavoritesCubit(),
+//       child: const Scaffold(body:
+//       //FavoritesView()
+//             //SearchView(),
+//             NotFound()
+//           ),

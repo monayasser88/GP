@@ -23,7 +23,7 @@ class _CustomEditPhotoState extends State<CustomEditPhoto> {
 
   @override
   Widget build(BuildContext context) {
-    final imageCubit = context.watch<ImageCubitCubit>();
+    //final imageCubit = context.watch<ImageCubitCubit>();
 
     return Stack(
       children: [
@@ -49,19 +49,19 @@ class _CustomEditPhotoState extends State<CustomEditPhoto> {
               ),
               child: IconButton(
                 onPressed: () {
-                  imageCubit.pickImage().then((imageFile) {
-                    if (imageFile != null) {
-                      imageCubit
-                          .uploadImage(imageFile as File)
-                          .then((imageUrl) {
-                        imageCubit.setImage(imageUrl);
-                      }).catchError((error) {
-                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                          content: Text('Error uploading image: $error'),
-                        ));
-                      });
-                    }
-                  });
+                  // imageCubit.pickImage().then((imageFile) {
+                  //   if (imageFile != null) {
+                  //     imageCubit
+                  //         .uploadImage(imageFile as File)
+                  //         .then((imageUrl) {
+                  //       imageCubit.setImage(imageUrl);
+                  //     }).catchError((error) {
+                  //       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                  //         content: Text('Error uploading image: $error'),
+                  //       ));
+                  //     });
+                  //   }
+                  // });
                 },
                 icon: const Icon(
                   Icons.camera_alt_outlined,

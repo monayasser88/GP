@@ -14,18 +14,19 @@ class ErrorPopUp extends StatelessWidget {
           ),
           content: Column(
             mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               const SizedBox(
                 height: 24,
               ),
               const Image(
-                image: AssetImage('assets/Paymet.png'),
+                image: AssetImage('assets/tick 1.png'),
               ),
               const SizedBox(
                 height: 20,
               ),
               const Text(
-                'Congratulations',
+                'Error!',
                 style: TextStyle(
                   fontSize: 22,
                   fontWeight: FontWeight.w700,
@@ -37,7 +38,8 @@ class ErrorPopUp extends StatelessWidget {
                 height: 10,
               ),
               const Text(
-                'Your account has been created',
+                'Something went wrong ! '
+                'The code you entered is incorrect',
                 style: TextStyle(
                     fontSize: 16,
                     fontFamily: 'poppins',
@@ -57,7 +59,7 @@ class ErrorPopUp extends StatelessWidget {
                   )),
                 ),
                 child: const Text(
-                  'Lets Start',
+                  'Try Again',
                   style: TextStyle(
                       fontSize: 16,
                       fontFamily: 'poppins',
@@ -77,6 +79,7 @@ class ErrorPopUp extends StatelessWidget {
     );
   }
 }
+
 void showCustomPopupError(BuildContext context) async {
   await showDialog(
     context: context,

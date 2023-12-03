@@ -8,9 +8,12 @@ class ProfilePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => ProfileCubit(),
-      child: const Scaffold(body: ProfileView()),
+    return const Scaffold(
+      body: ProfileView(),
     );
   }
 }
+// BlocProvider(
+//       create: (context) => ProfileCubit(),
+//       child: const Scaffold(body: ProfileView()),
+//     );
