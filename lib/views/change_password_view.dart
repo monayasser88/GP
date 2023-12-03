@@ -23,7 +23,6 @@ class _ChangePasswordViewState extends State<ChangePasswordView> {
   final TextEditingController confirmNewPasswordController =
       TextEditingController();
 
-
   @override
   Widget build(BuildContext context) {
     final passNotifier = ValueNotifier<PasswordStrength?>(null);
