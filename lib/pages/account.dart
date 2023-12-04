@@ -12,7 +12,7 @@ import 'package:gp_project/pages/favourites.dart';
 import 'package:gp_project/pages/profile_page.dart';
 import 'package:gp_project/pages/setting.dart';
 import 'package:gp_project/pages/tickets.dart';
-import 'package:gp_project/views/favorites_view.dart';
+
 
 class Account extends StatelessWidget {
   Account({super.key});

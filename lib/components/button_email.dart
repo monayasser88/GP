@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable
 class ButtonEmail extends StatelessWidget {
-  ButtonEmail({this.text,this.ontap});
+    ButtonEmail({super.key, this.text,this.ontap});
   String? text;
   Function()? ontap;
   @override

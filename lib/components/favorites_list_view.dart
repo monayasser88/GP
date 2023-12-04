@@ -19,8 +19,8 @@ class FavoritesListView extends StatelessWidget {
         //itemCount: state.favorites.length,
         itemBuilder: (context, index) {
       //var favorite = state.favorites[index];
-      return Padding(
-        padding: const EdgeInsets.symmetric(vertical: 6),
+      return const Padding(
+        padding:  EdgeInsets.symmetric(vertical: 6),
         child: FavoriteContainer(
             //description: favorite['description'],
             //title: favorite['title'],

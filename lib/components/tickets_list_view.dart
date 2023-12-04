@@ -19,8 +19,8 @@ class TicketsListView extends StatelessWidget {
               //itemCount: state.tickets.length,
               itemBuilder: (context, index) {
                // var ticket = state.tickets[index];
-                return Padding(
-                    padding:const EdgeInsets.symmetric(vertical: 6),
+                return const Padding(
+                    padding: EdgeInsets.symmetric(vertical: 6),
                     child: TicketContainer(
                       //title:ticket['title'] ,description:ticket['description']
                       ) );
