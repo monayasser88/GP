@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gp_project/components/custom_appbar.dart';
 import 'package:gp_project/components/custom_container_in_profile.dart';
 import 'package:gp_project/components/custom_edit_photo.dart';
@@ -8,7 +9,7 @@ import 'package:gp_project/components/update_pop_up.dart';
 import 'package:gp_project/constraints.dart';
 import 'package:gp_project/cubit/image_cubit_cubit.dart';
 import 'package:gp_project/pages/change_password.dart';
-import 'package:gp_project/pages/update_profile.dart';
+import 'package:gp_project/pages/update_email.dart';
 
 class ProfileView extends StatefulWidget {
   const ProfileView({super.key});
@@ -31,7 +32,6 @@ class _ProfileViewState extends State<ProfileView> {
   final TextEditingController firstNameController = TextEditingController();
   final TextEditingController lastNameController = TextEditingController();
   final TextEditingController cityController = TextEditingController();
-
   @override
   Widget build(BuildContext context) {
     // return BlocBuilder<ProfileCubit, ProfileState>(
@@ -46,10 +46,10 @@ class _ProfileViewState extends State<ProfileView> {
     //       lastNameController.text = profile.lastName!;
     //       cityController.text = profile.city!;
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 17),
+      padding: EdgeInsets.symmetric(horizontal: 17),
       child: SingleChildScrollView(
         child: SizedBox(
-          height: 600,
+          height: 630,
           child: Column(
             children: [
               const SizedBox(
@@ -64,8 +64,14 @@ class _ProfileViewState extends State<ProfileView> {
               const SizedBox(
                 height: 20,
               ),
-              CustomEditPhoto(
-                imageCubit: imageCubit,
+              SizedBox(
+                height: 150,
+                child: BlocProvider(
+                  create: (context) => ImageCubitCubit(),
+                  child: CustomEditPhoto(
+                    imageCubit: imageCubit,
+                  ),
+                ),
               ),
               const SizedBox(
                 height: 20,
@@ -120,7 +126,7 @@ class _ProfileViewState extends State<ProfileView> {
                 onTap: () {
                   Navigator.of(context)
                       .push(MaterialPageRoute(builder: (context) {
-                    return const UpdateProfile();
+                    return const UpdateEmail();
                   }));
                 },
                 userInfo: 'mona@gmail.com',

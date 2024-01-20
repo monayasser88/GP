@@ -13,7 +13,6 @@ import 'package:gp_project/pages/profile_page.dart';
 import 'package:gp_project/pages/setting.dart';
 import 'package:gp_project/pages/tickets.dart';
 
-
 class Account extends StatelessWidget {
   Account({super.key});
   final ImageCubitCubit imageCubit = ImageCubitCubit();
@@ -32,10 +31,13 @@ class Account extends StatelessWidget {
             const SizedBox(
               height: 29,
             ),
-            BlocProvider(
-              create: (context) => ImageCubitCubit(),
-              child: CustomEditPhoto(
-                imageCubit: imageCubit,
+            SizedBox(
+              height: 150,
+              child: BlocProvider(
+                create: (context) => ImageCubitCubit(),
+                child: CustomEditPhoto(
+                  imageCubit: imageCubit,
+                ),
               ),
             ),
             const SizedBox(

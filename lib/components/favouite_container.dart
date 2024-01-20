@@ -2,15 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:gp_project/constraints.dart';
 
 class FavoriteContainer extends StatelessWidget {
-  const FavoriteContainer({
-    super.key,
-    //required this.title,
-    //required this.description,
-    //required this.image
-  });
-  //final String title;
-  //final String description;
-  //final String image;
+  const FavoriteContainer(
+      {super.key,
+      required this.title,
+      required this.description,
+      required this.image});
+  final String title;
+  final String description;
+  final String image;
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
@@ -29,14 +28,15 @@ class FavoriteContainer extends StatelessWidget {
                       left: BorderSide(color: Colors.grey, width: .5),
                       top: BorderSide(color: Colors.grey, width: .5)),
                 ),
-                child: const Padding(
+                child: Padding(
                   padding: EdgeInsets.only(right: 5),
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Image(
-                        //image:AssetImage(image),
-                        image: AssetImage('assets/congratsImage.png'),
+                        image: AssetImage(image),
+                        //image: AssetImage('assets/congratsImage.png'),
                         height: 250,
                         width: 130,
                       ),
@@ -51,8 +51,8 @@ class FavoriteContainer extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                //title,
-                                'mona',
+                                title,
+                                //'mona',
                                 style: TextStyle(
                                     fontFamily: 'poppins',
                                     fontSize: 16,
@@ -65,8 +65,8 @@ class FavoriteContainer extends StatelessWidget {
                                 maxLines: 2,
                                 overflow: TextOverflow.clip,
                                 softWrap: true,
-                                //description,
-                                'pyramids plllllll llalallllllll lllllalalala lllllmiuvhj huygtvbm pmpmp mpmmpmm pmpm pmpmpkj hgfds asdfg hjkjhg fdfghj',
+                                description,
+                                //'pyramids plllllll llalallllllll lllllalalala lllllmiuvhj huygtvbm pmpmp mpmmpmm pmpm pmpmpkj hgfds asdfg hjkjhg fdfghj',
                                 style: TextStyle(
                                     fontFamily: 'poppins',
                                     fontSize: 14,
@@ -77,6 +77,16 @@ class FavoriteContainer extends StatelessWidget {
                           ),
                         ),
                       ),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(top: 30),
+                        child: Icon(
+                          Icons.clear_rounded,
+                          size: 30,
+                        ),
+                      )
                     ],
                   ),
                 )),

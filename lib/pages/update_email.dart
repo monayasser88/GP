@@ -5,8 +5,8 @@ import 'package:gp_project/components/email_field.dart';
 import 'package:gp_project/components/update_email_text.dart';
 import 'package:gp_project/pages/verification_code.dart';
 
-class UpdateProfile extends StatelessWidget {
-  const UpdateProfile({super.key});
+class UpdateEmail extends StatelessWidget {
+  const UpdateEmail({super.key});
 
   @override
   Widget build(BuildContext context) {

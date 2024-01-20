@@ -8,26 +8,24 @@ class TicketsListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // return BlocBuilder<TicketsCubit, TicketsState>(
-    //   builder: (context, state) {
-    //     if (state is TicketsInitial) {
-    //       context.read<TicketsCubit>().getTickets;
-    //       return const Center(child: CircularProgressIndicator());
-    //     }
-    //     if (state is TicketsLoaded) {
-          return ListView.builder(
-              //itemCount: state.tickets.length,
-              itemBuilder: (context, index) {
-               // var ticket = state.tickets[index];
-                return const Padding(
-                    padding: EdgeInsets.symmetric(vertical: 6),
-                    child: TicketContainer(
-                      //title:ticket['title'] ,description:ticket['description']
-                      ) );
-              });
-        }
-        //return Container();
+    return BlocBuilder<TicketsCubit, TicketsState>(builder: (context, state) {
+      if (state is TicketsInitial) {
+        context.read<TicketsCubit>().getTickets;
+        return const Center(child: CircularProgressIndicator());
       }
-    //);
- // }
-//}
+      if (state is TicketsLoaded) {
+        return ListView.builder(
+            itemCount: state.tickets.length,
+            itemBuilder: (context, index) {
+              var ticket = state.tickets[index];
+              return Padding(
+                  padding: EdgeInsets.symmetric(vertical: 6),
+                  child: TicketContainer(
+                      title: ticket['title'],
+                      description: ticket['description']));
+            });
+      }
+      return Container();
+    });
+  }
+}
