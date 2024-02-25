@@ -11,13 +11,14 @@ class Favorites extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => FavoritesCubit(),
-      child: const Scaffold(body:
-          FavoritesView()
+    return
+        //  BlocProvider(
+        //   create: (context) => FavoritesCubit(),
+        //   child:
+        const Scaffold(body: FavoritesView()
             //SearchView(),
             //NotFound()
-          )
-    );
+            );
+    // );
   }
 }
