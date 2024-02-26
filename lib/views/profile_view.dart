@@ -68,9 +68,7 @@ class _ProfileViewState extends State<ProfileView> {
                 height: 150,
                 child: BlocProvider(
                   create: (context) => ImageCubitCubit(),
-                  child: CustomEditPhoto(
-                    imageCubit: imageCubit,
-                  ),
+                  child:PickImageWidget(),
                 ),
               ),
               const SizedBox(

@@ -1,78 +1,82 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gp_project/constraints.dart';
 import 'package:gp_project/cubit/image_cubit_cubit.dart';
+import 'package:image_picker/image_picker.dart';
 
-class CustomEditPhoto extends StatefulWidget {
-  final ImageCubitCubit imageCubit;
-
-  const CustomEditPhoto({super.key, required this.imageCubit});
+class PickImageWidget extends StatefulWidget {
+  const PickImageWidget({Key? key}) : super(key: key);
 
   @override
-  State<CustomEditPhoto> createState() => _CustomEditPhotoState();
+  _PickImageWidgetState createState() => _PickImageWidgetState();
 }
 
-class _CustomEditPhotoState extends State<CustomEditPhoto> {
+class _PickImageWidgetState extends State<PickImageWidget> {
+  late ImageCubitCubit imageCubitCubit;
+
   @override
-  void dispose() {
-    final imageCubit = widget.imageCubit;
-    imageCubit.close();
-    super.dispose();
-  }
-  @override
-  Widget build(BuildContext context) {
-    final imageCubit = context.watch<ImageCubitCubit>();
-        return Stack(
-          children: [
-            if (imageCubit.state is ImageLoaded)
-              SizedBox(
-                height: 100,
-                width: 100,
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(100),
-                  child:
-                    Image(image: AssetImage('assets/logo3.jpg')),
-                  //Image.network((imageCubit.state as ImageLoaded).imageUrl),
-                ),
-              ),
-            Positioned(
-              bottom: 0,
-              right: 0,
-              child: Container(
-                width: 40,
-                height: 40,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(100),
-                  color: kPrimaryColor,
-                ),
-                child: IconButton(
-                  onPressed: () {
-                    imageCubit.pickImage().then((imageFile) {
-                      if (imageFile != null) {
-                        imageCubit
-                            .uploadImage(imageFile as File)
-                            .then((imageUrl) {
-                          imageCubit.setImage(imageUrl);
-                        }).catchError((error) {
-                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                            content: Text('Error uploading image: $error'),
-                          ));
-                        });
-                      }
-                    });
-                  },
-                  icon: const Icon(
-                    Icons.camera_alt_outlined,
-                    color: Colors.white,
-                    size: 16,
-                  ),
-                ),
-              ),
-            ),
-          ],
-        );
-      }
+  void initState() {
+    super.initState();
+    imageCubitCubit = context.read<ImageCubitCubit>();
   }
 
+  @override
+  Widget build(BuildContext context) {
+    return BlocConsumer<ImageCubitCubit, ImageCubitState>(
+      listener: (context, state) {
+        // TODO: implement listener
+      },
+      builder: (context, state) {
+        return SizedBox(
+          width: 120,
+          height: 120,
+          child: CircleAvatar(
+            backgroundColor: Colors.grey.shade200,
+            backgroundImage: _getImageProvider(),
+            child: Stack(
+              children: [
+                Positioned(
+                  bottom: 5,
+                  right: 5,
+                  child: GestureDetector(
+                    onTap: () async {
+                      final pickedImage = await ImagePicker().pickImage(
+                        source: ImageSource.gallery,
+                      );
+                      if (pickedImage != null) {
+                        imageCubitCubit.updateProfilePic(pickedImage);
+                      }
+                    },
+                    child: Container(
+                      height: 50,
+                      width: 50,
+                      decoration: BoxDecoration(
+                        color: kPrimaryColor,
+                        border: Border.all(color: Colors.white, width: 3),
+                        borderRadius: BorderRadius.circular(25),
+                      ),
+                      child: const Icon(
+                        Icons.camera_alt_sharp,
+                        color: Colors.white,
+                        size: 25,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  ImageProvider<Object>? _getImageProvider() {
+    if (imageCubitCubit.profilePic == null) {
+      return const AssetImage("assets/person.png");
+    } else {
+      return FileImage(File(imageCubitCubit.profilePic!.path));
+    }
+  }
+}

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gp_project/components/not_found_container.dart';
 import 'package:gp_project/constraints.dart';
-import 'package:gp_project/pages/account.dart';
+import 'package:gp_project/pages/search.dart';
 
 class NotFound extends StatelessWidget {
   const NotFound({super.key});
@@ -22,7 +22,7 @@ class NotFound extends StatelessWidget {
               contName: 'here',
               onTap: () {
                 Navigator.push(context, MaterialPageRoute(builder: (context) {
-                  return Account();
+                  return const Search();
                 }));
               },
             ),
