@@ -10,7 +10,7 @@ class PhotoAccount extends StatelessWidget {
         height: 120,
         child: CircleAvatar(
           backgroundColor: Colors.grey.shade200,
-          backgroundImage:const AssetImage("assets/person.png"),
+          backgroundImage: const AssetImage("assets/person.png"),
         ));
   }
 }

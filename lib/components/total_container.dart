@@ -5,7 +5,7 @@ import 'package:gp_project/pages/check_out.dart';
 // ignore: must_be_immutable
 class TotalContainer extends StatelessWidget {
   TotalContainer({super.key, required this.total});
-  double? total;
+  final double? total;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -13,25 +13,12 @@ class TotalContainer extends StatelessWidget {
       width: 345,
       decoration: BoxDecoration(
         border: Border.all(color: Colors.grey, width: 0.5),
-        color: Colors.white,
         borderRadius: const BorderRadius.only(
           topLeft: Radius.circular(15),
           topRight: Radius.circular(15),
           bottomLeft: Radius.circular(15),
           bottomRight: Radius.circular(15),
         ),
-        boxShadow: const [
-          BoxShadow(
-            color: Colors.grey,
-            offset: Offset(
-              0,
-              1.0,
-            ),
-            blurRadius: 5.0,
-            spreadRadius: 0,
-          ), //BoxShadow
-          //BoxShadow
-        ],
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,

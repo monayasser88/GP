@@ -11,7 +11,7 @@ class TicketsListView extends StatefulWidget {
 }
 
 class _TicketsListViewState extends State<TicketsListView> {
-  double? total = 200;
+  double? total;
   @override
   Widget build(BuildContext context) {
     //return BlocBuilder<TicketsCubit, TicketsState>(builder: (context, state) {
@@ -25,17 +25,18 @@ class _TicketsListViewState extends State<TicketsListView> {
         //state.tickets.length,
         itemBuilder: (context, index) {
           //var ticket = state.tickets[index];
-          return  Padding(
+          return Padding(
               padding: EdgeInsets.symmetric(vertical: 6),
               child: TicketContainer(
                 onTotalChanged: (newTotal) {
-            setState(() {
-              total = newTotal;
-            });
-          },
-                  // title: ticket['title'],
-                  //description: ticket['description']));
-                  ));
+                  setState(() {
+                    total = newTotal;
+                  });
+                },
+                price: 200,
+                // title: ticket['title'],
+                //description: ticket['description']));
+              ));
         });
   }
 }

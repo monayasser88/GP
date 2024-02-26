@@ -4,17 +4,18 @@ import 'package:gp_project/constraints.dart';
 class TicketContainer extends StatefulWidget {
   const TicketContainer({
     Key? key,
-    required this.onTotalChanged,
+    required this.onTotalChanged, required this.price,
     //required this.title, required this.description
   }) : super(key: key);
   final ValueChanged<double?> onTotalChanged;
+  final int price;
   @override
   State<TicketContainer> createState() => _TicketContainerState();
 }
 
 class _TicketContainerState extends State<TicketContainer> {
   int selectedQuantity = 1;
-  //int? price;
+  int price = 200;
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
@@ -89,15 +90,13 @@ class _TicketContainerState extends State<TicketContainer> {
                                       color: kPrimaryColor,
                                       size: 22,
                                     ),
-                                    // dropdownColor:
-                                    //     Color.fromARGB(255, 255, 240, 189),
                                     value: selectedQuantity,
                                     onChanged: (newQuantity) {
                                       setState(() {
                                         selectedQuantity = newQuantity!;
                                         // Calculate and update total using the callback
-                                        widget.onTotalChanged(
-                                            200 * selectedQuantity.toDouble());
+                                        widget.onTotalChanged(price *
+                                            selectedQuantity.toDouble());
                                       });
                                     },
                                     items: List.generate(5, (index) {
@@ -121,7 +120,7 @@ class _TicketContainerState extends State<TicketContainer> {
                       const SizedBox(
                         width: 10,
                       ),
-                      const Column(
+                      Column(
                         children: [
                           SizedBox(
                             width: 10,
@@ -134,7 +133,7 @@ class _TicketContainerState extends State<TicketContainer> {
                             height: 15,
                           ),
                           Text(
-                            '200',
+                            '${widget.price}',
                             style: TextStyle(
                               fontFamily: 'poppins',
                               fontSize: 20,
