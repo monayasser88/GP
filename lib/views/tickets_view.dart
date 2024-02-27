@@ -33,7 +33,7 @@ class _TicketsViewState extends State<TicketsView> {
           const SizedBox(
             height: 10,
           ),
-          TotalContainer(total: 200),
+          TotalContainer(),
           const SizedBox(
             height: 5,
           ),

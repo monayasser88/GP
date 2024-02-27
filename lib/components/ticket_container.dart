@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gp_project/constraints.dart';
+import 'package:gp_project/cubit/tickets_cubit.dart';
 
 class TicketContainer extends StatefulWidget {
   const TicketContainer({
     Key? key,
-    required this.onTotalChanged, required this.price,
+    required this.onTotalChanged,
     //required this.title, required this.description
   }) : super(key: key);
   final ValueChanged<double?> onTotalChanged;
-  final int price;
   @override
   State<TicketContainer> createState() => _TicketContainerState();
 }
@@ -16,6 +17,7 @@ class TicketContainer extends StatefulWidget {
 class _TicketContainerState extends State<TicketContainer> {
   int selectedQuantity = 1;
   int price = 200;
+  int? ticketIndex;
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
@@ -90,13 +92,12 @@ class _TicketContainerState extends State<TicketContainer> {
                                       color: kPrimaryColor,
                                       size: 22,
                                     ),
-                                    value: selectedQuantity,
+                                    value: context
+                                        .read<TicketsCubit>()
+                                        .selectedQuantity,
                                     onChanged: (newQuantity) {
                                       setState(() {
-                                        selectedQuantity = newQuantity!;
-                                        // Calculate and update total using the callback
-                                        widget.onTotalChanged(price *
-                                            selectedQuantity.toDouble());
+                                        context.read<TicketsCubit>().updateQuantity(newQuantity!);
                                       });
                                     },
                                     items: List.generate(5, (index) {
@@ -133,7 +134,7 @@ class _TicketContainerState extends State<TicketContainer> {
                             height: 15,
                           ),
                           Text(
-                            '${widget.price}',
+                            '${context.select((TicketsCubit cubit) => cubit.price) * context.select((TicketsCubit cubit) => cubit.selectedQuantity)}',
                             style: TextStyle(
                               fontFamily: 'poppins',
                               fontSize: 20,
