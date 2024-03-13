@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gp_project/constraints.dart';
 import 'package:gp_project/cubit/tickets_cubit.dart';
-import 'package:gp_project/pages/check_out.dart';
+import 'package:gp_project/pages/order.dart';
 
 // ignore: must_be_immutable
 class TotalContainer extends StatelessWidget {
@@ -56,7 +56,7 @@ class TotalContainer extends StatelessWidget {
               GestureDetector(
                 onTap: () {
                   Navigator.push(context, MaterialPageRoute(builder: (context) {
-                    return const CheckOut();
+                    return const Order();
                   }));
                 },
                 child: Container(
