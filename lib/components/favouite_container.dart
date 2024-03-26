@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gp_project/components/custom_text.dart';
 import 'package:gp_project/constraints.dart';
 
 class FavoriteContainer extends StatelessWidget {
@@ -51,14 +52,7 @@ class FavoriteContainer extends StatelessWidget {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(
-                                //title,
-                                'mona',
-                                style: TextStyle(
-                                    fontFamily: 'poppins',
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w700),
-                              ),
+                              CustomText(title: 'pyramids',),
                               SizedBox(
                                 height: 15,
                               ),

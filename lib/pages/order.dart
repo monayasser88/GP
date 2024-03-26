@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gp_project/components/custom_appbar.dart';
 import 'package:gp_project/components/custom_field.dart';
+import 'package:gp_project/components/delivary_pop_up.dart';
 import 'package:gp_project/components/pay_field.dart';
 
 class Order extends StatelessWidget {
@@ -58,7 +59,9 @@ class Order extends StatelessWidget {
                 ),
                 PayField(
                   text: 'Pay Cash',
-                  ontap: () {},
+                  ontap: () {
+                    showCustomPopupdelivary(context);
+                  },
                 ),
               ],
             )

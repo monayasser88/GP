@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gp_project/components/custom_text.dart';
 import 'package:gp_project/constraints.dart';
 import 'package:gp_project/cubit/tickets_cubit.dart';
 
@@ -18,6 +19,20 @@ class _TicketContainerState extends State<TicketContainer> {
   int selectedQuantity = 1;
   int price = 200;
   int? ticketIndex;
+  void _incrementQuantity() {
+    setState(() {
+      selectedQuantity++;
+    });
+  }
+
+  void _decrementQuantity() {
+    setState(() {
+      if (selectedQuantity > 0) {
+        selectedQuantity--;
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
@@ -47,14 +62,7 @@ class _TicketContainerState extends State<TicketContainer> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
-                              'Egypt',
-                              style: TextStyle(
-                                fontFamily: 'poppins',
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
+                            CustomText(title: 'Egypt'),
                             SizedBox(
                               height: 15,
                             ),
@@ -73,45 +81,26 @@ class _TicketContainerState extends State<TicketContainer> {
                             ),
                             Row(
                               children: [
+                                IconButton(
+                                  icon: Icon(
+                                    Icons.remove,
+                                    color: kPrimaryColor,
+                                  ),
+                                  onPressed: _decrementQuantity,
+                                ),
                                 Text(
-                                  'Qty: ',
+                                  '$selectedQuantity',
                                   style: TextStyle(
-                                    fontFamily: 'poppins',
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w500,
-                                  ),
+                                      fontSize: 18,
+                                      fontFamily: 'poppins',
+                                      fontWeight: FontWeight.w800),
                                 ),
-                                SizedBox(
-                                  width: 10,
-                                ),
-                                SizedBox(
-                                  height: 40, // Set a specific height
-                                  child: DropdownButton<int>(
-                                    icon: Icon(
-                                      Icons.arrow_drop_down_circle,
-                                      color: kPrimaryColor,
-                                      size: 22,
-                                    ),
-                                    value: context
-                                        .read<TicketsCubit>()
-                                        .selectedQuantity,
-                                    onChanged: (newQuantity) {
-                                      setState(() {
-                                        context.read<TicketsCubit>().updateQuantity(newQuantity!);
-                                      });
-                                    },
-                                    items: List.generate(5, (index) {
-                                      return DropdownMenuItem<int>(
-                                        value: index + 1,
-                                        child: Text(
-                                          '${index + 1}',
-                                          style: TextStyle(
-                                            fontSize: 18,
-                                          ),
-                                        ),
-                                      );
-                                    }),
+                                IconButton(
+                                  icon: Icon(
+                                    Icons.add,
+                                    color: kPrimaryColor,
                                   ),
+                                  onPressed: _incrementQuantity,
                                 ),
                               ],
                             ),
