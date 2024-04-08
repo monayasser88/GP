@@ -1,11 +1,23 @@
-class Favorite {
-  final int id;
+class WishListItem {
+  final String id;
   final String title;
   final String description;
-  final String image;
+  final String imgCover;
 
-  Favorite({required this.id, required this.title, required this.description,required this.image});
+  WishListItem({
+    required this.id,
+    required this.title,
+    required this.description,
+    required this.imgCover,
+  });
 
-  factory Favorite.fromJson(Map<String, dynamic> json) => Favorite(
-      id: json['id'], title: json['title'], description: json['description'], image: json['image']);
+  factory WishListItem.fromJson(Map<String, dynamic> json) {
+    return WishListItem(
+      id: json['_id'],
+      title: json['title'],
+      description: json['description'],
+      imgCover: json['imgCover'],
+    );
+  }
 }
+

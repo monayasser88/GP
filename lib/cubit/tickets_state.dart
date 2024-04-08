@@ -5,10 +5,7 @@ sealed class TicketsState {}
 
 final class TicketsInitial extends TicketsState {}
 
-final class TicketsLoaded extends TicketsState {
-  final List<Map<String, dynamic>> tickets;
-
-  TicketsLoaded(this.tickets);
+final class TicketsSuccess extends TicketsState {
 }
 
 final class TicketsLoading extends TicketsState {}
@@ -33,4 +30,14 @@ class TicketsList extends TicketsState {
   final List<Ticket> tickets;
 
   TicketsList(this.tickets);
+}
+final class ShippingSuccess extends TicketsState {
+}
+
+final class ShippingLoading extends TicketsState {}
+
+final class ShippingError extends TicketsState {
+  final String errMassage;
+
+  ShippingError(this.errMassage);
 }

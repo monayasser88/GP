@@ -97,11 +97,12 @@ class _ChangePasswordViewState extends State<ChangePasswordView> {
                           confirmNewPasswordController.text;
                       if (_formKey.currentState!.validate()) {
                         _formKey.currentState!.save();
-                      }
-                      if (newPassword == confirmNewPassword) {
-                        context
-                            .read<ChangePasswordCubit>()
-                            .changePassword(oldPassword, newPassword);
+                        if (newPassword == confirmNewPassword) {
+                          context
+                              .read<ChangePasswordCubit>()
+                              .changeUserPassword(
+                                  oldPassword, newPassword, confirmNewPassword);
+                        }
                       } else {
                         ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(

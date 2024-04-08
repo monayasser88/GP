@@ -4,15 +4,11 @@ part of 'favorites_cubit.dart';
 sealed class FavoritesState {}
 
 final class FavoritesInitial extends FavoritesState {}
-final class FavoritesLoaded extends FavoritesState {
-  final List<Map<String, dynamic>> favorites;
-
-  FavoritesLoaded(this.favorites);
-
+final class FavoriteTripsSuccess extends FavoritesState {
 }
-final class FavoritesLoading extends FavoritesState {}
-final class FavoritesError extends FavoritesState {
+final class FavoriteTripsLoading extends FavoritesState {}
+final class FavoriteTripsError extends FavoritesState {
   final String errMassage;
 
-  FavoritesError(this.errMassage);
+  FavoriteTripsError(this.errMassage);
 }

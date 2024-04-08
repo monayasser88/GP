@@ -1,15 +1,21 @@
 import 'package:flutter/material.dart';
 
 class CustomField extends StatelessWidget {
-  const CustomField({super.key, required this.label, required this.hint});
+  const CustomField(
+      {super.key,
+      required this.label,
+      required this.hint,
+      required this.controller});
   final String label;
   final String hint;
+  final TextEditingController controller;
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       width: 354,
       height: 44,
       child: TextFormField(
+        controller:controller,
         decoration: InputDecoration(
           labelText: label,
           hintText: hint,
