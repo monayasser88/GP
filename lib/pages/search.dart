@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gp_project/cubit/search_cubit.dart';
 import 'package:gp_project/views/search_view.dart';
 
 class Search extends StatefulWidget {
@@ -11,8 +13,11 @@ class Search extends StatefulWidget {
 class _SearchState extends State<Search> {
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: SearchView(),
+    return BlocProvider(
+      create: (context) => SearchCubit(),
+      child: const Scaffold(
+        body: SearchView(),
+      ),
     );
   }
 }

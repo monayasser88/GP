@@ -1,43 +1,45 @@
 import 'dart:convert';
-import 'package:gp_project/models/user_model';
+
 import 'package:bloc/bloc.dart';
-import 'package:meta/meta.dart';
+import 'package:dio/dio.dart';
+import 'package:gp_project/core/errors/exceptions.dart';
+import 'package:gp_project/models/user_model';
 import 'package:http/http.dart' as http;
+import 'package:meta/meta.dart';
+
 part 'profile_state.dart';
 
 class ProfileCubit extends Cubit<ProfileState> {
   ProfileCubit() : super(ProfileInitial());
-  fetchProfile() async {
-    emit(ProfileLoading());
-
+  Future getUserProfile(Dio dio) async {
     try {
-      final response = await http.get(Uri.parse(''));
+      emit(ProfileLoading());
 
-      if (response.statusCode == 200) {
-        final jsonData = json.decode(response.body);
-        final profile = Profile.fromJson(jsonData);
+      final response = await dio.get(
+        'https://kemet-gp2024.onrender.com/api/v1/auth/profile',
+        options: Options(headers: {
+          'token':
+              'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NjE4YmNhZmQ2M2ExY2M3ZjhmZGE4MWIiLCJyb2xlIjoidXNlciIsImlhdCI6MTcxMzA1OTA5Nn0.s30CHAPbsunogUMKv8FJRpM1UNg3eCnAdoywz7XEC9k'
+        }), // Add token in the header
+      );
 
-        emit(ProfileLoaded(profile));
-      } else {
-        emit(ProfileError('Failed to fetch profile'));
-      }
-    } catch (error) {
-      emit(ProfileError('An error occurred'));
+      final profile = Profile.fromJson(response.data);
+      emit(ProfileLoaded(profile));
+    } on ServerException catch (e) {
+      emit(ProfileError('Failed to fetch user profile'));
     }
   }
 
   Future<Profile> updateFirstName(String firstName) async {
+    var updatedFirstNameResponse =
+        await http.put(Uri.parse(''), body: {'firstName': firstName});
 
-      var updatedFirstNameResponse = await http.put(Uri.parse(''),
-        body: {'firstName': firstName});
-
-      final updatedFirstNameData = json.decode(updatedFirstNameResponse.body);
+    final updatedFirstNameData = json.decode(updatedFirstNameResponse.body);
     final updatedUserProfile = Profile.fromJson(updatedFirstNameData);
     return updatedUserProfile;
   }
 
   Future<Profile> updateLastName(String lastName) async {
-
     final updatedLastNameResponse = await http.put(
       Uri.parse(''),
       body: {'last_name': lastName},
@@ -48,8 +50,7 @@ class ProfileCubit extends Cubit<ProfileState> {
   }
 
   Future<Profile> updateCity(String city) async {
-
-      final updatedCityResponse = await http.put(
+    final updatedCityResponse = await http.put(
       Uri.parse(''),
       body: {'city': city},
     );
@@ -68,5 +69,4 @@ class ProfileCubit extends Cubit<ProfileState> {
 
   //    emit(UserProfileUpdated());
   // }
-
 }

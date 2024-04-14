@@ -13,12 +13,9 @@ class ProfilePage extends StatefulWidget {
 class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: ProfileView(),
+    return BlocProvider(
+      create: (context) => ProfileCubit(),
+      child: const Scaffold(body: ProfileView()),
     );
   }
 }
-// BlocProvider(
-//       create: (context) => ProfileCubit(),
-//       child: const Scaffold(body: ProfileView()),
-//     );

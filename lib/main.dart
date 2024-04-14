@@ -6,6 +6,8 @@ import 'package:gp_project/core/api/dio_consumer.dart';
 import 'package:gp_project/cubit/image_cubit_cubit.dart';
 import 'package:gp_project/cubit/logout_cubit.dart';
 import 'package:gp_project/pages/account.dart';
+import 'package:gp_project/pages/profile_page.dart';
+import 'package:gp_project/pages/search.dart';
 import 'package:gp_project/providers/theme_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -50,7 +52,7 @@ class GProject extends StatelessWidget {
                       ? ThemeMode.dark
                       : ThemeMode.light,
 
-                  home: Account(),
+                  home:const ProfilePage(),
                 );
               }),
             ),

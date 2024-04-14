@@ -9,15 +9,15 @@ class SearchCubit extends Cubit<SearchState> {
 
   SearchCubit() : super(SearchInitial());
 
-  void search(String query) async {
-    if (query.isEmpty) {
+  Future search(String keyword) async {
+    if (keyword.isEmpty) {
       emit(SearchHistory(await _repository.getSearchHistory()));
       return;
     }
 
     try {
       emit(SearchLoading());
-      final List<String> results = await _repository.search(query);
+      final List<Map<String, dynamic>> results = await _repository.search(keyword);
       if (results.isNotEmpty) {
         emit(SearchLoaded(results));
       } else {

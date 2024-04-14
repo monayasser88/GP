@@ -13,5 +13,4 @@ updateProfilePic(XFile image) {
     profilePic = image;
     emit(UploadPicture());
   }
-  
 }

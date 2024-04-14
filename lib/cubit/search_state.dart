@@ -9,7 +9,7 @@ final class SearchInitial extends SearchState {}
 class SearchLoading extends SearchState {}
 
 class SearchLoaded extends SearchState {
-  final List<String> results;
+  final List<Map<String, dynamic>> results;
 
   SearchLoaded(this.results);
 }
@@ -17,7 +17,7 @@ class SearchLoaded extends SearchState {
 class SearchError extends SearchState {}
 
 class SearchHistory extends SearchState {
-  final List<String> history;
+  final List<Map<String, dynamic>> history;
 
   SearchHistory(this.history);
 }
