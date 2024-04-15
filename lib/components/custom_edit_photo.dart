@@ -1,8 +1,9 @@
 import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gp_project/constraints.dart';
-import 'package:gp_project/cubit/image_cubit_cubit.dart';
+import 'package:gp_project/cubit/profile_cubit.dart';
 import 'package:image_picker/image_picker.dart';
 
 class PickImageWidget extends StatefulWidget {
@@ -13,27 +14,29 @@ class PickImageWidget extends StatefulWidget {
 }
 
 class _PickImageWidgetState extends State<PickImageWidget> {
-  late ImageCubitCubit imageCubitCubit;
+  late ProfileCubit profileCubit;
 
   @override
   void initState() {
     super.initState();
-    imageCubitCubit = context.read<ImageCubitCubit>();
+    profileCubit = context.read<ProfileCubit>();
   }
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<ImageCubitCubit, ImageCubitState>(
-      listener: (context, state) {
-        // TODO: implement listener
-      },
-      builder: (context, state) {
+    return BlocConsumer<ProfileCubit, ProfileState>(listener: (context, state) {
+      // TODO: implement listener
+    }, builder: (context, state) {
+      if (state is UploadPicture) {
+        // Show loading indicator or any UI updates during upload
+        return CircularProgressIndicator();
+      } else if (state is ProfileLoaded) {
         return SizedBox(
           width: 120,
           height: 120,
           child: CircleAvatar(
             backgroundColor: Colors.grey.shade200,
-            backgroundImage: _getImageProvider(),
+            backgroundImage: NetworkImage(state.profile.profilePic ?? ''),
             child: Stack(
               children: [
                 Positioned(
@@ -45,7 +48,7 @@ class _PickImageWidgetState extends State<PickImageWidget> {
                         source: ImageSource.gallery,
                       );
                       if (pickedImage != null) {
-                        imageCubitCubit.updateProfilePic(pickedImage);
+                        profileCubit.updateProfilePic(pickedImage);
                       }
                     },
                     child: Container(
@@ -68,15 +71,16 @@ class _PickImageWidgetState extends State<PickImageWidget> {
             ),
           ),
         );
-      },
-    );
+      }
+      return Container();
+    });
   }
 
   ImageProvider<Object>? _getImageProvider() {
-    if (imageCubitCubit.profilePic == null) {
-      return const AssetImage("assets/person.png");
+    if (profileCubit.profilePic == null) {
+      return const AssetImage('assets/person.png');
     } else {
-      return FileImage(File(imageCubitCubit.profilePic!.path));
+      return FileImage(File(profileCubit.profilePic!.path));
     }
   }
 }

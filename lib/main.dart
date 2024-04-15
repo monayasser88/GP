@@ -5,9 +5,7 @@ import 'package:gp_project/cache/cache_helper.dart';
 import 'package:gp_project/core/api/dio_consumer.dart';
 import 'package:gp_project/cubit/image_cubit_cubit.dart';
 import 'package:gp_project/cubit/logout_cubit.dart';
-import 'package:gp_project/pages/account.dart';
 import 'package:gp_project/pages/profile_page.dart';
-import 'package:gp_project/pages/search.dart';
 import 'package:gp_project/providers/theme_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -18,7 +16,6 @@ void main() {
 }
 
 class GProject extends StatelessWidget {
-
   static final ValueNotifier<ThemeMode> themeNotifier =
       ValueNotifier(ThemeMode.light);
   const GProject({super.key});
@@ -52,7 +49,7 @@ class GProject extends StatelessWidget {
                       ? ThemeMode.dark
                       : ThemeMode.light,
 
-                  home:const ProfilePage(),
+                  home: const ProfilePage(),
                 );
               }),
             ),

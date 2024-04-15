@@ -73,10 +73,7 @@ class _ProfileViewState extends State<ProfileView> {
                   ),
                   SizedBox(
                     height: 150,
-                    child: BlocProvider(
-                      create: (context) => ImageCubitCubit(),
-                      child: PickImageWidget(),
-                    ),
+                    child: PickImageWidget(),
                   ),
                   const SizedBox(
                     height: 20,
@@ -151,7 +148,7 @@ class _ProfileViewState extends State<ProfileView> {
                       });
                     },
                     //userInfo: state.profile.city.toString(),
-                    userInfo: 'cairo',
+                    userInfo: state.profile.city ?? '',
                   ),
                   const SizedBox(
                     height: 10,

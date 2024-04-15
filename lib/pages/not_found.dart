@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gp_project/components/not_found_container.dart';
 import 'package:gp_project/constraints.dart';
-import 'package:gp_project/pages/search.dart';
+import 'package:gp_project/pages/tourism_search.dart';
 
 class NotFound extends StatelessWidget {
   const NotFound({super.key});

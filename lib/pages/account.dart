@@ -9,7 +9,7 @@ import 'package:gp_project/cubit/image_cubit_cubit.dart';
 import 'package:gp_project/cubit/logout_cubit.dart';
 import 'package:gp_project/pages/change_password.dart';
 import 'package:gp_project/pages/profile_page.dart';
-import 'package:gp_project/pages/search.dart';
+import 'package:gp_project/pages/tourism_search.dart';
 import 'package:gp_project/pages/setting.dart';
 import 'package:gp_project/pages/tickets.dart';
 

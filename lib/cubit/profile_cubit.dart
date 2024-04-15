@@ -1,16 +1,23 @@
 import 'dart:convert';
-
 import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
 import 'package:gp_project/core/errors/exceptions.dart';
 import 'package:gp_project/models/user_model';
 import 'package:http/http.dart' as http;
+import 'package:image_picker/image_picker.dart';
 import 'package:meta/meta.dart';
 
 part 'profile_state.dart';
 
 class ProfileCubit extends Cubit<ProfileState> {
   ProfileCubit() : super(ProfileInitial());
+
+    XFile? profilePic;
+updateProfilePic(XFile image) {
+    profilePic = image;
+    emit(UploadPicture());
+  }
+
   Future getUserProfile(Dio dio) async {
     try {
       emit(ProfileLoading());
@@ -19,7 +26,7 @@ class ProfileCubit extends Cubit<ProfileState> {
         'https://kemet-gp2024.onrender.com/api/v1/auth/profile',
         options: Options(headers: {
           'token':
-              'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NjE4YmNhZmQ2M2ExY2M3ZjhmZGE4MWIiLCJyb2xlIjoidXNlciIsImlhdCI6MTcxMzA1OTA5Nn0.s30CHAPbsunogUMKv8FJRpM1UNg3eCnAdoywz7XEC9k'
+              'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NjFjNmI5MzY3OTkzMmU2Nzc3MTg5YWMiLCJyb2xlIjoidXNlciIsImlhdCI6MTcxMzEzODc1NH0.sh74JsC84u2Q6Wp4vkx3adbV8KzYscYHLS4A40mu604'
         }), // Add token in the header
       );
 
@@ -29,6 +36,10 @@ class ProfileCubit extends Cubit<ProfileState> {
       emit(ProfileError('Failed to fetch user profile'));
     }
   }
+
+
+
+
 
   Future<Profile> updateFirstName(String firstName) async {
     var updatedFirstNameResponse =
@@ -58,7 +69,7 @@ class ProfileCubit extends Cubit<ProfileState> {
     final updatedUserProfile = Profile.fromJson(updatedCityData);
     return updatedUserProfile;
   }
-
+}
   // Future<void> updatePhoto(File photo) async {
 
   //    var formData = FormData({
@@ -69,4 +80,4 @@ class ProfileCubit extends Cubit<ProfileState> {
 
   //    emit(UserProfileUpdated());
   // }
-}
+

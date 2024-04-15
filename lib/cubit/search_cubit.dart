@@ -9,22 +9,62 @@ class SearchCubit extends Cubit<SearchState> {
 
   SearchCubit() : super(SearchInitial());
 
-  Future search(String keyword) async {
+  Future<void> tourismSearch(String keyword) async {
     if (keyword.isEmpty) {
-      emit(SearchHistory(await _repository.getSearchHistory()));
+      emit(SearchError("Please enter a keyword to search."));
       return;
     }
-
     try {
       emit(SearchLoading());
-      final List<Map<String, dynamic>> results = await _repository.search(keyword);
+      final List<Map<String, dynamic>> results =
+          await _repository.tourismSearch(keyword);
       if (results.isNotEmpty) {
         emit(SearchLoaded(results));
       } else {
-        emit(SearchError());
+        emit(SearchError("No results found for '$keyword'."));
       }
     } catch (e) {
-      emit(SearchError());
+      emit(SearchError("Error occurred while searching."));
+    }
+  }
+
+
+  Future<void> governorateSearch(String keyword) async {
+    if (keyword.isEmpty) {
+      emit(SearchError("Please enter a keyword to search."));
+      return;
+    }
+    try {
+      emit(SearchLoading());
+      final List<Map<String, dynamic>> results =
+          await _repository.governorateSearch(keyword);
+      if (results.isNotEmpty) {
+        emit(SearchLoaded(results));
+      } else {
+        emit(SearchError("No results found for '$keyword'."));
+      }
+    } catch (e) {
+      emit(SearchError("Error occurred while searching."));
+    }
+  }
+
+
+  Future<void> legendSearch(String keyword) async {
+    if (keyword.isEmpty) {
+      emit(SearchError("Please enter a keyword to search."));
+      return;
+    }
+    try {
+      emit(SearchLoading());
+      final List<Map<String, dynamic>> results =
+          await _repository.legendSearch(keyword);
+      if (results.isNotEmpty) {
+        emit(SearchLoaded(results));
+      } else {
+        emit(SearchError("No results found for '$keyword'."));
+      }
+    } catch (e) {
+      emit(SearchError("Error occurred while searching."));
     }
   }
 

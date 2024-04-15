@@ -19,3 +19,5 @@ final class ProfileError extends ProfileState {
 
   ProfileError(this.errMassage);
 }
+class UploadPicture extends ProfileState {
+}
