@@ -11,6 +11,7 @@ import 'package:gp_project/constraints.dart';
 import 'package:gp_project/cubit/image_cubit_cubit.dart';
 import 'package:gp_project/cubit/profile_cubit.dart';
 import 'package:gp_project/pages/change_password.dart';
+import 'package:gp_project/pages/profile_page.dart';
 import 'package:gp_project/pages/update_email.dart';
 
 class ProfileView extends StatefulWidget {
@@ -29,17 +30,63 @@ class _ProfileViewState extends State<ProfileView> {
       },
     );
   }
+
+  Future _updateFirstName(String updatedFirstName) async {
+    try {
+      final updatedProfile = await context
+          .read<ProfileCubit>()
+          .updateFirstName(updatedFirstName, dio, firstNameController);
+      if (updatedProfile != null) {
+        // Update the UI with the updated profile.
+        setState(() {
+          firstNameController.text = updatedProfile.firstName ?? '';
+          // lastNameController.text = updatedProfile.lastName ?? '';
+          // cityController.text = updatedProfile.city ?? '';
+        });
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('First name updated successfully.')),
+        );
+      } else {
+        // Handle the case when the update fails or the response is unexpected.
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Failed to update first name.')),
+        );
+      }
+    } catch (e) {
+      // Handle error if any.
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Error updating first name: $e')),
+      );
+    }
+  }
+
   @override
   void initState() {
     super.initState();
     dio = Dio();
     context.read<ProfileCubit>().getUserProfile(dio);
+    //context.read<ProfileCubit>().updateFirstName(firstNameController.text,dio);
+    context.read<ProfileCubit>().stream.listen((state) {
+      if (state is ProfileLoaded) {
+        // Update the UI with the loaded profile data.
+        firstNameController.text = state.profile.firstName ?? '';
+        lastNameController.text = state.profile.lastName ?? '';
+        cityController.text = state.profile.city ?? '';
+      }
+    });
   }
+
+  void updateFirstName(String firstName) {
+    context
+        .read<ProfileCubit>()
+        .updateFirstName(firstName, dio, firstNameController);
+  }
+
   final ImageCubitCubit imageCubit = ImageCubitCubit();
   final TextEditingController firstNameController = TextEditingController();
   final TextEditingController lastNameController = TextEditingController();
   final TextEditingController cityController = TextEditingController();
-    late Dio dio;
+  late Dio dio;
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<ProfileCubit, ProfileState>(builder: (context, state) {
@@ -49,7 +96,10 @@ class _ProfileViewState extends State<ProfileView> {
         );
       } else if (state is ProfileLoaded) {
         //final profile = state.profile;
+        if (firstNameController.text != state.profile.firstName) {
         firstNameController.text = state.profile.firstName ?? '';
+        // Update other fields as needed
+      }
         lastNameController.text = state.profile.lastName ?? '';
         cityController.text = state.profile.city ?? '';
         return Padding(
@@ -82,16 +132,18 @@ class _ProfileViewState extends State<ProfileView> {
                     titleProfile: 'First name',
                     onTap: () {
                       showUpdateDialog(context, 'Update First Name',
-                          'Enter First Name', firstNameController, () {}
-                          //   () {
-                          // final updatedLastName = lastNameController.text;
-                          // BlocProvider.of<ProfileCubit>(context)
-                          //     .updateLastName(updatedLastName);
-                          //}
-                          );
+                          'Enter First Name', firstNameController, () async {
+                        // _updateFirstName(firstNameController.text);
+                        updateFirstName(firstNameController.text);
+                          await Future.delayed(Duration(seconds: 2)); 
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) {
+                          return ProfilePage();
+                        }));
+                      });
                     },
                     //userInfo: state.profile.firstName.toString()
-                    userInfo: state.profile.firstName ??'',
+                    userInfo: state.profile.firstName ?? '',
                   ),
                   const SizedBox(
                     height: 10,
@@ -101,13 +153,15 @@ class _ProfileViewState extends State<ProfileView> {
                     onTap: () {
                       showUpdateDialog(context, 'Update Last Name',
                           'Enter Last Name', lastNameController, () {
-                        // final updatedLastName = lastNameController.text;
-                        // BlocProvider.of<ProfileCubit>(context)
-                        //     .updateLastName(updatedLastName);
+                        final updatedLastName = lastNameController.text;
+                        setState(() {
+                          BlocProvider.of<ProfileCubit>(context)
+                              .updateLastName(updatedLastName);
+                        });
                       });
                     },
                     //userInfo: state.profile.lastName.toString()
-                    userInfo: state.profile.lastName ??'',
+                    userInfo: state.profile.lastName ?? '',
                   ),
                   const SizedBox(
                     height: 10,
@@ -186,16 +240,15 @@ class _ProfileViewState extends State<ProfileView> {
           ),
         );
       }
-      if(state is ProfileError){
-          ScaffoldMessenger.of(context)
-                .showSnackBar(SnackBar(content: Text(state.errMassage)));
+      if (state is ProfileError) {
+        Builder(builder: (BuildContext context) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text(state.errMassage)),
+          );
+          return Container();
+        });
       }
       return Container();
     });
-
-    //}
-    //return Container();
-    // },
-    // );
   }
 }

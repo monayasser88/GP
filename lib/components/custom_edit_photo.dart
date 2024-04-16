@@ -28,7 +28,6 @@ class _PickImageWidgetState extends State<PickImageWidget> {
       // TODO: implement listener
     }, builder: (context, state) {
       if (state is UploadPicture) {
-        // Show loading indicator or any UI updates during upload
         return CircularProgressIndicator();
       } else if (state is ProfileLoaded) {
         return SizedBox(
