@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:bloc/bloc.dart';
+import 'package:dio/dio.dart';
 import 'package:gp_project/cache/cache_helper.dart';
 import 'package:gp_project/core/api/api_consumer.dart';
 import 'package:gp_project/core/api/end_ponits.dart';
@@ -11,7 +12,7 @@ part 'change_password_state.dart';
 
 class ChangePasswordCubit extends Cubit<ChangePasswordState> {
   ChangePasswordCubit(this.api) : super(ChangePasswordInitial());
-    final ApiConsumer api;
+  final ApiConsumer api;
   Future<void> changePassword(String oldPassword, String newPassword) async {
     emit(ChangePasswordLoading());
 
@@ -34,47 +35,37 @@ class ChangePasswordCubit extends Cubit<ChangePasswordState> {
     }
   }
 
-
-
-  Future<String> changeUserPassword(String currentPassword, String newPassword, String reNewPassword) async {
+  Future<String> changeUserPassword(Dio dio, String currentPassword,
+      String newPassword, String reNewPassword) async {
     emit(ChangePasswordLoading());
-  if (newPassword != reNewPassword) {
-    throw 'New password and confirm new password do not match.';
-  }
+    if (newPassword != reNewPassword) {
+      throw 'New password and confirm new password do not match.';
+    }
     final token = CacheHelper().getData(key: ApiKey.token);
 
     if (token == null) {
       emit(ChangePasswordFailure('User ID not found in cache.'));
     }
-  try {
-    final response = await api.patch(
-        EndPoint.getChangePasswordEndPoint,
-        data: {
-          //ApiKey.id: userId,
-          ApiKey.token: token,
-          'currentPassword': currentPassword,
-          'newPassword': newPassword,
-          'reNewPassword': reNewPassword,
-        });
-        final decodedToken = JwtDecoder.decode(token);
-      CacheHelper().saveData(key: ApiKey.token, value: response.token);
-      //CacheHelper().saveData(key: ApiKey.id, value: decodedToken[ApiKey.id]);
-      
-    if (response['msg'] == 'success' && response.containsKey('token')) {
-      emit(ChangePasswordSuccess());
-      // Password change successful
-      return response['token'];
-    } else {
-      throw response['msg'] ?? 'Failed to change password.';
-    }
-    
-  } catch (e) {
-    if (e is ServerException) {
+    try {
+      final response =
+          await dio.patch(EndPoint.getChangePasswordEndPoint, data: {
+        'currentPassword': currentPassword,
+        'newPassword': newPassword,
+        'reNewPassword': reNewPassword,
+      },
+      options: Options(headers: {'token' : token}));
+      if (response.statusCode == 200) {
+        emit(ChangePasswordSuccess());
+      }
+      return 'password changed successfully';
+    } catch (e) {
+      if (e is ServerException) {
         emit(ChangePasswordFailure(e.errModel.errorMessage));
       } else {
-        emit(ChangePasswordFailure('An error occurred while changing the password.'));
+        emit(ChangePasswordFailure(
+            'An error occurred while changing the password.'));
       }
       throw 'An error occurred while changing the password.';
+    }
   }
-}
 }

@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gp_project/constraints.dart';
@@ -15,12 +16,15 @@ class PickImageWidget extends StatefulWidget {
 
 class _PickImageWidgetState extends State<PickImageWidget> {
   late ProfileCubit profileCubit;
-
+  late Dio dio;
   @override
   void initState() {
     super.initState();
+    dio = Dio();
     profileCubit = context.read<ProfileCubit>();
   }
+
+  bool isImagePickerActive = false;
 
   @override
   Widget build(BuildContext context) {
@@ -43,12 +47,20 @@ class _PickImageWidgetState extends State<PickImageWidget> {
                   right: 5,
                   child: GestureDetector(
                     onTap: () async {
-                      final pickedImage = await ImagePicker().pickImage(
-                        source: ImageSource.gallery,
-                      );
-                      if (pickedImage != null) {
-                        profileCubit.updateProfilePic(pickedImage);
+                      if (!isImagePickerActive) {
+                        isImagePickerActive =
+                            true; // Set flag to indicate image picker is active
+                        final pickedImage = await ImagePicker().pickImage(
+                          source: ImageSource.gallery,
+                        );
+                        if (pickedImage != null) {
+                          await profileCubit.UploadImageToApi(pickedImage);
+                        }
                       }
+                      await Future.delayed(Duration(seconds: 2));
+                      setState(() {
+                        profileCubit.getUserProfile(dio);
+                      });
                     },
                     child: Container(
                       height: 50,

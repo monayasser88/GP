@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:bloc/bloc.dart';
+import 'package:dio/dio.dart';
 import 'package:gp_project/cache/cache_helper.dart';
 import 'package:gp_project/core/api/api_consumer.dart';
 import 'package:gp_project/core/api/end_ponits.dart';
@@ -12,7 +13,7 @@ class FavoritesCubit extends Cubit<FavoritesState> {
   FavoritesCubit(this.api) : super(FavoritesInitial());
   ApiConsumer api;
 
-  Future<List<WishListItem>> fetchFavoriteTrips() async {
+  Future<List<WishListItem>> fetchFavoriteTrips(Dio dio) async {
     final token = CacheHelper().getData(key: ApiKey.token);
 
     if (token == null) {
@@ -20,11 +21,11 @@ class FavoritesCubit extends Cubit<FavoritesState> {
     }
     emit(FavoriteTripsLoading());
     try {
-      var response = await api
-          .get(EndPoint.tourismWishList, queryParameters: {'userId': token});
+      var response = await dio
+          .get(EndPoint.tourismWishList,options: Options(headers: {'token' : token}));
       if (response.statusCode == 200) {
         List<WishListItem> favoriteTrips = [];
-        for (var tripData in jsonDecode(response.body)['wishListTrip']) {
+        for (var tripData in jsonDecode(response.data)['wishListTrip']) {
           WishListItem trip = WishListItem.fromJson(tripData);
           favoriteTrips.add(trip);
         }

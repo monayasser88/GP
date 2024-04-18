@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gp_project/components/custom_appbar2.dart';
@@ -22,6 +23,7 @@ class _ChangePasswordViewState extends State<ChangePasswordView> {
   final TextEditingController newPasswordController = TextEditingController();
   final TextEditingController confirmNewPasswordController =
       TextEditingController();
+  late Dio dio;
   @override
   Widget build(BuildContext context) {
     final passNotifier = ValueNotifier<PasswordStrength?>(null);
@@ -100,8 +102,8 @@ class _ChangePasswordViewState extends State<ChangePasswordView> {
                         if (newPassword == confirmNewPassword) {
                           context
                               .read<ChangePasswordCubit>()
-                              .changeUserPassword(
-                                  oldPassword, newPassword, confirmNewPassword);
+                              .changeUserPassword(dio, oldPassword, newPassword,
+                                  confirmNewPassword);
                         }
                       } else {
                         ScaffoldMessenger.of(context).showSnackBar(

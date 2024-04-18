@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:dio/dio.dart';
 import 'package:gp_project/cache/cache_helper.dart';
 import 'package:gp_project/core/api/api_consumer.dart';
 import 'package:gp_project/core/api/dio_consumer.dart';
@@ -29,7 +30,7 @@ class LogoutCubit extends Cubit<LogoutState> {
     }
   }
 
-  Future<void> logout2(DioConsumer dioConsumer) async {
+  Future<void> logout2(Dio dio) async {
     emit(LogoutInProgress());
 
     final token = CacheHelper().getDataString(key: ApiKey.token);
@@ -38,8 +39,11 @@ class LogoutCubit extends Cubit<LogoutState> {
       return;
     }
     try {
-      dioConsumer.dio.options.headers['token'] = token;
-      final response = await dioConsumer.dio.patch(EndPoint.logoutEndpoint);
+      //dioConsumer.dio.options.headers['token'] = token;
+      final response = await dio.patch(EndPoint.logoutEndpoint,
+      options: Options(headers: {
+        'token' : token
+      }));
 
       if (response.statusCode == 200) {
         emit(LoggedOut());
