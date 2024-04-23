@@ -5,6 +5,7 @@ import 'package:gp_project/components/custom_appbar.dart';
 import 'package:gp_project/components/custom_container_in_profile.dart';
 import 'package:gp_project/components/custom_edit_photo.dart';
 import 'package:gp_project/components/custom_title_in_profile.dart';
+import 'package:gp_project/components/custom_title_in_profile2.dart';
 import 'package:gp_project/components/logout_pop_up.dart';
 import 'package:gp_project/components/update_pop_up.dart';
 import 'package:gp_project/constraints.dart';
@@ -127,7 +128,7 @@ class _ProfileViewState extends State<ProfileView> {
                     userInfo: lastNameController.text,
                   ),
                   const SizedBox(height: 10),
-                  CustomTitle(
+                  CustomTitleEmail(
                     titleProfile: 'Email',
                     userInfo: emailController.text,
                   ),

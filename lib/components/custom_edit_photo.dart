@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -52,7 +51,7 @@ class _PickImageWidgetState extends State<PickImageWidget> {
                     onTap: () async {
                       if (!isImagePickerActive) {
                         isImagePickerActive =
-                            true; // Set flag to indicate image picker is active
+                            true;
                         final pickedImage = await ImagePicker().pickImage(
                           source: ImageSource.gallery,
                         );
