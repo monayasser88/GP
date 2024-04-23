@@ -11,8 +11,8 @@ import 'package:http/http.dart' as http;
 part 'change_password_state.dart';
 
 class ChangePasswordCubit extends Cubit<ChangePasswordState> {
-  ChangePasswordCubit(this.api) : super(ChangePasswordInitial());
-  final ApiConsumer api;
+  ChangePasswordCubit() : super(ChangePasswordInitial());
+  //final ApiConsumer api;
   Future<void> changePassword(String oldPassword, String newPassword) async {
     emit(ChangePasswordLoading());
 
@@ -41,19 +41,21 @@ class ChangePasswordCubit extends Cubit<ChangePasswordState> {
     if (newPassword != reNewPassword) {
       throw 'New password and confirm new password do not match.';
     }
-    final token = CacheHelper().getData(key: ApiKey.token);
+    final token =
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NjFjNmI5MzY3OTkzMmU2Nzc3MTg5YWMiLCJyb2xlIjoidXNlciIsImlhdCI6MTcxMzIyNjQ3MX0.xdh7vU90JVafhJzzXua0o4X6532iC8vxYcpMSfEbQUU';
+    // CacheHelper().getData(key: ApiKey.token);
 
     if (token == null) {
       emit(ChangePasswordFailure('User ID not found in cache.'));
     }
     try {
-      final response =
-          await dio.patch(EndPoint.getChangePasswordEndPoint, data: {
-        'currentPassword': currentPassword,
-        'newPassword': newPassword,
-        'reNewPassword': reNewPassword,
-      },
-      options: Options(headers: {'token' : token}));
+      final response = await dio.patch(EndPoint.getChangePasswordEndPoint,
+          data: {
+            'currentPassword': currentPassword,
+            'newPassword': newPassword,
+            'reNewPassword': reNewPassword,
+          },
+          options: Options(headers: {'token': token}));
       if (response.statusCode == 200) {
         emit(ChangePasswordSuccess());
       }

@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -5,8 +6,10 @@ import 'package:gp_project/components/custom_appbar.dart';
 import 'package:gp_project/components/custom_container_in_account.dart';
 import 'package:gp_project/components/logout_pop_up.dart';
 import 'package:gp_project/components/photo_account.dart';
+import 'package:gp_project/cubit/change_password_cubit.dart';
 import 'package:gp_project/cubit/image_cubit_cubit.dart';
 import 'package:gp_project/cubit/logout_cubit.dart';
+import 'package:gp_project/cubit/profile_cubit.dart';
 import 'package:gp_project/pages/change_password.dart';
 import 'package:gp_project/pages/profile_page.dart';
 import 'package:gp_project/pages/tourism_search.dart';
@@ -14,9 +17,9 @@ import 'package:gp_project/pages/setting.dart';
 import 'package:gp_project/pages/tickets.dart';
 
 class Account extends StatelessWidget {
-  Account({super.key});
+  const Account({super.key});
 
-  final ImageCubitCubit imageCubit = ImageCubitCubit();
+  //final ImageCubitCubit imageCubit = ImageCubitCubit();
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +44,7 @@ class Account extends StatelessWidget {
               onTap: () {
                 Navigator.of(context)
                     .push(MaterialPageRoute(builder: (context) {
-                  return const ProfilePage();
+                  return  ProfilePage();
                 }));
               },
               child: const ContainerAccount(
@@ -53,10 +56,16 @@ class Account extends StatelessWidget {
             GestureDetector(
               onTap: () {
                 //showCustomPopupError(context);
+                BlocProvider(
+                  create: (context) => ChangePasswordCubit(),
+                  child: Container(),
+                );
                 Navigator.of(context)
                     .push(MaterialPageRoute(builder: (context) {
                   return const ChangePassword();
+                  
                 }));
+                
               },
               child: const ContainerAccount(
                   contName: 'Change Password',

@@ -30,10 +30,13 @@ class _PickImageWidgetState extends State<PickImageWidget> {
   Widget build(BuildContext context) {
     return BlocConsumer<ProfileCubit, ProfileState>(listener: (context, state) {
       // TODO: implement listener
-    }, builder: (context, state) {
       if (state is UploadPicture) {
-        return CircularProgressIndicator();
-      } else if (state is ProfileLoaded) {
+        setState(() {
+          isImagePickerActive = false;
+        });
+      }
+    }, builder: (context, state) {
+      if (state is ProfileLoaded) {
         return SizedBox(
           width: 120,
           height: 120,
@@ -54,10 +57,11 @@ class _PickImageWidgetState extends State<PickImageWidget> {
                           source: ImageSource.gallery,
                         );
                         if (pickedImage != null) {
-                          await profileCubit.UploadImageToApi(pickedImage);
+                          profileCubit.UploadImageToApi(pickedImage);
                         }
                       }
-                      await Future.delayed(Duration(seconds: 2));
+                      isImagePickerActive = true;
+                      await Future.delayed(Duration(seconds: 1));
                       setState(() {
                         profileCubit.getUserProfile(dio);
                       });

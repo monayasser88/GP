@@ -50,7 +50,7 @@ class _SettingState extends State<Setting> {
                 onTap: () {
                   Navigator.of(context)
                       .push(MaterialPageRoute(builder: (context) {
-                    return const ProfilePage();
+                    return  ProfilePage();
                   }));
                 },
                 child:const CustomContainerSetting(

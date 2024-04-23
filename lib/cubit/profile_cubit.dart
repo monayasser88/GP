@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
@@ -22,27 +21,27 @@ class ProfileCubit extends Cubit<ProfileState> {
   }
 
   Future getUserProfile(Dio dio) async {
-  if (state is! ProfileLoading) {
-    emit(ProfileLoading());
-  }
-  try {
-    final response = await dio.get(
-      'https://kemet-gp2024.onrender.com/api/v1/auth/profile',
-      options: Options(headers: {
-        'token':
-            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NjFjNmI5MzY3OTkzMmU2Nzc3MTg5YWMiLCJyb2xlIjoidXNlciIsImlhdCI6MTcxMzIyNjQ3MX0.xdh7vU90JVafhJzzXua0o4X6532iC8vxYcpMSfEbQUU'
-      }),
-    );
-    final profile = Profile.fromJson(response.data);
-    if (state is! ProfileError) {
-      emit(ProfileLoaded(profile));
+    if (state is! ProfileLoading) {
+      emit(ProfileLoading());
     }
-  } on ServerException catch (e) {
-    if (state is! ProfileError) {
-      emit(ProfileError('Failed to fetch user profile'));
+    try {
+      final response = await dio.get(
+        'https://kemet-gp2024.onrender.com/api/v1/auth/profile',
+        options: Options(headers: {
+          'token':
+              'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NjFjNmI5MzY3OTkzMmU2Nzc3MTg5YWMiLCJyb2xlIjoidXNlciIsImlhdCI6MTcxMzIyNjQ3MX0.xdh7vU90JVafhJzzXua0o4X6532iC8vxYcpMSfEbQUU'
+        }),
+      );
+      final profile = Profile.fromJson(response.data);
+      if (state is! ProfileError) {
+        emit(ProfileLoaded(profile));
+      }
+    } on ServerException catch (e) {
+      if (state is! ProfileError) {
+        emit(ProfileError('Failed to fetch user profile'));
+      }
     }
   }
-}
 
   Future updateFirstName(String firstName, Dio dio,
       TextEditingController firstNameController) async {
@@ -100,7 +99,7 @@ class ProfileCubit extends Cubit<ProfileState> {
       );
       if (response.statusCode == 200) {
         String? imageUrl = response.data['user']['profileImg'];
-        return imageUrl;
+        emit(UploadPicture());
       } else {
         print('Failed to upload image. Status Code: ${response.statusCode}');
         print('Response Data: ${response.data}');
@@ -180,6 +179,49 @@ class ProfileCubit extends Cubit<ProfileState> {
     } on ServerException catch (e) {
       print('Error updating first name: $e');
       emit(ProfileError('Error updating first name: $e'));
+    }
+  }
+
+  Future updateProfile(String firstName, String lastName, String city,
+      XFile image, Dio dio) async {
+    try {
+      MultipartFile file = await MultipartFile.fromFile(
+        image.path,
+        filename: path.basename(image.path),
+        contentType:
+            MediaType('image', path.extension(image.path).substring(1)),
+      );
+      FormData formData = FormData.fromMap({
+        'profileImg': file,
+        'firstName': firstName,
+        'lastName': lastName,
+        'city': city,
+      });
+      var updatedProfileResponse = await dio.put(
+        'https://kemet-gp2024.onrender.com/api/v1/auth/updateProfile',
+        data: formData,
+        options: Options(headers: {
+          'token':
+              'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NjFjNmI5MzY3OTkzMmU2Nzc3MTg5YWMiLCJyb2xlIjoidXNlciIsImlhdCI6MTcxMzIyNjQ3MX0.xdh7vU90JVafhJzzXua0o4X6532iC8vxYcpMSfEbQUU'
+        }),
+      );
+      print('Response Status Code: ${updatedProfileResponse.statusCode}');
+      print('Response Data: ${updatedProfileResponse.data}');
+
+      if (updatedProfileResponse.statusCode == 200) {
+        final updatedProfile =
+            Profile.fromJson(updatedProfileResponse.data['user']);
+        emit(ProfileLoaded(updatedProfile));
+      } else {
+        emit(ProfileError(
+            'Failed to update profile. Status Code: ${updatedProfileResponse.statusCode}'));
+      }
+    } on ServerException catch (e) {
+      print('Error updating profile: $e');
+      emit(ProfileError('Error updating profile: $e'));
+    } catch (e) {
+      print('Unexpected error: $e');
+      emit(ProfileError('Unexpected error: $e'));
     }
   }
 }

@@ -7,16 +7,11 @@ import 'package:gp_project/components/textformfield_old_password.dart';
 import 'package:gp_project/components/textformfield_password.dart';
 import 'package:gp_project/constraints.dart';
 import 'package:gp_project/cubit/change_password_cubit.dart';
-import 'package:password_strength_checker/password_strength_checker.dart';
 
-class ChangePasswordView extends StatefulWidget {
-  const ChangePasswordView({super.key});
 
-  @override
-  State<ChangePasswordView> createState() => _ChangePasswordViewState();
-}
+class ChangePasswordView extends StatelessWidget {
+  ChangePasswordView({super.key});
 
-class _ChangePasswordViewState extends State<ChangePasswordView> {
   final _formKey = GlobalKey<FormState>();
 
   final TextEditingController oldPasswordController = TextEditingController();
@@ -24,9 +19,7 @@ class _ChangePasswordViewState extends State<ChangePasswordView> {
   final TextEditingController confirmNewPasswordController =
       TextEditingController();
   late Dio dio;
-  @override
   Widget build(BuildContext context) {
-    final passNotifier = ValueNotifier<PasswordStrength?>(null);
     return BlocConsumer<ChangePasswordCubit, ChangePasswordState>(
       listener: (context, state) {
         if (state is ChangePasswordSuccess) {
@@ -76,9 +69,6 @@ class _ChangePasswordViewState extends State<ChangePasswordView> {
                   const TextFormFieldConfirmPassword(),
                   const SizedBox(
                     height: 10,
-                  ),
-                  PasswordStrengthChecker(
-                    strength: passNotifier,
                   ),
                   const SizedBox(
                     height: 50,

@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:gp_project/constraints.dart';
 
-void showUpdateDialog(BuildContext context, String field, String hintText,
-    TextEditingController? controller, void Function()? onTap) {
+void showUpdateDialog(
+  BuildContext context,
+  String field,
+  String hintText,
+  TextEditingController? controller,
+  void Function() onUpdate,
+) {
   //TextEditingController controller = TextEditingController();
   showDialog(
       context: context,
@@ -72,7 +77,9 @@ void showUpdateDialog(BuildContext context, String field, String hintText,
                     height: 16,
                   ),
                   GestureDetector(
-                      onTap: onTap,
+                      onTap: () {
+                        onUpdate();
+                      },
                       child: const Text(
                         'Update',
                         style: TextStyle(

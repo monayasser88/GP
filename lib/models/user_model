@@ -25,7 +25,7 @@ class Profile {
   );
 
   Map<String, dynamic> toJson() => {
-    "_id": id,
+   // "_id": id,
     "profileImg": profilePic,
     "firstName": firstName,
     "lastName": lastName,

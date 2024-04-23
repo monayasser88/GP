@@ -12,10 +12,10 @@ class ChangePassword extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => ChangePasswordCubit(DioConsumer(dio: Dio())),
-      child:const Scaffold(
+      create: (context) => ChangePasswordCubit(),
+      child: Scaffold(
         body: ChangePasswordView(),
-      ) ,
+      ),
     );
   }
 }

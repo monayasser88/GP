@@ -61,7 +61,7 @@ class SettingContainer extends StatelessWidget {
               onTap: () {
                 Navigator.of(context)
                     .push(MaterialPageRoute(builder: (context) {
-                  return const ProfilePage();
+                  return ProfilePage();
                 }));
               },
               child: SizedBox(
