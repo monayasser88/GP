@@ -2,23 +2,15 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gp_project/components/custom_appbar2.dart';
-import 'package:gp_project/components/textformfield_confirm_password.dart';
-import 'package:gp_project/components/textformfield_old_password.dart';
-import 'package:gp_project/components/textformfield_password.dart';
+import 'package:gp_project/components/custom_input_field.dart';
 import 'package:gp_project/constraints.dart';
 import 'package:gp_project/cubit/change_password_cubit.dart';
-
 
 class ChangePasswordView extends StatelessWidget {
   ChangePasswordView({super.key});
 
   final _formKey = GlobalKey<FormState>();
-
-  final TextEditingController oldPasswordController = TextEditingController();
-  final TextEditingController newPasswordController = TextEditingController();
-  final TextEditingController confirmNewPasswordController =
-      TextEditingController();
-  late Dio dio;
+  //late Dio dio;
   Widget build(BuildContext context) {
     return BlocConsumer<ChangePasswordCubit, ChangePasswordState>(
       listener: (context, state) {
@@ -58,58 +50,76 @@ class ChangePasswordView extends StatelessWidget {
                   const SizedBox(
                     height: 45,
                   ),
-                  const TextFormFieldOldPassword(),
+                  CustomInputField(
+                    labelText: 'Current password',
+                    hintText: 'Enter current password',
+                    controller:
+                        ChangePasswordCubit.get(context).oldPasswordController,
+                    suffixIcon: true,
+                    obscureText: true,
+                  ),
                   const SizedBox(
                     height: 20,
                   ),
-                  const TextFormFieldNewPassword(),
+                  CustomInputField(
+                    labelText: 'New password',
+                    hintText: 'Enter New password',
+                    controller:
+                        ChangePasswordCubit.get(context).newPasswordController,
+                    obscureText: true,
+                    suffixIcon: true,
+                  ),
                   const SizedBox(
                     height: 20,
                   ),
-                  const TextFormFieldConfirmPassword(),
+                  CustomInputField(
+                    labelText: 'Confirm New password',
+                    hintText: 'Enter Confirm New password',
+                    controller: ChangePasswordCubit.get(context)
+                        .confirmNewPasswordController,
+                    obscureText: true,
+                    suffixIcon: true,
+                  ),
                   const SizedBox(
                     height: 10,
                   ),
                   const SizedBox(
                     height: 50,
                   ),
-                  ElevatedButton(
-                    style: const ButtonStyle(
-                      minimumSize: MaterialStatePropertyAll(Size(354, 44)),
-                      shape: MaterialStatePropertyAll(RoundedRectangleBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(10)),
-                      )),
-                      backgroundColor:
-                          MaterialStatePropertyAll<Color>(kPrimaryColor),
-                    ),
-                    onPressed: () {
-                      final oldPassword = oldPasswordController.text;
-                      final newPassword = newPasswordController.text;
-                      final confirmNewPassword =
-                          confirmNewPasswordController.text;
-                      if (_formKey.currentState!.validate()) {
-                        _formKey.currentState!.save();
-                        if (newPassword == confirmNewPassword) {
-                          context
-                              .read<ChangePasswordCubit>()
-                              .changeUserPassword(dio, oldPassword, newPassword,
-                                  confirmNewPassword);
-                        }
-                      } else {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
-                            content: Text('New passwords do not match'),
-                            duration: Duration(seconds: 3),
+                  state is ChangePasswordLoading
+                      ? const CircularProgressIndicator()
+                      : ElevatedButton(
+                          style: const ButtonStyle(
+                            minimumSize:
+                                MaterialStatePropertyAll(Size(354, 44)),
+                            shape:
+                                MaterialStatePropertyAll(RoundedRectangleBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(10)),
+                            )),
+                            backgroundColor:
+                                MaterialStatePropertyAll<Color>(kPrimaryColor),
                           ),
-                        );
-                      }
-                    },
-                    child: const Text(
-                      'Update',
-                      style:
-                          TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                    ),
-                  ),
+                          onPressed: () {
+                            if (_formKey.currentState!.validate()) {
+                              _formKey.currentState!.save();
+                              ChangePasswordCubit.get(context)
+                                  .changeUserPassword(Dio());
+                            } else {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                  content: Text('New passwords do not match'),
+                                  duration: Duration(seconds: 3),
+                                ),
+                              );
+                            }
+                          },
+                          child: const Text(
+                            'Update',
+                            style: TextStyle(
+                                fontSize: 16, fontWeight: FontWeight.bold),
+                          ),
+                        ),
                 ],
               ),
             ),

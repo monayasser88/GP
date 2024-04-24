@@ -9,7 +9,7 @@ class CustomText extends StatelessWidget {
       title,
       style: TextStyle(
         fontFamily: 'poppins',
-        fontSize: 18,
+        fontSize: 16,
         fontWeight: FontWeight.bold,
       ),
     );

@@ -1,21 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:gp_project/constraints.dart';
-import 'package:password_strength_checker/password_strength_checker.dart';
+import 'package:gp_project/cubit/change_password_cubit.dart';
 
 class TextFormFieldNewPassword extends StatefulWidget {
-  const TextFormFieldNewPassword({super.key});
+    const TextFormFieldNewPassword({super.key});
 
   @override
   State<TextFormFieldNewPassword> createState() =>
       _TextFormFieldNewPasswordState();
 }
-
+//final TextEditingController newPasswordController = TextEditingController();
 class _TextFormFieldNewPasswordState extends State<TextFormFieldNewPassword> {
   bool _isnewPasswordVisible = false;
-  final TextEditingController newPasswordController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
-    final passNotifier = ValueNotifier<PasswordStrength?>(null);
     return TextFormField(
       decoration: InputDecoration(
         label: const Text(
@@ -44,7 +43,7 @@ class _TextFormFieldNewPasswordState extends State<TextFormFieldNewPassword> {
         ),
       ),
       obscureText: !_isnewPasswordVisible,
-      controller: newPasswordController,
+      controller: ChangePasswordCubit.get(context).newPasswordController,
       validator: (value) {
         if (value!.isEmpty) {
           return 'Password is required';
@@ -62,9 +61,6 @@ class _TextFormFieldNewPasswordState extends State<TextFormFieldNewPassword> {
           return 'Password must contain at least one lowercase letter';
         }
         return null;
-      },
-      onChanged: (value) {
-        passNotifier.value = PasswordStrength.calculate(text: value);
       },
     );
   }

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gp_project/constraints.dart';
+import 'package:gp_project/cubit/change_password_cubit.dart';
+import 'package:gp_project/pages/change_password.dart';
 import 'package:password_strength_checker/password_strength_checker.dart';
 
 class TextFormFieldOldPassword extends StatefulWidget {
@@ -11,7 +13,7 @@ class TextFormFieldOldPassword extends StatefulWidget {
 }
 
 class _TextFormFieldOldPasswordState extends State<TextFormFieldOldPassword> {
-  final TextEditingController oldPasswordController = TextEditingController();
+  //final TextEditingController oldPasswordController = TextEditingController();
   bool _isoldPasswordVisible = false;
   @override
   Widget build(BuildContext context) {
@@ -43,7 +45,7 @@ class _TextFormFieldOldPasswordState extends State<TextFormFieldOldPassword> {
         ),
       ),
       obscureText: !_isoldPasswordVisible,
-      controller: oldPasswordController,
+      controller: ChangePasswordCubit.get(context).oldPasswordController,
       validator: (value) {
         if (value!.isEmpty) {
           return 'Password is required';

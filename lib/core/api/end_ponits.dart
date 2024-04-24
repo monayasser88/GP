@@ -1,13 +1,23 @@
 class EndPoint {
   static String baseUrl = "https://kemet-gp2024.onrender.com/api/v1/";
-  static String getChangePasswordEndPoint = "auth/changePassword";
-  static String getUserLoggedTickets = "MyTickets";
-  static String logoutEndpoint = "auth/logOut";
+  static String getChangePasswordEndPoint =
+      "https://kemet-gp2024.onrender.com/api/v1/auth/changePassword";
+  static String getUserLoggedTickets =
+      "https://kemet-gp2024.onrender.com/api/v1/MyTickets";
+  static String logoutEndpoint =
+      "https://kemet-gp2024.onrender.com/api/v1/auth/logOut";
   static String createOrder(myTicketId) {
     return "createCashOrder/$myTicketId";
   }
-  
-  static String tourismWishList  = "tourismPlaceWL/getLoggedUserWishList";
+
+  static String tourismWishList =
+      "https://kemet-gp2024.onrender.com/api/v1/tourismPlaceWL/getLoggedUserWishList";
+  static String deleteTourismWishList(favCard) {
+    return "https://kemet-gp2024.onrender.com/api/v1/tourismPlaceWL/removeFromWishList/$favCard";
+  }
+
+  static String tripsWishList =
+      "https://kemet-gp2024.onrender.com/api/v1/tripWL/getLoggedUserWishList";
   static String getUserDataEndPoint(id) {
     return "user/get-user/$id";
   }

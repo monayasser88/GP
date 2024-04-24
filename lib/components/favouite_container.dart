@@ -5,13 +5,14 @@ import 'package:gp_project/constraints.dart';
 class FavoriteContainer extends StatelessWidget {
   const FavoriteContainer(
       {super.key,
-      // required this.title,
-      // required this.description,
-      // required this.image
-      });
-  // final String title;
-  // final String description;
-  // final String image;
+      required this.title,
+      required this.description,
+      required this.image,
+      this.onPressed});
+  final String title;
+  final String description;
+  final String image;
+  final void Function()? onPressed;
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
@@ -20,7 +21,7 @@ class FavoriteContainer extends StatelessWidget {
         elevation: 10,
         child: SizedBox(
           width: double.infinity,
-          height: 160,
+          height: 140,
           child: Stack(children: [
             Container(
                 decoration: const BoxDecoration(
@@ -37,12 +38,12 @@ class FavoriteContainer extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Image(
-                        //image: AssetImage(image),
-                        image: AssetImage('assets/congratsImage.png'),
+                        image: NetworkImage(image),
+                        fit: BoxFit.fill,
                         height: 250,
                         width: 130,
                       ),
-                      SizedBox(
+                      const SizedBox(
                         width: 6,
                       ),
                       Expanded(
@@ -52,19 +53,22 @@ class FavoriteContainer extends StatelessWidget {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              CustomText(title: 'pyramids',),
-                              SizedBox(
-                                height: 15,
+                              CustomText(
+                                title: title,
                               ),
+                              // const SizedBox(
+                              //   height: 15,
+                              // ),
+                              Spacer(),
                               Text(
                                 maxLines: 2,
                                 overflow: TextOverflow.clip,
                                 softWrap: true,
-                                //description,
-                                'pyramids plllllll llalallllllll lllllalalala lllllmiuvhj huygtvbm pmpmp mpmmpmm pmpm pmpmpkj hgfds asdfg hjkjhg fdfghj',
-                                style: TextStyle(
+                                description,
+                                //'pyramids plllllll llalallllllll lllllalalala lllllmiuvhj huygtvbm pmpmp mpmmpmm pmpm pmpmpkj hgfds asdfg hjkjhg fdfghj',
+                                style: const TextStyle(
                                     fontFamily: 'poppins',
-                                    fontSize: 14,
+                                    fontSize: 13,
                                     fontWeight: FontWeight.w500,
                                     color: Colors.grey),
                               ),
@@ -72,14 +76,16 @@ class FavoriteContainer extends StatelessWidget {
                           ),
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         width: 10,
                       ),
-                      Padding(
-                        padding: EdgeInsets.only(top: 30),
-                        child: Icon(
-                          Icons.clear_rounded,
-                          size: 30,
+                        Padding(
+                        padding:const EdgeInsets.only(top: 30),
+                        child:  IconButton(
+                          icon:const Icon(Icons.clear_rounded,
+                          size: 30,),
+                          onPressed:onPressed
+                          
                         ),
                       )
                     ],

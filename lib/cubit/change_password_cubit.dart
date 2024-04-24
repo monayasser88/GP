@@ -1,18 +1,18 @@
 import 'dart:convert';
-import 'package:bloc/bloc.dart';
+
 import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gp_project/cache/cache_helper.dart';
-import 'package:gp_project/core/api/api_consumer.dart';
 import 'package:gp_project/core/api/end_ponits.dart';
-import 'package:gp_project/core/errors/exceptions.dart';
-import 'package:jwt_decoder/jwt_decoder.dart';
-import 'package:meta/meta.dart';
 import 'package:http/http.dart' as http;
+
 part 'change_password_state.dart';
 
 class ChangePasswordCubit extends Cubit<ChangePasswordState> {
   ChangePasswordCubit() : super(ChangePasswordInitial());
   //final ApiConsumer api;
+  static ChangePasswordCubit get(context) => BlocProvider.of(context);
   Future<void> changePassword(String oldPassword, String newPassword) async {
     emit(ChangePasswordLoading());
 
@@ -35,15 +35,19 @@ class ChangePasswordCubit extends Cubit<ChangePasswordState> {
     }
   }
 
-  Future<String> changeUserPassword(Dio dio, String currentPassword,
-      String newPassword, String reNewPassword) async {
+  TextEditingController oldPasswordController = TextEditingController();
+  TextEditingController newPasswordController = TextEditingController();
+  TextEditingController confirmNewPasswordController = TextEditingController();
+
+  void changeUserPassword(Dio dio) async {
+    final token = CacheHelper().getData(key: 'token');
     emit(ChangePasswordLoading());
-    if (newPassword != reNewPassword) {
+    if (newPasswordController.text != confirmNewPasswordController.text) {
       throw 'New password and confirm new password do not match.';
     }
-    final token =
-        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NjFjNmI5MzY3OTkzMmU2Nzc3MTg5YWMiLCJyb2xlIjoidXNlciIsImlhdCI6MTcxMzIyNjQ3MX0.xdh7vU90JVafhJzzXua0o4X6532iC8vxYcpMSfEbQUU';
-    // CacheHelper().getData(key: ApiKey.token);
+    //final token =
+    // 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NjFjNmI5MzY3OTkzMmU2Nzc3MTg5YWMiLCJyb2xlIjoidXNlciIsImlhdCI6MTcxMzkyOTcyMH0.rJsfUjsKBINCC4L4tIWxFWaOFd3A9xbVqgxeA2CD2b8';
+    // // CacheHelper().getData(key: ApiKey.token);
 
     if (token == null) {
       emit(ChangePasswordFailure('User ID not found in cache.'));
@@ -51,23 +55,18 @@ class ChangePasswordCubit extends Cubit<ChangePasswordState> {
     try {
       final response = await dio.patch(EndPoint.getChangePasswordEndPoint,
           data: {
-            'currentPassword': currentPassword,
-            'newPassword': newPassword,
-            'reNewPassword': reNewPassword,
+            'currentPassword': oldPasswordController.text,
+            'newPassword': newPasswordController.text,
+            'reNewPassword': confirmNewPasswordController.text,
           },
           options: Options(headers: {'token': token}));
+      print(response.data);
       if (response.statusCode == 200) {
+        CacheHelper().saveData(key: token, value: 'token');
         emit(ChangePasswordSuccess());
       }
-      return 'password changed successfully';
     } catch (e) {
-      if (e is ServerException) {
-        emit(ChangePasswordFailure(e.errModel.errorMessage));
-      } else {
-        emit(ChangePasswordFailure(
-            'An error occurred while changing the password.'));
-      }
-      throw 'An error occurred while changing the password.';
+      emit(ChangePasswordFailure(e.toString()));
     }
   }
 }

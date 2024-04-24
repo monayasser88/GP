@@ -1,22 +1,39 @@
-class WishListItem {
-  final String id;
-  final String title;
-  final String description;
-  final String imgCover;
+class TourismPlace {
+  String id;
+  String name;
+  String informationAbout;
+  String imgCover;
 
-  WishListItem({
+  TourismPlace({
     required this.id,
-    required this.title,
-    required this.description,
+    required this.name,
+    required this.informationAbout,
     required this.imgCover,
   });
 
-  factory WishListItem.fromJson(Map<String, dynamic> json) {
-    return WishListItem(
+  factory TourismPlace.fromJson(Map<String, dynamic> json) {
+    return TourismPlace(
       id: json['_id'],
-      title: json['title'],
-      description: json['description'],
+      name: json['name'],
+      informationAbout: json['informationAbout'],
       imgCover: json['imgCover'],
+    );
+  }
+}
+
+class WishlistResponse {
+  String msg;
+  List<TourismPlace> wishListTourismPlace;
+
+  WishlistResponse({
+    required this.msg,
+    required this.wishListTourismPlace,
+  });
+
+  factory WishlistResponse.fromJson(Map<String, dynamic> json) {
+    return WishlistResponse(
+      msg: json['msg'],
+      wishListTourismPlace: List<TourismPlace>.from(json['wishListTourismPlace'].map((x) => TourismPlace.fromJson(x))),
     );
   }
 }

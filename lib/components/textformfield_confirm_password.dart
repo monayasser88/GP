@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gp_project/constraints.dart';
+import 'package:gp_project/cubit/change_password_cubit.dart';
+import 'package:gp_project/pages/change_password.dart';
 import 'package:password_strength_checker/password_strength_checker.dart';
 
 class TextFormFieldConfirmPassword extends StatefulWidget {
@@ -12,8 +14,6 @@ class TextFormFieldConfirmPassword extends StatefulWidget {
 
 class _TextFormFieldConfirmPasswordState
     extends State<TextFormFieldConfirmPassword> {
-  final TextEditingController confirmNewPasswordController =
-      TextEditingController();
   bool _isconfirmPasswordVisible = false;
   @override
   Widget build(BuildContext context) {
@@ -48,7 +48,7 @@ class _TextFormFieldConfirmPasswordState
         ),
       ),
       obscureText: !_isconfirmPasswordVisible,
-      controller: confirmNewPasswordController,
+      controller:ChangePasswordCubit.get(context).confirmNewPasswordController,
       validator: (value) {
         if (value!.isEmpty) {
           return 'Password is required';

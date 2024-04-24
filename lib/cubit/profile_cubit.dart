@@ -29,7 +29,7 @@ class ProfileCubit extends Cubit<ProfileState> {
         'https://kemet-gp2024.onrender.com/api/v1/auth/profile',
         options: Options(headers: {
           'token':
-              'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NjFjNmI5MzY3OTkzMmU2Nzc3MTg5YWMiLCJyb2xlIjoidXNlciIsImlhdCI6MTcxMzIyNjQ3MX0.xdh7vU90JVafhJzzXua0o4X6532iC8vxYcpMSfEbQUU'
+              'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NjFjNmI5MzY3OTkzMmU2Nzc3MTg5YWMiLCJyb2xlIjoidXNlciIsImlhdCI6MTcxMzkxNDczN30.NZ3aKy8EtknaZHvF5RJ2R4ZgeGBopT1NdOQdz2XDlf0'
         }),
       );
       final profile = Profile.fromJson(response.data);

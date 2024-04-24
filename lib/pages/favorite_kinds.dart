@@ -1,7 +1,11 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gp_project/components/custom_appbar2.dart';
 import 'package:gp_project/components/custom_container_in_setting.dart';
+import 'package:gp_project/cubit/favorites_cubit.dart';
 import 'package:gp_project/pages/favourites.dart';
+import 'package:gp_project/views/favorites_view.dart';
 
 class FavoriteKinds extends StatelessWidget {
   const FavoriteKinds({super.key});
@@ -68,7 +72,7 @@ class FavoriteKinds extends StatelessWidget {
         GestureDetector(
           onTap: () {
             Navigator.push(context, MaterialPageRoute(builder: (context) {
-              return Favorites();
+              return FavoritesView();
             }));
           },
           child: CustomContainerSetting(
