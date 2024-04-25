@@ -1,38 +1,25 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gp_project/components/custom_text.dart';
 import 'package:gp_project/constraints.dart';
-import 'package:gp_project/cubit/tickets_cubit.dart';
 
-class TicketContainer extends StatefulWidget {
+class TicketContainer extends StatelessWidget {
   const TicketContainer({
     Key? key,
-    required this.onTotalChanged,
-    //required this.title, required this.description
+    required this.title,
+    required this.description,
+    required this.quantity,
+    required this.price,
+    this.onPressed,
+    this.quantityMinus,
+    this.quantityPlus
   }) : super(key: key);
-  final ValueChanged<double?> onTotalChanged;
-  @override
-  State<TicketContainer> createState() => _TicketContainerState();
-}
-
-class _TicketContainerState extends State<TicketContainer> {
-  int selectedQuantity = 1;
-  int price = 200;
-  int? ticketIndex;
-  void _incrementQuantity() {
-    setState(() {
-      selectedQuantity++;
-    });
-  }
-
-  void _decrementQuantity() {
-    setState(() {
-      if (selectedQuantity > 0) {
-        selectedQuantity--;
-      }
-    });
-  }
-
+  final String title;
+  final String description;
+  final String quantity;
+  final String price;
+  final void Function()? onPressed;
+  final void Function()? quantityMinus;
+  final void Function()? quantityPlus;
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
@@ -41,11 +28,11 @@ class _TicketContainerState extends State<TicketContainer> {
         elevation: 10,
         child: SizedBox(
           width: double.infinity,
-          height: 200,
+          height: 150,
           child: Stack(
             children: [
               DecoratedBox(
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   border: Border(
                     right: BorderSide(color: kPrimaryColor, width: 5),
                     bottom: BorderSide(color: kPrimaryColor, width: 5),
@@ -54,7 +41,8 @@ class _TicketContainerState extends State<TicketContainer> {
                   ),
                 ),
                 child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 15, vertical: 12),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 15, vertical: 12),
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -62,13 +50,13 @@ class _TicketContainerState extends State<TicketContainer> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            CustomText(title: 'Egypt'),
-                            SizedBox(
+                            CustomText(title: title),
+                            const SizedBox(
                               height: 15,
                             ),
                             Text(
-                              'pyramids plllllll llalallllllll lllllalalala lllllmiuvhj huygtvbm pmpmp mpmmpmm pmpm pmpmpkj hgfds asdfg hjkjhg fdfghj',
-                              style: TextStyle(
+                              description,
+                              style: const TextStyle(
                                 fontFamily: 'poppins',
                                 fontSize: 14,
                                 fontWeight: FontWeight.w500,
@@ -76,31 +64,29 @@ class _TicketContainerState extends State<TicketContainer> {
                               ),
                               maxLines: 3,
                             ),
-                            SizedBox(
-                              height: 15,
-                            ),
+                            const Spacer(),
                             Row(
                               children: [
                                 IconButton(
-                                  icon: Icon(
+                                  icon: const Icon(
                                     Icons.remove,
                                     color: kPrimaryColor,
                                   ),
-                                  onPressed: _decrementQuantity,
+                                  onPressed:quantityMinus,
                                 ),
                                 Text(
-                                  '$selectedQuantity',
-                                  style: TextStyle(
+                                  quantity,
+                                  style: const TextStyle(
                                       fontSize: 18,
                                       fontFamily: 'poppins',
                                       fontWeight: FontWeight.w800),
                                 ),
                                 IconButton(
-                                  icon: Icon(
+                                  icon: const Icon(
                                     Icons.add,
                                     color: kPrimaryColor,
                                   ),
-                                  onPressed: _incrementQuantity,
+                                  onPressed: quantityPlus,
                                 ),
                               ],
                             ),
@@ -112,19 +98,22 @@ class _TicketContainerState extends State<TicketContainer> {
                       ),
                       Column(
                         children: [
-                          SizedBox(
+                          const SizedBox(
                             width: 10,
                           ),
-                          Icon(
-                            Icons.clear_rounded,
-                            size: 30,
+                            IconButton(
+                            icon:const Icon(
+                              Icons.clear_rounded,
+                              size: 30,
+                            ),
+                            onPressed: onPressed,
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 15,
                           ),
                           Text(
-                            '${context.select((TicketsCubit cubit) => cubit.price) * context.select((TicketsCubit cubit) => cubit.selectedQuantity)}',
-                            style: TextStyle(
+                            price,
+                            style: const TextStyle(
                               fontFamily: 'poppins',
                               fontSize: 20,
                               fontWeight: FontWeight.bold,

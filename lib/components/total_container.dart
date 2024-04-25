@@ -6,11 +6,10 @@ import 'package:gp_project/pages/order.dart';
 
 // ignore: must_be_immutable
 class TotalContainer extends StatelessWidget {
-  const TotalContainer({super.key});
-
+  const TotalContainer({super.key, required this.total});
+  final String total;
   @override
   Widget build(BuildContext context) {
-    final total = context.read<TicketsCubit>().total;
     return BlocBuilder<TicketsCubit, TicketsState>(
       builder: (context, state) {
         return Container(
@@ -31,7 +30,7 @@ class TotalContainer extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.only(left: 8.0),
                 child: Row(children: [
-                  const Text(
+                    const Text(
                     'Total:',
                     style: TextStyle(
                       fontSize: 18,
@@ -44,8 +43,7 @@ class TotalContainer extends StatelessWidget {
                     width: 15,
                   ),
                   Text(
-                    '\$'
-                    ' ${context.read<TicketsCubit>().total}',
+                    total,
                     style: const TextStyle(fontSize: 18, fontFamily: 'poppins'),
                   ),
                   const SizedBox(
@@ -56,7 +54,7 @@ class TotalContainer extends StatelessWidget {
               GestureDetector(
                 onTap: () {
                   Navigator.push(context, MaterialPageRoute(builder: (context) {
-                    return const Order();
+                    return Order();
                   }));
                 },
                 child: Container(

@@ -1,51 +1,72 @@
-class MyTicketItem {
-  final String id;
-  final String title;
-  final String description;
-  final int quantity;
-  final double price;
-  final String userId;
+class Trip {
+  //String tId;
+  String title;
+  String description;
+  // int priceAfterDiscount;
 
-  MyTicketItem({
-    required this.id,
+  Trip({
+    // required this.tId,
     required this.title,
     required this.description,
+    //required this.priceAfterDiscount,
+  });
+
+  factory Trip.fromJson(Map<String, dynamic> json) {
+    return Trip(
+      // tId: json['_id'],
+      title: json['title'],
+      description: json['description'],
+      // priceAfterDiscount: json['priceAfterDiscount'],
+    );
+  }
+}
+
+class MyTicketItem {
+  Trip trip;
+  int quantity;
+  String myTId;
+  int price;
+
+  MyTicketItem({
+    required this.trip,
     required this.quantity,
-    required this.price,
-    required this.userId,
+    required this.myTId,
+    required this.price
   });
 
   factory MyTicketItem.fromJson(Map<String, dynamic> json) {
     return MyTicketItem(
-      id: json['trip']['_id'],
-      title: json['trip']['title'],
-      description: json['trip']['description'],
+      trip: Trip.fromJson(json['trip']),
       quantity: json['quantity'],
-      price: json['price'].toDouble(),
-      userId: json['user_id'],
+      myTId: json['_id'],
+      price: json['price'],
     );
   }
 }
 
 class MyTicket {
-  final String id;
-  final String user;
-  final List<MyTicketItem> items;
-  final double totalPrice;
+  String id;
+  String user;
+  List<MyTicketItem> myTicketItems;
+  int totalPrice;
 
   MyTicket({
     required this.id,
     required this.user,
-    required this.items,
+    required this.myTicketItems,
     required this.totalPrice,
   });
 
   factory MyTicket.fromJson(Map<String, dynamic> json) {
+    List<dynamic> ticketItemsJson = json['myTicketItems'];
+    List<MyTicketItem> ticketItems =
+        ticketItemsJson.map((item) => MyTicketItem.fromJson(item)).toList();
+
     return MyTicket(
       id: json['_id'],
       user: json['user'],
-      items: List<MyTicketItem>.from(json['myTicketItems'].map((x) => MyTicketItem.fromJson(x))),
-      totalPrice: json['totalPrice'].toDouble(),
+      myTicketItems: ticketItems,
+      totalPrice: json['totalPrice'],
     );
   }
 }

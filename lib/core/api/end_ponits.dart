@@ -7,11 +7,20 @@ class EndPoint {
   static String logoutEndpoint =
       "https://kemet-gp2024.onrender.com/api/v1/auth/logOut";
   static String createOrder(myTicketId) {
-    return "createCashOrder/$myTicketId";
+    return "https://kemet-gp2024.onrender.com/api/v1/order/createCashOrder/$myTicketId";
+  }
+    static String deleteTicket(TId) {
+    return "https://kemet-gp2024.onrender.com/api/v1/MyTickets/$TId";
+  }
+
+      static String quantityTicket(TId) {
+    return "https://kemet-gp2024.onrender.com/api/v1/MyTickets/$TId";
   }
 
   static String tourismWishList =
       "https://kemet-gp2024.onrender.com/api/v1/tourismPlaceWL/getLoggedUserWishList";
+      static String ticketsList =
+      "https://kemet-gp2024.onrender.com/api/v1/MyTickets";
   static String deleteTourismWishList(favCard) {
     return "https://kemet-gp2024.onrender.com/api/v1/tourismPlaceWL/removeFromWishList/$favCard";
   }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gp_project/pages/account.dart';
 
 class DelivaryPopUp extends StatelessWidget {
   const DelivaryPopUp({super.key});
@@ -64,7 +65,12 @@ class DelivaryPopUp extends StatelessWidget {
                       fontFamily: 'poppins',
                       fontWeight: FontWeight.bold),
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: ((context) {
+                    return Account();
+                  })));
+                },
               ),
               const SizedBox(
                 height: 16,

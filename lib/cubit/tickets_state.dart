@@ -7,6 +7,11 @@ final class TicketsInitial extends TicketsState {}
 
 final class TicketsSuccess extends TicketsState {
 }
+final class TicketDeleteSuccess extends TicketsState {
+}
+
+final class TicketUpdateSuccess extends TicketsState {
+}
 
 final class TicketsLoading extends TicketsState {}
 
@@ -16,16 +21,6 @@ final class TicketsError extends TicketsState {
   TicketsError(this.errMassage);
 }
 
-final class TOtalCalculated extends TicketsState {
-  final double total;
-
-  TOtalCalculated(this.total);
-}
-class QuantityChanged extends TicketsState {
-  final int selectedQuantity;
-
-  QuantityChanged(this.selectedQuantity);
-}
 class TicketsList extends TicketsState {
   final List<Ticket> tickets;
 

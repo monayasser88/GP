@@ -77,9 +77,10 @@ class FavoritesCubit extends Cubit<FavoritesState> {
                 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NjFjNmI5MzY3OTkzMmU2Nzc3MTg5YWMiLCJyb2xlIjoidXNlciIsImlhdCI6MTcxMzkzMjM5MX0.9k5gc5VoxtY772RQIhELvJFzpoj7Ai9Q3YZI-vdrtFc'
           }));
       if (response.statusCode == 200) {
-        Future.delayed(const Duration(seconds: 2));
-        fetchFavoriteTourismPlaces(dio);
+        //Future.delayed(const Duration(seconds: 2));
+
         emit(FavoritesDeleting());
+        fetchFavoriteTourismPlaces(dio);
       } else {
         emit(FavoriteTripsError('Failed to delete favorite tourism place.'));
       }

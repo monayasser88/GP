@@ -14,7 +14,7 @@ import 'package:provider/provider.dart';
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   CacheHelper().init();
-  Bloc.observer = MyBlocObserver();
+  //Bloc.observer = MyBlocObserver();
   runApp(const GProject());
 }
 
