@@ -3,19 +3,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gp_project/cubit/search_cubit.dart';
 import 'package:gp_project/views/tourism_search_view.dart';
 
-class Search extends StatefulWidget {
-  const Search({super.key});
-
-  @override
-  State<Search> createState() => _SearchState();
-}
-
-class _SearchState extends State<Search> {
-  @override
+class TourismSearch extends StatelessWidget {
+  const TourismSearch({super.key});
+@override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => SearchCubit(),
-      child: const Scaffold(
+      child: Scaffold(
         body: TourismSearchView(),
       ),
     );

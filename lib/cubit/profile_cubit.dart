@@ -1,6 +1,6 @@
-import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gp_project/cache/cache_helper.dart';
 import 'package:gp_project/core/api/end_ponits.dart';
 import 'package:gp_project/core/errors/exceptions.dart';
@@ -14,6 +14,7 @@ part 'profile_state.dart';
 class ProfileCubit extends Cubit<ProfileState> {
   ProfileCubit() : super(ProfileInitial());
 
+  static ProfileCubit get(context) => BlocProvider.of(context);
   XFile? profilePic;
   updateProfilePic(XFile image) {
     profilePic = image;
@@ -222,6 +223,53 @@ class ProfileCubit extends Cubit<ProfileState> {
     } catch (e) {
       print('Unexpected error: $e');
       emit(ProfileError('Unexpected error: $e'));
+    }
+  }
+
+  Future getUserPhoto(Dio dio) async {
+    if (state is! ProfileLoading) {
+      emit(ProfileLoading());
+    }
+    try {
+      final response = await dio.get(
+        'https://kemet-gp2024.onrender.com/api/v1/auth/profile',
+        options: Options(headers: {
+          "token":
+              "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NjFjNmI5MzY3OTkzMmU2Nzc3MTg5YWMiLCJyb2xlIjoidXNlciIsImlhdCI6MTcxNDExMzU2N30.fCwiIgPhI0XWe0xRPm5GA9XzKUSa4LPkf9z1mPzaDAo"
+        }),
+      );
+      final profile = Profile.fromJson(response.data);
+      print(profile);
+      if (state is! ProfileError) {
+        emit(ProfileLoaded(profile));
+      }
+    } on ServerException catch (e) {
+      if (state is! ProfileError) {
+        emit(ProfileError('Failed to fetch user profile'));
+      }
+    }
+  }
+
+  Future getUserNameAndPhoto(Dio dio) async {
+    if (state is! ProfileLoading) {
+      emit(ProfileLoading());
+    }
+    try {
+      final response = await dio.get(
+        'https://kemet-gp2024.onrender.com/api/v1/auth/profile',
+        options: Options(headers: {
+          "token":
+              "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NjFjNmI5MzY3OTkzMmU2Nzc3MTg5YWMiLCJyb2xlIjoidXNlciIsImlhdCI6MTcxNDExMzU2N30.fCwiIgPhI0XWe0xRPm5GA9XzKUSa4LPkf9z1mPzaDAo"
+        }),
+      );
+      final profile = Profile.fromJson(response.data);
+      if (state is! ProfileError) {
+        emit(ProfileLoaded(profile));
+      }
+    } on ServerException catch (e) {
+      if (state is! ProfileError) {
+        emit(ProfileError('Failed to fetch user profile'));
+      }
     }
   }
 }

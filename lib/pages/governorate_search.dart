@@ -4,19 +4,13 @@ import 'package:gp_project/cubit/search_cubit.dart';
 import 'package:gp_project/views/governorate_search_view.dart';
 
 
-class Search extends StatefulWidget {
-  const Search({super.key});
-
-  @override
-  State<Search> createState() => _SearchState();
-}
-
-class _SearchState extends State<Search> {
+class GovernorateSearch extends StatelessWidget {
+  const GovernorateSearch({super.key});
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => SearchCubit(),
-      child: const Scaffold(
+      child:  Scaffold(
         body: GovernorateSearchView(),
       ),
     );

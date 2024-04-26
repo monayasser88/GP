@@ -4,45 +4,19 @@ import 'package:gp_project/components/custom_appbar.dart';
 import 'package:gp_project/components/search_field.dart';
 import 'package:gp_project/cubit/search_cubit.dart';
 import 'package:gp_project/pages/account.dart';
+import 'package:gp_project/pages/not_found.dart';
 
-class LegendSearchView extends StatefulWidget {
-  const LegendSearchView({Key? key}) : super(key: key);
-
-  @override
-  State<LegendSearchView> createState() => _LegendSearchViewState();
-}
-
-class _LegendSearchViewState extends State<LegendSearchView> {
+class LegendSearchView extends StatelessWidget {
+  LegendSearchView({Key? key}) : super(key: key);
   final TextEditingController _searchController = TextEditingController();
-  List<String> searchHistory = [];
-  //List<String> result = ['mona', 'fatma', 'manar', 'hadeer', 'soad', 'loool'];
-
-  void addToSearchHistory(String query) {
-    setState(() {
-      searchHistory.insert(0, query);
-    });
-  }
-
-  void removeFromSearchHistory(String query) {
-    setState(() {
-      searchHistory.remove(query);
-    });
-  }
-
-  @override
-  void dispose() {
-    _searchController.dispose();
-    super.dispose();
-  }
-
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<SearchCubit, SearchState>(
       listener: (context, state) {
         if (state is SearchError) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text(state.errMassage)),
-          );
+          Navigator.push(context, MaterialPageRoute(builder: (context) {
+            return const NotFound();
+          }));
         }
       },
       builder: (context, state) {
@@ -74,11 +48,11 @@ class _LegendSearchViewState extends State<LegendSearchView> {
                   onPressed: () {
                     context
                         .read<SearchCubit>()
-                        .tourismSearch(_searchController.text);
+                        .legendSearch(_searchController.text);
                   },
                 ),
                 if (state is SearchLoading)
-                  Center(child: CircularProgressIndicator())
+                  const Center(child: CircularProgressIndicator())
                 else if (state is SearchLoaded)
                   Expanded(
                     child: ListView.builder(
@@ -86,21 +60,23 @@ class _LegendSearchViewState extends State<LegendSearchView> {
                       itemBuilder: (context, index) {
                         final result = state.results[index];
                         return ListTile(
-                            leading: CircleAvatar(
-                              backgroundImage: NetworkImage(
-                                result['imgCover'],
-                              ),
-                              // child: Image.network(
-                              //   result['imgCover'],
-                              //   errorBuilder: (context, error, stackTrace) {
-                              //     return Icon(Icons.error);
-                              //   },
-                              // ),
+                          leading: CircleAvatar(
+                            backgroundImage: NetworkImage(
+                              result['imgCover'],
                             ),
-                            title: Text(result['name']));
+                          ),
+                          title: Text(result['name']),
+                          trailing: IconButton(
+                            icon: const Icon(Icons.arrow_forward),
+                            onPressed: () {},
+                          ),
+                        );
                       },
                     ),
                   ),
+                const SizedBox(
+                  height: 10,
+                ),
               ],
             ),
           ),
@@ -109,130 +85,3 @@ class _LegendSearchViewState extends State<LegendSearchView> {
     );
   }
 }
-
-class SearchResultListView extends StatelessWidget {
-  final List<Map<String, dynamic>> results;
-
-  const SearchResultListView({Key? key, required this.results})
-      : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Expanded(
-      child: ListView.builder(
-        itemCount: results.length,
-        itemBuilder: (context, index) {
-          final result = results[index];
-          return ListTile(
-            title: Text(result['name']),
-            //subtitle: Text(result['_id']),
-            // Add more UI elements as needed
-          );
-        },
-      ),
-    );
-  }
-}
-
-
-
-
-//                else if (query == result[index]) {
-//                 Navigator.push(context, MaterialPageRoute(builder: (context) {
-//                   return const NotFound();
-//                 }));
-//               } else if (state is SearchHistory) {
-//                 return Column(
-//                   children: [
-//                     const Text(
-//                       'History',
-//                       style: TextStyle(
-//                         fontWeight: FontWeight.w500,
-//                         fontSize: 14,
-//                       ),
-//                     ),
-//                     SizedBox(
-//                       height: null,
-//                       child: Column(
-//                           children:
-//                               List.generate(state.history.length, (index) {
-//                         final query = state.history[index];
-//                         return Column(
-//                           children: [
-//                             ListTile(
-//                               title: Text(query),
-//                               onTap: () {
-//                                 _searchController.text = query;
-//                                 context.read<SearchCubit>().search(query);
-//                               },
-//                               trailing: IconButton(
-//                                   onPressed: () {
-//                                     removeFromSearchHistory(query);
-//                                   },
-//                                   icon: const Icon(Icons.clear)),
-//                             ),
-//                             const Divider(),
-//                           ],
-//                         );
-//                       })),
-//                     )
-//                   ],
-//                 );
-//               }
-              
-// }
-              //return Container();
-            //}
-            //))
-            // const Text(
-            //   'History',
-            //   style: TextStyle(
-            //     fontWeight: FontWeight.w500,
-            //     fontSize: 14,
-            //   ),
-            // ),
-            // SizedBox(
-            //   height: null,
-            //   child: Column(
-            //   children: List.generate(searchHistory.length, (index) {
-            //     final query = searchHistory[index];
-            //     return Column(
-            //       children: [
-            //         ListTile(
-            //           title: Text(query),
-            //           onTap: () {
-            //             _searchController.text = query;
-
-            //             addToSearchHistory(query);
-            //           },
-            //           trailing: IconButton(
-            //               onPressed: () {
-            //                 removeFromSearchHistory(query);
-            //               },
-            //               icon: const Icon(Icons.clear)),
-            //         ),
-            //         const Divider(),
-            //       ],
-            //     );
-            //   })),
-            // )
-            // ListView.builder(
-            //       itemCount: state.history.length,
-            //       itemBuilder: (context, index) {
-            //         final query = state.history[index];
-            //         return ListTile(
-            //           title: Text(query),
-            //           onTap: () {
-            //             _searchController.text = query;
-            //             context.read<SearchCubit>().search(query);
-            //           },
-            //         );
-            //       },
-            //     );
-
-
-          //],
-        //),
-      //);
-  //}
-//}

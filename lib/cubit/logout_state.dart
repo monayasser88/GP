@@ -4,8 +4,8 @@ part of 'logout_cubit.dart';
 sealed class LogoutState {}
 
 final class LogoutInitial extends LogoutState {}
-final class LogoutInProgress extends LogoutState {}
-final class LoggedOut extends LogoutState {}
+final class LogoutLoading extends LogoutState {}
+final class LoggedOutSuccess extends LogoutState {}
 final class LogoutFailure extends LogoutState {
   final String errMassage;
   

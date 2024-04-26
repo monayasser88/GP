@@ -38,14 +38,17 @@ class FavoritesListView extends StatelessWidget {
 
   Widget favList(TourismPlace fav, context) => Padding(
         padding: const EdgeInsets.symmetric(vertical: 6),
-        child: FavoriteContainer(
-          description: fav.informationAbout,
-          title: fav.name,
-          image: fav.imgCover,
-          onPressed: () {
-            FavoritesCubit.get(context)
-                .deleteFavoriteTourismPlaces(Dio(), fav.id);
-          },
+        child: GestureDetector(
+          onTap: (){},
+          child: FavoriteContainer(
+            description: fav.informationAbout,
+            title: fav.name,
+            image: fav.imgCover,
+            onPressed: () {
+              FavoritesCubit.get(context)
+                  .deleteFavoriteTourismPlaces(Dio(), fav.id);
+            },
+          ),
         ),
       );
 }

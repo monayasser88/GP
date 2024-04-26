@@ -25,6 +25,7 @@ class TicketsCubit extends Cubit<TicketsState> {
             'token':
                 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NjFjNmI5MzY3OTkzMmU2Nzc3MTg5YWMiLCJyb2xlIjoidXNlciIsImlhdCI6MTcxMzkzMjM5MX0.9k5gc5VoxtY772RQIhELvJFzpoj7Ai9Q3YZI-vdrtFc'
           }));
+      print(response.statusCode);
       if (response.statusCode == 200) {
         final Map<String, dynamic> jsonMap =
             response.data['myTicket'] as Map<String, dynamic>;
@@ -32,13 +33,10 @@ class TicketsCubit extends Cubit<TicketsState> {
           myTicket = MyTicket.fromJson(jsonMap);
           print(myTicket);
           final myTickId = myTicket!.id;
-          CacheHelper().saveData(key: ApiKey.id, value: myTicket!.id);
+          CacheHelper().saveData(key: ApiKey.TId, value: myTicket!.id);
           //CacheHelper().saveData(key:  ,value: )
           emit(TicketsSuccess());
         }
-      }
-      if (response.data["msg"] == "myTicket not found") {
-        return ;
       }
     } on ServerException catch (error) {
       print(error.toString());
@@ -99,6 +97,7 @@ class TicketsCubit extends Cubit<TicketsState> {
     }
   }
 
+
   void createOrder(Dio dio) async {
     emit(ShippingLoading());
     //final token = CacheHelper().getData(key: ApiKey.token);
@@ -107,7 +106,7 @@ class TicketsCubit extends Cubit<TicketsState> {
     // }
     try {
       final response = await dio.post(
-          EndPoint.createOrder(CacheHelper().getDataString(key: ApiKey.id)),
+          EndPoint.createOrder(CacheHelper().getDataString(key: ApiKey.TId)),
           data: {
             'shippingAddress': {
               "street": streetField.text,
@@ -120,16 +119,11 @@ class TicketsCubit extends Cubit<TicketsState> {
                 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NjFjNmI5MzY3OTkzMmU2Nzc3MTg5YWMiLCJyb2xlIjoidXNlciIsImlhdCI6MTcxMzkzMjM5MX0.9k5gc5VoxtY772RQIhELvJFzpoj7Ai9Q3YZI-vdrtFc'
           }));
       //final decodedToken = JwtDecoder.decode(token);
-      //CacheHelper().saveData(key: ApiKey.token, value: response.token);
       //CacheHelper().saveData(key: ApiKey.id, value: decodedToken[ApiKey.id]);
-      print(response);
-      if (response.data['msg'] == 'success') {
+      print(response.data);
         emit(ShippingSuccess());
-        // Password change successful
+        //getReservedTickets(dio);
         return response.data['msg'];
-      } else {
-        throw response.data['msg'] ?? 'Failed to change password.';
-      }
     } catch (e) {
       if (e is ServerException) {
         emit(ShippingError(e.errModel.errorMessage));

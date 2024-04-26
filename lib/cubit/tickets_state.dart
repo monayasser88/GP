@@ -15,6 +15,8 @@ final class TicketUpdateSuccess extends TicketsState {
 
 final class TicketsLoading extends TicketsState {}
 
+final class NoTicketsFound extends TicketsState {}
+
 final class TicketsError extends TicketsState {
   final String errMassage;
 

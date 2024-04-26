@@ -40,6 +40,10 @@ class ApiKey {
   static String token = "token";
   static String message = "message";
   static String id = "id";
+  static String TId = "_id";
+  static String governorateId = "_id";
+  static String legendId = "_id";
+  static String tourismId = "_id";
   static String name = "name";
   static String phone = "phone";
   static String confirmPassword = "confirmPassword";

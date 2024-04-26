@@ -21,9 +21,7 @@ class NotFound extends StatelessWidget {
               contIcon: Icons.search,
               contName: 'here',
               onTap: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) {
-                  return const Search();
-                }));
+                Navigator.pop(context);
               },
             ),
             const SizedBox(

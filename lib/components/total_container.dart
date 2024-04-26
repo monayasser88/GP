@@ -10,8 +10,6 @@ class TotalContainer extends StatelessWidget {
   final String total;
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<TicketsCubit, TicketsState>(
-      builder: (context, state) {
         return Container(
           height: 50,
           width: 345,
@@ -94,7 +92,5 @@ class TotalContainer extends StatelessWidget {
             ],
           ),
         );
-      },
-    );
-  }
+      }
 }

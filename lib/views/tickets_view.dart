@@ -16,11 +16,24 @@ class TicketsView extends StatelessWidget {
       listener: (context, state) {},
       builder: (context, state) {
         return ConditionalBuilder(
-          condition: state is! TicketsLoading ||
-              state is TicketsSuccess ||
-              state is TicketDeleteSuccess,
-          builder: (BuildContext context) =>
-              ticketsPage(TicketsCubit.get(context).myTicket!, context),
+          condition: state is! TicketsLoading,
+          builder: (BuildContext context) {
+            if (state is TicketsSuccess || state is TicketDeleteSuccess|| state is ShippingSuccess) {
+              final total = TicketsCubit.get(context).myTicket!;
+              return ticketsPage(total, context);
+            } else if (state is NoTicketsFound) {
+              return const Text('No tickets found.');
+            } else if (state is TicketsError) {
+              return Container(
+                // Return a container displaying the error message
+                child: Text(state.errMassage),
+              );
+            } else {
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            }
+          },
           fallback: (BuildContext context) => const Center(
             child: CircularProgressIndicator(),
           ),
@@ -61,7 +74,12 @@ class TicketsView extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 10),
-          TotalContainer(total: total.totalPrice.toString()),
+          if (total.myTicketItems.isEmpty)
+            const SizedBox(height: 10)
+          else
+            const SizedBox(height: 10),
+          if (total.myTicketItems.isNotEmpty)
+            TotalContainer(total: total.totalPrice.toString()),
           const SizedBox(height: 10),
         ],
       );

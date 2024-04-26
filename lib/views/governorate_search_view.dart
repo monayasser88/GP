@@ -4,44 +4,19 @@ import 'package:gp_project/components/custom_appbar.dart';
 import 'package:gp_project/components/search_field.dart';
 import 'package:gp_project/cubit/search_cubit.dart';
 import 'package:gp_project/pages/account.dart';
+import 'package:gp_project/pages/not_found.dart';
 
-class GovernorateSearchView extends StatefulWidget {
-  const GovernorateSearchView({Key? key}) : super(key: key);
-
-  @override
-  State<GovernorateSearchView> createState() => _GovernorateSearchViewState();
-}
-
-class _GovernorateSearchViewState extends State<GovernorateSearchView> {
+class GovernorateSearchView extends StatelessWidget {
+  GovernorateSearchView({Key? key}) : super(key: key);
   final TextEditingController _searchController = TextEditingController();
-  List<String> searchHistory = [];
-
-  void addToSearchHistory(String query) {
-    setState(() {
-      searchHistory.insert(0, query);
-    });
-  }
-
-  void removeFromSearchHistory(String query) {
-    setState(() {
-      searchHistory.remove(query);
-    });
-  }
-
-  @override
-  void dispose() {
-    _searchController.dispose();
-    super.dispose();
-  }
-
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<SearchCubit, SearchState>(
       listener: (context, state) {
         if (state is SearchError) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text(state.errMassage)),
-          );
+          Navigator.push(context, MaterialPageRoute(builder: (context) {
+            return const NotFound();
+          }));
         }
       },
       builder: (context, state) {
@@ -73,11 +48,11 @@ class _GovernorateSearchViewState extends State<GovernorateSearchView> {
                   onPressed: () {
                     context
                         .read<SearchCubit>()
-                        .tourismSearch(_searchController.text);
+                        .governorateSearch(_searchController.text);
                   },
                 ),
                 if (state is SearchLoading)
-                  Center(child: CircularProgressIndicator())
+                  const Center(child: CircularProgressIndicator())
                 else if (state is SearchLoaded)
                   Expanded(
                     child: ListView.builder(
@@ -85,21 +60,23 @@ class _GovernorateSearchViewState extends State<GovernorateSearchView> {
                       itemBuilder: (context, index) {
                         final result = state.results[index];
                         return ListTile(
-                            leading: CircleAvatar(
-                              backgroundImage: NetworkImage(
-                                result['imgCover'],
-                              ),
-                              // child: Image.network(
-                              //   result['imgCover'],
-                              //   errorBuilder: (context, error, stackTrace) {
-                              //     return Icon(Icons.error);
-                              //   },
-                              // ),
+                          leading: CircleAvatar(
+                            backgroundImage: NetworkImage(
+                              result['image'],
                             ),
-                            title: Text(result['name']));
+                          ),
+                          title: Text(result['name']),
+                          trailing: IconButton(
+                            icon: const Icon(Icons.arrow_forward),
+                            onPressed: () {},
+                          ),
+                        );
                       },
                     ),
                   ),
+                const SizedBox(
+                  height: 10,
+                ),
               ],
             ),
           ),
@@ -109,29 +86,6 @@ class _GovernorateSearchViewState extends State<GovernorateSearchView> {
   }
 }
 
-class SearchResultListView extends StatelessWidget {
-  final List<Map<String, dynamic>> results;
-
-  const SearchResultListView({Key? key, required this.results})
-      : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Expanded(
-      child: ListView.builder(
-        itemCount: results.length,
-        itemBuilder: (context, index) {
-          final result = results[index];
-          return ListTile(
-            title: Text(result['name']),
-            //subtitle: Text(result['_id']),
-            // Add more UI elements as needed
-          );
-        },
-      ),
-    );
-  }
-}
 
 
 

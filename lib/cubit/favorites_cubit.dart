@@ -52,8 +52,7 @@ class FavoritesCubit extends Cubit<FavoritesState> {
     try {
       var response = await dio.get(EndPoint.tourismWishList,
           options: Options(headers: {
-            'token':
-                'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NjFjNmI5MzY3OTkzMmU2Nzc3MTg5YWMiLCJyb2xlIjoidXNlciIsImlhdCI6MTcxMzkzMjM5MX0.9k5gc5VoxtY772RQIhELvJFzpoj7Ai9Q3YZI-vdrtFc'
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NjFjNmI5MzY3OTkzMmU2Nzc3MTg5YWMiLCJyb2xlIjoidXNlciIsImlhdCI6MTcxNDEwMzI1OH0.czUhubKtmMKQMf5lX7SJBz01nxLuzIfabC8nyAAWde8"
           }));
       tourismPlace = WishlistResponse.fromJson(response.data);
       emit(FavoriteTripsSuccess());
@@ -73,8 +72,7 @@ class FavoritesCubit extends Cubit<FavoritesState> {
     try {
       var response = await dio.delete(EndPoint.deleteTourismWishList(favId),
           options: Options(headers: {
-            'token':
-                'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NjFjNmI5MzY3OTkzMmU2Nzc3MTg5YWMiLCJyb2xlIjoidXNlciIsImlhdCI6MTcxMzkzMjM5MX0.9k5gc5VoxtY772RQIhELvJFzpoj7Ai9Q3YZI-vdrtFc'
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NjFjNmI5MzY3OTkzMmU2Nzc3MTg5YWMiLCJyb2xlIjoidXNlciIsImlhdCI6MTcxNDEwMzI1OH0.czUhubKtmMKQMf5lX7SJBz01nxLuzIfabC8nyAAWde8"
           }));
       if (response.statusCode == 200) {
         //Future.delayed(const Duration(seconds: 2));

@@ -3,16 +3,16 @@ import 'package:gp_project/components/custom_text.dart';
 import 'package:gp_project/constraints.dart';
 
 class TicketContainer extends StatelessWidget {
-  const TicketContainer({
-    Key? key,
-    required this.title,
-    required this.description,
-    required this.quantity,
-    required this.price,
-    this.onPressed,
-    this.quantityMinus,
-    this.quantityPlus
-  }) : super(key: key);
+  const TicketContainer(
+      {Key? key,
+      required this.title,
+      required this.description,
+      required this.quantity,
+      required this.price,
+      this.onPressed,
+      this.quantityMinus,
+      this.quantityPlus})
+      : super(key: key);
   final String title;
   final String description;
   final String quantity;
@@ -28,7 +28,7 @@ class TicketContainer extends StatelessWidget {
         elevation: 10,
         child: SizedBox(
           width: double.infinity,
-          height: 150,
+          height: 180,
           child: Stack(
             children: [
               DecoratedBox(
@@ -58,11 +58,11 @@ class TicketContainer extends StatelessWidget {
                               description,
                               style: const TextStyle(
                                 fontFamily: 'poppins',
-                                fontSize: 14,
+                                fontSize: 12,
                                 fontWeight: FontWeight.w500,
                                 color: Colors.grey,
                               ),
-                              maxLines: 3,
+                              maxLines: 2,
                             ),
                             const Spacer(),
                             Row(
@@ -72,7 +72,7 @@ class TicketContainer extends StatelessWidget {
                                     Icons.remove,
                                     color: kPrimaryColor,
                                   ),
-                                  onPressed:quantityMinus,
+                                  onPressed: quantityMinus,
                                 ),
                                 Text(
                                   quantity,
@@ -101,8 +101,8 @@ class TicketContainer extends StatelessWidget {
                           const SizedBox(
                             width: 10,
                           ),
-                            IconButton(
-                            icon:const Icon(
+                          IconButton(
+                            icon: const Icon(
                               Icons.clear_rounded,
                               size: 30,
                             ),

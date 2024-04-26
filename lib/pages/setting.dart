@@ -36,7 +36,7 @@ class _SettingState extends State<Setting> {
             const SizedBox(
               height: 23,
             ),
-            const SettingContainer(userName: 'Ahmed', userEmail: 'example@gmail.com'),
+            const SettingContainer(),
             const SizedBox(
               height: 50,
             ),

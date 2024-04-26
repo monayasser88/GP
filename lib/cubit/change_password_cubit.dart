@@ -40,7 +40,7 @@ class ChangePasswordCubit extends Cubit<ChangePasswordState> {
   TextEditingController confirmNewPasswordController = TextEditingController();
 
   void changeUserPassword(Dio dio) async {
-    final token = CacheHelper().getData(key: 'token');
+    final token = CacheHelper().getData(key: ApiKey.token);
     emit(ChangePasswordLoading());
     if (newPasswordController.text != confirmNewPasswordController.text) {
       throw 'New password and confirm new password do not match.';
@@ -62,7 +62,7 @@ class ChangePasswordCubit extends Cubit<ChangePasswordState> {
           options: Options(headers: {'token': token}));
       print(response.data);
       if (response.statusCode == 200) {
-        CacheHelper().saveData(key: token, value: 'token');
+        CacheHelper().saveData(key: ApiKey.token, value: token);
         emit(ChangePasswordSuccess());
       }
     } catch (e) {

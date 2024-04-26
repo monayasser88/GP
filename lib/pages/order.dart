@@ -93,9 +93,6 @@ class Order extends StatelessWidget {
                             : PayField(
                                 text: 'Pay Cash',
                                 ontap: () {
-                                  final item =
-                                      TicketsCubit.get(context).myTicket;
-                                  print(item);
                                   TicketsCubit.get(context)
                                       .createOrder(Dio());
                                   showCustomPopupdelivary(context);
