@@ -7,14 +7,14 @@ import 'package:gp_project/pages/account.dart';
 import 'package:gp_project/pages/not_found.dart';
 
 class TourismSearchView extends StatelessWidget {
-    TourismSearchView({Key? key}) : super(key: key);
+  TourismSearchView({Key? key}) : super(key: key);
   final TextEditingController _searchController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<SearchCubit, SearchState>(
       listener: (context, state) {
         if (state is SearchError) {
-            Navigator.push(context, MaterialPageRoute(builder: (context) {
+          Navigator.push(context, MaterialPageRoute(builder: (context) {
             return const NotFound();
           }));
         }
@@ -34,7 +34,7 @@ class TourismSearchView extends StatelessWidget {
                   onTap: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => Account()),
+                      MaterialPageRoute(builder: (context) =>const Account()),
                     );
                   },
                 ),
@@ -52,13 +52,14 @@ class TourismSearchView extends StatelessWidget {
                   },
                 ),
                 if (state is SearchLoading)
-                  Center(child: CircularProgressIndicator())
+                  const Center(child: CircularProgressIndicator())
                 else if (state is SearchLoaded)
                   Expanded(
                     child: ListView.builder(
                       itemCount: state.results.length,
                       itemBuilder: (context, index) {
                         final result = state.results[index];
+                        //final id = result['_id'];
                         return ListTile(
                           leading: CircleAvatar(
                             backgroundImage: NetworkImage(
@@ -67,7 +68,7 @@ class TourismSearchView extends StatelessWidget {
                           ),
                           title: Text(result['name']),
                           trailing: IconButton(
-                            icon: Icon(Icons.arrow_forward),
+                            icon:const Icon(Icons.arrow_forward),
                             onPressed: () {},
                           ),
                         );

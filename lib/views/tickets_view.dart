@@ -18,14 +18,19 @@ class TicketsView extends StatelessWidget {
         return ConditionalBuilder(
           condition: state is! TicketsLoading,
           builder: (BuildContext context) {
-            if (state is TicketsSuccess || state is TicketDeleteSuccess|| state is ShippingSuccess) {
+            if (state is TicketsSuccess ||
+                state is TicketDeleteSuccess ||
+                state is ShippingSuccess) {
               final total = TicketsCubit.get(context).myTicket!;
               return ticketsPage(total, context);
             } else if (state is NoTicketsFound) {
-              return const Text('No tickets found.');
+              return const Center(
+                  child: Text(
+                'No tickets found.',
+                style: TextStyle(fontFamily: 'poppins', fontSize: 20),
+              ));
             } else if (state is TicketsError) {
               return Container(
-                // Return a container displaying the error message
                 child: Text(state.errMassage),
               );
             } else {

@@ -6,6 +6,8 @@ import 'package:gp_project/core/api/end_ponits.dart';
 import 'package:gp_project/core/errors/exceptions.dart';
 import 'package:gp_project/models/ticket.dart';
 import 'package:gp_project/models/tickets.dart';
+import 'package:gp_project/pages/web_view_stripe.dart';
+import 'package:path/path.dart';
 
 part 'tickets_state.dart';
 
@@ -23,10 +25,10 @@ class TicketsCubit extends Cubit<TicketsState> {
       final response = await dio.get(EndPoint.ticketsList,
           options: Options(headers: {
             'token':
-                'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NjFjNmI5MzY3OTkzMmU2Nzc3MTg5YWMiLCJyb2xlIjoidXNlciIsImlhdCI6MTcxMzkzMjM5MX0.9k5gc5VoxtY772RQIhELvJFzpoj7Ai9Q3YZI-vdrtFc'
+                'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NjFjNmI5MzY3OTkzMmU2Nzc3MTg5YWMiLCJyb2xlIjoidXNlciIsImlhdCI6MTcxNDMzNjU1MH0.3SbUu0IDZrnILcmDhcZ-LBxO_FyZLm3d6ArLfyOrtxE'
           }));
       print(response.statusCode);
-      if (response.statusCode == 200) {
+      if (response.statusCode == 200 && response.data['msg'] == 'success') {
         final Map<String, dynamic> jsonMap =
             response.data['myTicket'] as Map<String, dynamic>;
         if (jsonMap != null) {
@@ -34,13 +36,14 @@ class TicketsCubit extends Cubit<TicketsState> {
           print(myTicket);
           final myTickId = myTicket!.id;
           CacheHelper().saveData(key: ApiKey.TId, value: myTicket!.id);
-          //CacheHelper().saveData(key:  ,value: )
           emit(TicketsSuccess());
         }
+      } else {
+        emit(NoTicketsFound());
       }
     } on ServerException catch (error) {
       print(error.toString());
-      emit(TicketsError('can not load tourism places '));
+      emit(TicketsError('can not load Tickets'));
     }
   }
 
@@ -97,7 +100,6 @@ class TicketsCubit extends Cubit<TicketsState> {
     }
   }
 
-
   void createOrder(Dio dio) async {
     emit(ShippingLoading());
     //final token = CacheHelper().getData(key: ApiKey.token);
@@ -116,21 +118,70 @@ class TicketsCubit extends Cubit<TicketsState> {
           },
           options: Options(headers: {
             'token':
-                'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NjFjNmI5MzY3OTkzMmU2Nzc3MTg5YWMiLCJyb2xlIjoidXNlciIsImlhdCI6MTcxMzkzMjM5MX0.9k5gc5VoxtY772RQIhELvJFzpoj7Ai9Q3YZI-vdrtFc'
+                'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NjFjNmI5MzY3OTkzMmU2Nzc3MTg5YWMiLCJyb2xlIjoidXNlciIsImlhdCI6MTcxNDMzNjU1MH0.3SbUu0IDZrnILcmDhcZ-LBxO_FyZLm3d6ArLfyOrtxE'
           }));
       //final decodedToken = JwtDecoder.decode(token);
       //CacheHelper().saveData(key: ApiKey.id, value: decodedToken[ApiKey.id]);
       print(response.data);
-        emit(ShippingSuccess());
-        //getReservedTickets(dio);
-        return response.data['msg'];
+      emit(ShippingSuccess());
+      //getReservedTickets(dio);
+      return response.data['msg'];
     } catch (e) {
       if (e is ServerException) {
         emit(ShippingError(e.errModel.errorMessage));
       } else {
-        emit(ShippingError('An error occurred while changing the password.'));
+        emit(ShippingError('An error occurred while creating cash order.'));
       }
-      throw 'An error occurred while changing the password.';
+      throw 'An error occurred while creating cash order.';
+    }
+  }
+
+  void createOnlineOrder(Dio dio, BuildContext context) async {
+    emit(ShippingLoading());
+    //final token = CacheHelper().getData(key: ApiKey.token);
+    // if (token == null) {
+    //   emit(ShippingError('User ID not found in cache.'));
+    // }
+    try {
+      final response = await dio.post(
+          EndPoint.createOnlineOrder(
+              CacheHelper().getDataString(key: ApiKey.TId)),
+          data: {
+            'shippingAddress': {
+              "street": streetField.text,
+              "city": cityField.text,
+              "phone": phoneField.text
+            },
+          },
+          options: Options(headers: {
+            'token':
+                'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NjFjNmI5MzY3OTkzMmU2Nzc3MTg5YWMiLCJyb2xlIjoidXNlciIsImlhdCI6MTcxNDMzNjU1MH0.3SbUu0IDZrnILcmDhcZ-LBxO_FyZLm3d6ArLfyOrtxE'
+          }));
+      //final decodedToken = JwtDecoder.decode(token);
+      //CacheHelper().saveData(key: ApiKey.id, value: decodedToken[ApiKey.id]);
+      print(response.data);
+      //print(response.data['session']['url']);
+      //final stripeUrl = response.data['session']['url'];
+      CacheHelper().saveData(
+          key: ApiKey.stripeUrl, value: response.data['session']['url']);
+      final stripeUrl = CacheHelper().getDataString(key: ApiKey.stripeUrl);
+      Future.delayed(const Duration(seconds: 5));
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => WebViewScreen(url: stripeUrl!),
+        ),
+      );
+      emit(ShippingSuccess());
+      //getReservedTickets(dio);
+      return response.data['msg'];
+    } catch (e) {
+      if (e is ServerException) {
+        emit(ShippingError(e.errModel.errorMessage));
+      } else {
+        emit(ShippingError('An error occurred while creating online order.'));
+      }
+      throw 'An error occurred while creating online order.';
     }
   }
 }

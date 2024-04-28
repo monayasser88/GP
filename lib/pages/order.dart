@@ -1,11 +1,14 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gp_project/cache/cache_helper.dart';
 import 'package:gp_project/components/custom_appbar.dart';
 import 'package:gp_project/components/custom_field.dart';
 import 'package:gp_project/components/delivary_pop_up.dart';
 import 'package:gp_project/components/pay_field.dart';
+import 'package:gp_project/core/api/end_ponits.dart';
 import 'package:gp_project/cubit/tickets_cubit.dart';
+import 'package:webview_flutter/webview_flutter.dart';
 
 class Order extends StatelessWidget {
   Order({super.key});
@@ -83,9 +86,11 @@ class Order extends StatelessWidget {
                       children: [
                         PayField(
                           text: 'Pay Online',
-                          ontap: () {},
+                          ontap: () {
+                            TicketsCubit.get(context).createOnlineOrder(Dio(),context);
+                          },
                         ),
-                        SizedBox(
+                        const SizedBox(
                           width: 15,
                         ),
                         state is ShippingLoading
@@ -93,8 +98,7 @@ class Order extends StatelessWidget {
                             : PayField(
                                 text: 'Pay Cash',
                                 ontap: () {
-                                  TicketsCubit.get(context)
-                                      .createOrder(Dio());
+                                  TicketsCubit.get(context).createOrder(Dio());
                                   showCustomPopupdelivary(context);
                                 },
                               ),

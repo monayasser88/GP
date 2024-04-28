@@ -11,35 +11,6 @@ class FavoritesCubit extends Cubit<FavoritesState> {
   FavoritesCubit() : super(FavoritesInitial());
 
   static FavoritesCubit get(context) => BlocProvider.of(context);
-  // Future<List<WishListItem>> fetchFavoriteTrips(Dio dio) async {
-  //   final token = CacheHelper().getData(key: ApiKey.token);
-
-  //   if (token == null) {
-  //     emit(FavoriteTripsError('User ID not found in cache.'));
-  //   }
-  //   emit(FavoriteTripsLoading());
-  //   try {
-  //     var response = await dio.get(EndPoint.tourismWishList,
-  //         options: Options(headers: {'token': token}));
-  //     if (response.statusCode == 200) {
-  //       List<WishListItem> favoriteTrips = [];
-  //       for (var tripData in jsonDecode(response.data)['wishListTrip']) {
-  //         WishListItem trip = WishListItem.fromJson(tripData);
-  //         favoriteTrips.add(trip);
-  //       }
-  //       emit(FavoriteTripsSuccess(favoriteTrips));
-  //       return favoriteTrips;
-  //     } else {
-  //       emit(FavoriteTripsError(
-  //           'Failed to load favorite trips. Please try again later.'));
-  //       return [];
-  //     }
-  //   } catch (error) {
-  //     emit(FavoriteTripsError(
-  //         'An error occurred while fetching favorite trips.'));
-  //     return [];
-  //   }
-  // }
 
   late WishlistResponse tourismPlace;
   void fetchFavoriteTourismPlaces(Dio dio) async {
@@ -48,17 +19,17 @@ class FavoritesCubit extends Cubit<FavoritesState> {
     // if (token == null) {
     //   emit(FavoriteTripsError('User ID not found in cache.'));
     // }
-    emit(FavoriteTripsLoading());
+    emit(FavoriteLoading());
     try {
       var response = await dio.get(EndPoint.tourismWishList,
           options: Options(headers: {
     "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NjFjNmI5MzY3OTkzMmU2Nzc3MTg5YWMiLCJyb2xlIjoidXNlciIsImlhdCI6MTcxNDEwMzI1OH0.czUhubKtmMKQMf5lX7SJBz01nxLuzIfabC8nyAAWde8"
           }));
       tourismPlace = WishlistResponse.fromJson(response.data);
-      emit(FavoriteTripsSuccess());
+      emit(FavoriteSuccess());
     } on ServerException catch (error) {
       print(error.toString());
-      emit(FavoriteTripsError('can not load tourism places '));
+      emit(FavoriteError('can not load tourism places '));
     }
   }
 
@@ -68,7 +39,7 @@ class FavoritesCubit extends Cubit<FavoritesState> {
     // if (token == null) {
     //   emit(FavoriteTripsError('User ID not found in cache.'));
     // }
-    emit(FavoriteTripsLoading());
+    emit(FavoriteLoading());
     try {
       var response = await dio.delete(EndPoint.deleteTourismWishList(favId),
           options: Options(headers: {
@@ -80,11 +51,103 @@ class FavoritesCubit extends Cubit<FavoritesState> {
         emit(FavoritesDeleting());
         fetchFavoriteTourismPlaces(dio);
       } else {
-        emit(FavoriteTripsError('Failed to delete favorite tourism place.'));
+        emit(FavoriteError('Failed to delete favorite tourism place.'));
       }
     } catch (error) {
       print(error.toString());
-      emit(FavoriteTripsError('Failed to delete favorite tourism place.'));
+      emit(FavoriteError('Failed to delete favorite tourism place.'));
+    }
+  }
+
+    void fetchFavoriteTrips(Dio dio) async {
+    // final token = CacheHelper().getData(key: ApiKey.token);
+
+    // if (token == null) {
+    //   emit(FavoriteTripsError('User ID not found in cache.'));
+    // }
+    emit(FavoriteLoading());
+    try {
+      var response = await dio.get(EndPoint.tripsWishList,
+          options: Options(headers: {
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NjFjNmI5MzY3OTkzMmU2Nzc3MTg5YWMiLCJyb2xlIjoidXNlciIsImlhdCI6MTcxNDEwMzI1OH0.czUhubKtmMKQMf5lX7SJBz01nxLuzIfabC8nyAAWde8"
+          }));
+      tourismPlace = WishlistResponse.fromJson(response.data);
+      emit(FavoriteSuccess());
+    } on ServerException catch (error) {
+      print(error.toString());
+      emit(FavoriteError('can not load tourism places '));
+    }
+  }
+
+  void deleteFavoriteTrips(Dio dio, String favId) async {
+    // final token = CacheHelper().getData(key: ApiKey.token);
+
+    // if (token == null) {
+    //   emit(FavoriteTripsError('User ID not found in cache.'));
+    // }
+    emit(FavoriteLoading());
+    try {
+      var response = await dio.delete(EndPoint.deleteTourismWishList(favId),
+          options: Options(headers: {
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NjFjNmI5MzY3OTkzMmU2Nzc3MTg5YWMiLCJyb2xlIjoidXNlciIsImlhdCI6MTcxNDEwMzI1OH0.czUhubKtmMKQMf5lX7SJBz01nxLuzIfabC8nyAAWde8"
+          }));
+      if (response.statusCode == 200) {
+        //Future.delayed(const Duration(seconds: 2));
+
+        emit(FavoritesDeleting());
+        fetchFavoriteTourismPlaces(dio);
+      } else {
+        emit(FavoriteError('Failed to delete favorite tourism place.'));
+      }
+    } catch (error) {
+      print(error.toString());
+      emit(FavoriteError('Failed to delete favorite tourism place.'));
+    }
+  }
+
+      void fetchFavoriteLegend(Dio dio) async {
+    // final token = CacheHelper().getData(key: ApiKey.token);
+
+    // if (token == null) {
+    //   emit(FavoriteTripsError('User ID not found in cache.'));
+    // }
+    emit(FavoriteLoading());
+    try {
+      var response = await dio.get(EndPoint.legendWishList,
+          options: Options(headers: {
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NjFjNmI5MzY3OTkzMmU2Nzc3MTg5YWMiLCJyb2xlIjoidXNlciIsImlhdCI6MTcxNDEwMzI1OH0.czUhubKtmMKQMf5lX7SJBz01nxLuzIfabC8nyAAWde8"
+          }));
+      tourismPlace = WishlistResponse.fromJson(response.data);
+      emit(FavoriteSuccess());
+    } on ServerException catch (error) {
+      print(error.toString());
+      emit(FavoriteError('can not load tourism places '));
+    }
+  }
+
+  void deleteFavoriteLegend(Dio dio, String favId) async {
+    // final token = CacheHelper().getData(key: ApiKey.token);
+
+    // if (token == null) {
+    //   emit(FavoriteTripsError('User ID not found in cache.'));
+    // }
+    emit(FavoriteLoading());
+    try {
+      var response = await dio.delete(EndPoint.deleteLegendWishList(favId),
+          options: Options(headers: {
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NjFjNmI5MzY3OTkzMmU2Nzc3MTg5YWMiLCJyb2xlIjoidXNlciIsImlhdCI6MTcxNDEwMzI1OH0.czUhubKtmMKQMf5lX7SJBz01nxLuzIfabC8nyAAWde8"
+          }));
+      if (response.statusCode == 200) {
+        //Future.delayed(const Duration(seconds: 2));
+
+        emit(FavoritesDeleting());
+        fetchFavoriteTourismPlaces(dio);
+      } else {
+        emit(FavoriteError('Failed to delete favorite tourism place.'));
+      }
+    } catch (error) {
+      print(error.toString());
+      emit(FavoriteError('Failed to delete favorite tourism place.'));
     }
   }
 }

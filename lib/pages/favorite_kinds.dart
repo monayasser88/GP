@@ -5,7 +5,7 @@ import 'package:gp_project/components/custom_appbar2.dart';
 import 'package:gp_project/components/custom_container_in_setting.dart';
 import 'package:gp_project/cubit/favorites_cubit.dart';
 import 'package:gp_project/pages/favourites.dart';
-import 'package:gp_project/views/favorites_view.dart';
+import 'package:gp_project/views/favorites_tourism_view.dart';
 
 class FavoriteKinds extends StatelessWidget {
   const FavoriteKinds({super.key});
@@ -28,26 +28,26 @@ class FavoriteKinds extends StatelessWidget {
         const SizedBox(
           height: 10,
         ),
-        GestureDetector(
-            onTap: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) {
-                return Favorites();
-              }));
-            },
-            child: CustomContainerSetting(
-              icon: Icons.abc,
-              tileName: 'Governorates',
-            )),
-        const SizedBox(
-          height: 10,
-        ),
+        // GestureDetector(
+        //     onTap: () {
+        //       Navigator.push(context, MaterialPageRoute(builder: (context) {
+        //         return Favorites();
+        //       }));
+        //     },
+        //     child: CustomContainerSetting(
+        //       icon: Icons.abc,
+        //       tileName: 'Governorates',
+        //     )),
+        // const SizedBox(
+        //   height: 10,
+        // ),
         GestureDetector(
           onTap: () {
             Navigator.push(context, MaterialPageRoute(builder: (context) {
               return Favorites();
             }));
           },
-          child: CustomContainerSetting(
+          child: const CustomContainerSetting(
             icon: Icons.abc,
             tileName: 'Legends',
           ),
@@ -61,7 +61,7 @@ class FavoriteKinds extends StatelessWidget {
               return Favorites();
             }));
           },
-          child: CustomContainerSetting(
+          child: const CustomContainerSetting(
             icon: Icons.abc,
             tileName: 'Trips',
           ),
@@ -72,10 +72,10 @@ class FavoriteKinds extends StatelessWidget {
         GestureDetector(
           onTap: () {
             Navigator.push(context, MaterialPageRoute(builder: (context) {
-              return FavoritesView();
+              return FavoritesTourismPlaceView();
             }));
           },
-          child: CustomContainerSetting(
+          child: const CustomContainerSetting(
             icon: Icons.abc,
             tileName: 'Tourism Places',
           ),
@@ -83,17 +83,17 @@ class FavoriteKinds extends StatelessWidget {
         const SizedBox(
           height: 10,
         ),
-        GestureDetector(
-          onTap: () {
-            Navigator.push(context, MaterialPageRoute(builder: (context) {
-              return Favorites();
-            }));
-          },
-          child: CustomContainerSetting(
-            icon: Icons.abc,
-            tileName: 'Offers',
-          ),
-        ),
+        // GestureDetector(
+        //   onTap: () {
+        //     Navigator.push(context, MaterialPageRoute(builder: (context) {
+        //       return Favorites();
+        //     }));
+        //   },
+        //   child: CustomContainerSetting(
+        //     icon: Icons.abc,
+        //     tileName: 'Offers',
+        //   ),
+        // ),
       ]),
     ));
   }

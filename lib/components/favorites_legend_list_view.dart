@@ -2,12 +2,12 @@ import 'package:conditional_builder_null_safety/conditional_builder_null_safety.
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:gp_project/components/favouite_container.dart';
+import 'package:gp_project/components/favorite_container.dart';
 import 'package:gp_project/cubit/favorites_cubit.dart';
 import 'package:gp_project/models/favorites.dart';
 
-class FavoritesListView extends StatelessWidget {
-  const FavoritesListView({Key? key}) : super(key: key);
+class FavoritesLegendListView extends StatelessWidget {
+  const FavoritesLegendListView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -15,9 +15,8 @@ class FavoritesListView extends StatelessWidget {
       listener: (context, state) {},
       builder: (context, state) {
         return ConditionalBuilder(
-          condition:
-              state is! FavoriteTripsLoading && state is FavoriteTripsSuccess ||
-                  state is FavoritesDeleting,
+          condition: state is! FavoriteLoading && state is FavoriteSuccess ||
+              state is FavoritesDeleting,
           builder: (BuildContext context) => ListView.builder(
               itemBuilder: (context, index) => favList(
                   FavoritesCubit.get(context)
@@ -39,14 +38,13 @@ class FavoritesListView extends StatelessWidget {
   Widget favList(TourismPlace fav, context) => Padding(
         padding: const EdgeInsets.symmetric(vertical: 6),
         child: GestureDetector(
-          onTap: (){},
+          onTap: () {},
           child: FavoriteContainer(
             description: fav.informationAbout,
             title: fav.name,
             image: fav.imgCover,
             onPressed: () {
-              FavoritesCubit.get(context)
-                  .deleteFavoriteTourismPlaces(Dio(), fav.id);
+              FavoritesCubit.get(context).deleteFavoriteLegend(Dio(), fav.id);
             },
           ),
         ),
